@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="FB_PowerChannel" Id="{38ca8ced-50f7-44be-bcb4-28294191e7b9}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_PowerChannel
+VAR_INPUT
+	bEnable			: BOOL := FALSE;
+	fOvr			: LREAL;
+END_VAR
+VAR_IN_OUT
+	stX				: AXIS_REF;
+	stY 			: AXIS_REF;
+	stZ				: AXIS_REF;
+	stPlcToNci		: PLCTONC_NCICHANNEL_REF;
+END_VAR
+VAR_OUTPUT
+	bAllAxesReady	: BOOL := FALSE;
+END_VAR
+VAR
+	fbPowerX		:	MC_Power;
+	fbPowerY		:	MC_Power;
+	fbPowerZ		:	MC_Power;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[fbPowerX(
+	Axis:=stX , 
+	Enable:=bEnable , 
+	Enable_Positive:= bEnable, 
+	Enable_Negative:= bEnable, 
+	Override:=fOvr , 
+	BufferMode:= , 
+	Status=> , 
+	Busy=> , 
+	Active=> , 
+	Error=> , 
+	ErrorID=> );
+fbPowerY(
+	Axis:=stY , 
+	Enable:=bEnable , 
+	Enable_Positive:= bEnable, 
+	Enable_Negative:= bEnable, 
+	Override:=fOvr , 
+	BufferMode:= , 
+	Status=> , 
+	Busy=> , 
+	Active=> , 
+	Error=> , 
+	ErrorID=> );
+fbPowerZ(
+	Axis:=stZ , 
+	Enable:=bEnable , 
+	Enable_Positive:= bEnable, 
+	Enable_Negative:= bEnable, 
+	Override:=fOvr , 
+	BufferMode:= , 
+	Status=> , 
+	Busy=> , 
+	Active=> , 
+	Error=> , 
+	ErrorID=> );	
+	
+ItpSetOverridePercent(fOverridePercent:=fOvr, sPlcToNci:=stPlcToNci);
+
+IF fbPowerX.Status AND fbPowerY.Status AND fbPowerZ.Status THEN
+	bAllAxesReady	:= TRUE;
+ELSE
+	bAllAxesReady	:= FALSE;
+END_IF	]]></ST>
+    </Implementation>
+    <LineIds Name="FB_PowerChannel">
+      <LineId Id="3" Count="42" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

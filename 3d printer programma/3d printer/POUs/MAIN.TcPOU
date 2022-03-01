@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="MAIN" Id="{7d554d0f-1162-429d-8d78-ee6190d9367c}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	fbPower: FB_PowerChannel;
+	runGCode: ItpEnableDefaultGCode;
+	fbBuildGroup: CfgBuildExt3DGroup;
+	fbLoadGCode: ItpLoadProgEx;
+	fbStartGCode: ItpStartStopEx;
+	fbConfirmHsk: ItpConfirmHsk;
+	getSParam :ItpGetSParam;
+	
+	Xaxis: AXIS_REF;
+	Yaxis: AXIS_REF;
+	Zaxis: AXIS_REF;
+	Extruder: AXIS_REF;
+
+	Xhome: MC_Home;
+	Yhome: MC_Home;
+	Zhome: MC_Home;
+	
+	HomingSensorX: BOOL;
+	HomingSensorY: BOOL;
+	HomingSensorZ: BOOL;
+	
+	
+	in_stNciToPlc AT %I*: NCTOPLC_NCICHANNEL_REF;
+	out_stPlcToNci AT %Q*: PLCTONC_NCICHANNEL_REF;
+	
+	
+	State: INT;
+	bConfirmHsk: BOOL := FALSE;
+	sPrgName: STRING(255) := 'test.txt';
+	nInterpreterState: UDINT;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+fbPower(
+	bEnable:=TRUE, 
+	fOvr:= 100.0, 
+	stX:=Xaxis, 
+	stY:=Yaxis, 
+	stZ:=Zaxis, 
+	stPlcToNci:=out_stPlcToNci , 
+	bAllAxesReady=> );
+	
+
+	
+CASE State OF
+	0: // init
+	
+	IF fbPower.bAllAxesReady THEN
+		State := 20; 
+	END_IF
+	
+	10:
+	
+	Xhome(axis := Xaxis,execute := TRUE,BCalibrationCam := HomingSensorX);
+	IF Xhome.Done THEN
+		State:=11;
+	END_IF
+	
+	11:
+	
+	Yhome(axis := Yaxis,execute := TRUE,BCalibrationCam := HomingSensorY);
+	IF Xhome.Done THEN
+		State:=12;
+	END_IF
+	
+	12:
+	
+	Zhome(axis := Zaxis,execute := TRUE,BCalibrationCam := HomingSensorZ);
+	IF Zhome.Done THEN
+		State:=12;
+	END_IF
+	
+	20:
+	
+	fbBuildGroup(
+		bExecute:=TRUE,
+		nGroupId:=ItpGetGroupId(sNciToPlc:=in_stNciToPlc),
+		nXAxisId:=XAxis.NcToPlc.AxisId,
+		nYAxisId:=YAxis.NcToPlc.AxisId,
+		nZAxisId:=ZAxis.NcToPlc.AxisId,
+		tTimeOut:=t#2s );
+	IF NOT fbBuildGroup.bBusy THEN
+		fbBuildGroup( bExecute:=FALSE );
+		(* error handling missing *)
+		State	:= 30;
+	END_IF
+	
+	30:
+	
+	fbLoadGCode(
+		sNciToPlc:=in_stNciToPlc, 
+		bExecute:=TRUE, 
+		sPrg:= sPrgName, 
+		nLength:= INT_TO_UDINT(LEN(sPrgName)), 
+		tTimeOut:= , 
+		bBusy=> , 
+		bErr=> , 
+		nErrId=> );
+	IF NOT fbLoadGCode.bBusy THEN
+		IF NOT fbLoadGCode.bErr THEN
+			State	:= 40;				
+		END_IF
+		fbLoadGCode(sNciToPlc:=in_stNciToPlc, bExecute:=FALSE); 
+	END_IF
+	40:
+	
+	nInterpreterState	:= ItpGetStateInterpreter(sNciToPlc:=in_stNciToPlc);
+	IF nInterpreterState = Tc2_NCI.NCI_INTERPRETER_READY THEN
+		State	:= 50;		
+	END_IF
+	50:
+	
+	// start g-code file
+	fbStartGCode(
+		bStart:=TRUE, 
+		bStop:=FALSE, 
+		tTimeOut:= , 
+		sNciToPlc:= in_stNciToPlc, 
+		bBusy=> , 
+		bErr=> , 
+		nErrId=> );
+	IF NOT fbStartGCode.bBusy THEN
+		IF NOT fbStartGCode.bErr THEN
+			State	:= 60;			
+		END_IF
+		fbStartGCode( bStart:=FALSE, sNciToPlc:= in_stNciToPlc ); 
+	END_IF
+	60: 
+	
+	
+END_CASE
+
+
+IF ItpIsHskMFunc(in_stNciToPlc) AND NOT fbConfirmHsk.bBusy THEN
+	bConfirmHsk	:= TRUE;
+ELSE	
+	bConfirmHsk	:= FALSE;
+END_IF	
+
+fbConfirmHsk(
+	bExecute:=bConfirmHsk , 
+	sNciToPlc:=in_stNciToPlc , 
+	sPlcToNci:=out_stPlcToNci , 
+	bBusy=> , 
+	bErr=> , 
+	nErrId=> );]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="32" Count="7" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="55" Count="1" />
+      <LineId Id="113" Count="0" />
+      <LineId Id="2" Count="0" />
+      <LineId Id="19" Count="0" />
+      <LineId Id="79" Count="0" />
+      <LineId Id="46" Count="2" />
+      <LineId Id="80" Count="0" />
+      <LineId Id="49" Count="0" />
+      <LineId Id="164" Count="0" />
+      <LineId Id="50" Count="0" />
+      <LineId Id="69" Count="0" />
+      <LineId Id="73" Count="1" />
+      <LineId Id="81" Count="0" />
+      <LineId Id="62" Count="0" />
+      <LineId Id="165" Count="0" />
+      <LineId Id="64" Count="0" />
+      <LineId Id="75" Count="1" />
+      <LineId Id="71" Count="0" />
+      <LineId Id="82" Count="0" />
+      <LineId Id="65" Count="0" />
+      <LineId Id="167" Count="0" />
+      <LineId Id="68" Count="0" />
+      <LineId Id="77" Count="1" />
+      <LineId Id="72" Count="0" />
+      <LineId Id="83" Count="0" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="163" Count="0" />
+      <LineId Id="115" Count="10" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="168" Count="0" />
+      <LineId Id="139" Count="0" />
+      <LineId Id="169" Count="0" />
+      <LineId Id="142" Count="11" />
+      <LineId Id="160" Count="1" />
+      <LineId Id="85" Count="0" />
+      <LineId Id="87" Count="0" />
+      <LineId Id="84" Count="0" />
+      <LineId Id="173" Count="2" />
+      <LineId Id="172" Count="0" />
+      <LineId Id="184" Count="0" />
+      <LineId Id="186" Count="0" />
+      <LineId Id="188" Count="10" />
+      <LineId Id="228" Count="0" />
+      <LineId Id="199" Count="0" />
+      <LineId Id="207" Count="0" />
+      <LineId Id="185" Count="0" />
+      <LineId Id="171" Count="0" />
+      <LineId Id="241" Count="1" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="256" Count="1" />
+      <LineId Id="244" Count="11" />
+      <LineId Id="243" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

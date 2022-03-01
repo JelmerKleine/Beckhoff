@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="FB_HotEndControl" Id="{c588df39-556d-4122-b746-545f88a1c4f1}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_HotEndControl
+VAR_INPUT
+	setpointTmperature: UINT;
+END_VAR
+VAR_OUTPUT
+	done: BOOL;
+END_VAR
+VAR
+	HotEndTemperature: DINT;
+	Error: DINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <LineIds Name="FB_HotEndControl">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
