@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="M_commands_handling" Id="{f452c0c4-a3e8-424a-b858-948b3c779d51}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK M_commands_handling
+VAR_INPUT
+	CommandNumberl:UINT;
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <LineIds Name="M_commands_handling">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

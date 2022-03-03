@@ -9,7 +9,7 @@ VAR
 	fbLoadGCode: ItpLoadProgEx;
 	fbStartGCode: ItpStartStopEx;
 	fbConfirmHsk: ItpConfirmHsk;
-	getSParam :ItpGetSParam;
+	//getSParam :ItpGetSParam;
 	
 	Xaxis: AXIS_REF;
 	Yaxis: AXIS_REF;
@@ -132,7 +132,7 @@ CASE State OF
 		END_IF
 		fbStartGCode( bStart:=FALSE, sNciToPlc:= in_stNciToPlc ); 
 	END_IF
-	60: 
+	60: //during print
 	
 	
 END_CASE
@@ -144,13 +144,13 @@ ELSE
 	bConfirmHsk	:= FALSE;
 END_IF	
 
-fbConfirmHsk(
-	bExecute:=bConfirmHsk , 
-	sNciToPlc:=in_stNciToPlc , 
-	sPlcToNci:=out_stPlcToNci , 
-	bBusy=> , 
-	bErr=> , 
-	nErrId=> );]]></ST>
+//fbConfirmHsk(
+	//bExecute:=bConfirmHsk , 
+	//sNciToPlc:=in_stNciToPlc , 
+	//sPlcToNci:=out_stPlcToNci , 
+	//bBusy=> , 
+	//bErr=> , 
+	//nErrId=> );]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="32" Count="7" />

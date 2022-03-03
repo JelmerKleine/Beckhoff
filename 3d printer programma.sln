@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.1300
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{B1E792BE-AA5F-4E3C-8C82-674BF9C0715B}") = "3d printer programma", "3d printer programma\3d printer programma.tsproj", "{D4DCA0E7-0B4F-4175-80B8-5A486B40981E}"
 EndProject
+Project("{FD9F1D59-E000-42F3-8744-88DE1BE93C06}") = "TwinCAT Measurement Project1", "TwinCAT Measurement Project1\TwinCAT Measurement Project1.tcmproj", "{7F2B97E3-DCA6-4A58-96C4-B89A73A90BCD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|TwinCAT CE7 (ARMV7) = Debug|TwinCAT CE7 (ARMV7)
@@ -49,6 +51,14 @@ Global
 		{957CBF5C-BB18-428E-98F5-5FB9DE7CA78E}.Release|TwinCAT RT (x64).Build.0 = Release|TwinCAT RT (x64)
 		{957CBF5C-BB18-428E-98F5-5FB9DE7CA78E}.Release|TwinCAT RT (x86).ActiveCfg = Release|TwinCAT RT (x86)
 		{957CBF5C-BB18-428E-98F5-5FB9DE7CA78E}.Release|TwinCAT RT (x86).Build.0 = Release|TwinCAT RT (x86)
+		{7F2B97E3-DCA6-4A58-96C4-B89A73A90BCD}.Debug|TwinCAT CE7 (ARMV7).ActiveCfg = Debug|TwinCAT CE7 (ARMV7)
+		{7F2B97E3-DCA6-4A58-96C4-B89A73A90BCD}.Debug|TwinCAT OS (ARMT2).ActiveCfg = Debug|TwinCAT OS (ARMT2)
+		{7F2B97E3-DCA6-4A58-96C4-B89A73A90BCD}.Debug|TwinCAT RT (x64).ActiveCfg = Debug|TwinCAT RT (x64)
+		{7F2B97E3-DCA6-4A58-96C4-B89A73A90BCD}.Debug|TwinCAT RT (x86).ActiveCfg = Debug|TwinCAT RT (x86)
+		{7F2B97E3-DCA6-4A58-96C4-B89A73A90BCD}.Release|TwinCAT CE7 (ARMV7).ActiveCfg = Release|TwinCAT CE7 (ARMV7)
+		{7F2B97E3-DCA6-4A58-96C4-B89A73A90BCD}.Release|TwinCAT OS (ARMT2).ActiveCfg = Release|TwinCAT OS (ARMT2)
+		{7F2B97E3-DCA6-4A58-96C4-B89A73A90BCD}.Release|TwinCAT RT (x64).ActiveCfg = Release|TwinCAT RT (x64)
+		{7F2B97E3-DCA6-4A58-96C4-B89A73A90BCD}.Release|TwinCAT RT (x86).ActiveCfg = Release|TwinCAT RT (x86)
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
