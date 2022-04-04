@@ -116,6 +116,27 @@ CASE State OF
 		State	:= 50;		
 	END_IF
 	50:
+		
+	Xhome(axis := Xaxis,execute := TRUE,BCalibrationCam := HomingSensorX);
+	IF Xhome.Done THEN
+		State:=51;
+	END_IF
+	
+	51:
+	
+	Yhome(axis := Yaxis,execute := TRUE,BCalibrationCam := HomingSensorY);
+	IF Xhome.Done THEN
+		State:=52;
+	END_IF
+	
+	52:
+	
+	Zhome(axis := Zaxis,execute := TRUE,BCalibrationCam := HomingSensorZ);
+	IF Zhome.Done THEN
+		State:=60;
+	END_IF
+	
+	60:
 	
 	// start g-code file
 	fbStartGCode(
@@ -132,10 +153,9 @@ CASE State OF
 		END_IF
 		fbStartGCode( bStart:=FALSE, sNciToPlc:= in_stNciToPlc ); 
 	END_IF
-	60: //during print
+	70: //during print
 	
-	
-END_CASE
+	END_CASE
 
 
 IF ItpIsHskMFunc(in_stNciToPlc) AND NOT fbConfirmHsk.bBusy THEN
@@ -143,6 +163,7 @@ IF ItpIsHskMFunc(in_stNciToPlc) AND NOT fbConfirmHsk.bBusy THEN
 ELSE	
 	bConfirmHsk	:= FALSE;
 END_IF	
+
 
 //fbConfirmHsk(
 	//bExecute:=bConfirmHsk , 
@@ -195,6 +216,8 @@ END_IF
       <LineId Id="173" Count="2" />
       <LineId Id="172" Count="0" />
       <LineId Id="184" Count="0" />
+      <LineId Id="293" Count="19" />
+      <LineId Id="292" Count="0" />
       <LineId Id="186" Count="0" />
       <LineId Id="188" Count="10" />
       <LineId Id="228" Count="0" />
@@ -202,10 +225,10 @@ END_IF
       <LineId Id="207" Count="0" />
       <LineId Id="185" Count="0" />
       <LineId Id="171" Count="0" />
-      <LineId Id="241" Count="1" />
-      <LineId Id="20" Count="0" />
-      <LineId Id="256" Count="1" />
-      <LineId Id="244" Count="11" />
+      <LineId Id="241" Count="0" />
+      <LineId Id="313" Count="6" />
+      <LineId Id="242" Count="0" />
+      <LineId Id="248" Count="7" />
       <LineId Id="243" Count="0" />
     </LineIds>
   </POU>
