@@ -1,21 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcMD2TcDM DataVersion="0.4.0.0">
 	<Name>TwinCAT Motion Designer Project1</Name>
-	<DcLinks>
-		<DcLink>
-			<Name>DC link 1</Name>
-			<Umain>
-				<ValueInUnit>400</ValueInUnit>
-				<UnitSystem>VoltageUnit</UnitSystem>
-				<Unit>V</Unit>
-			</Umain>
-			<SupplyType>4</SupplyType>
-			<BrakeResistanceConnection>1</BrakeResistanceConnection>
-			<ChopperThreshold>
-				<ValueInUnit>840</ValueInUnit>
-				<UnitSystem>VoltageUnit</UnitSystem>
-				<Unit>V</Unit>
-			</ChopperThreshold>
-		</DcLink>
-	</DcLinks>
+	<DcLinks />
 </TcMD2TcDM>

@@ -4,9 +4,9 @@
   <FileName></FileName>
   <Children>
     <Node>
-      <Title>XYZ Scope Project</Title>
+      <Title>YT Scope Project</Title>
       <Expanded>True</Expanded>
-      <FileName>C:\Users\jelme\Desktop\3d print\3d printer programma\TwinCAT Measurement Project1\XYZ Scope Project.tcscopex</FileName>
+      <FileName>C:\Users\jelme\Documents\TcXaeShell\Motor test\TwinCAT Measurement Project1\YT Scope Project.tcscopex</FileName>
       <Children>
         <Node>
           <Title>DataPool</Title>
@@ -14,19 +14,37 @@
           <FileName></FileName>
           <Children>
             <Node>
-              <Title>ActPos</Title>
+              <Title>ActPosxy1</Title>
               <Expanded>False</Expanded>
               <FileName></FileName>
               <Children />
             </Node>
             <Node>
-              <Title>ActPos (1)</Title>
+              <Title>ActPosxy2</Title>
               <Expanded>False</Expanded>
               <FileName></FileName>
               <Children />
             </Node>
             <Node>
-              <Title>ActPos (2)</Title>
+              <Title>ActVelo</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children />
+            </Node>
+            <Node>
+              <Title>ActVelo (1)</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children />
+            </Node>
+            <Node>
+              <Title>XActPos</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children />
+            </Node>
+            <Node>
+              <Title>YActPos</Title>
               <Expanded>False</Expanded>
               <FileName></FileName>
               <Children />
@@ -34,17 +52,54 @@
           </Children>
         </Node>
         <Node>
-          <Title>XYZ Chart</Title>
+          <Title>YT Chart</Title>
           <Expanded>True</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
               <Title>Axis Group</Title>
-              <Expanded>False</Expanded>
+              <Expanded>True</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
-                  <Title>ActPos, ActPos (1), ActPos (2)</Title>
+                  <Title>XActPos</Title>
+                  <Expanded>False</Expanded>
+                  <FileName></FileName>
+                  <Children />
+                </Node>
+                <Node>
+                  <Title>YActPos</Title>
+                  <Expanded>False</Expanded>
+                  <FileName></FileName>
+                  <Children />
+                </Node>
+                <Node>
+                  <Title>XActVelo</Title>
+                  <Expanded>False</Expanded>
+                  <FileName></FileName>
+                  <Children />
+                </Node>
+                <Node>
+                  <Title>YActVelo</Title>
+                  <Expanded>False</Expanded>
+                  <FileName></FileName>
+                  <Children />
+                </Node>
+              </Children>
+            </Node>
+            <Node>
+              <Title>Axis Group (1)</Title>
+              <Expanded>True</Expanded>
+              <FileName></FileName>
+              <Children>
+                <Node>
+                  <Title>ActPosxy1</Title>
+                  <Expanded>False</Expanded>
+                  <FileName></FileName>
+                  <Children />
+                </Node>
+                <Node>
+                  <Title>ActPosxy2</Title>
                   <Expanded>False</Expanded>
                   <FileName></FileName>
                   <Children />
@@ -55,23 +110,9 @@
         </Node>
         <Node>
           <Title>Trigger</Title>
-          <Expanded>True</Expanded>
+          <Expanded>False</Expanded>
           <FileName></FileName>
-          <Children>
-            <Node>
-              <Title>Trigger Group</Title>
-              <Expanded>False</Expanded>
-              <FileName></FileName>
-              <Children>
-                <Node>
-                  <Title>Channel Trigger Set</Title>
-                  <Expanded>False</Expanded>
-                  <FileName></FileName>
-                  <Children />
-                </Node>
-              </Children>
-            </Node>
-          </Children>
+          <Children />
         </Node>
       </Children>
     </Node>

@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <ProjectGuid>{7f2b97e3-dca6-4a58-96c4-b89a73a90bcd}</ProjectGuid>
+    <ProjectGuid>{1b4afc5b-b7a8-42b5-a759-fe431d97f8ca}</ProjectGuid>
     <AssemblyName>TwinCAT Measurement Project1</AssemblyName>
     <Name>TwinCAT Measurement Project1</Name>
     <RootNamespace>TwinCAT Measurement Project1</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="XYZ Scope Project.tcscopex">
+    <Content Include="YT Scope Project.tcscopex">
       <SubType>Content</SubType>
     </Content>
   </ItemGroup>

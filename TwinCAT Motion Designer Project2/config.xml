@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcMDProject Version="1.6.0.0">
+	<GUID>beb36aba-a3b5-4563-94cd-64e3ebed1ca3</GUID>
+	<ProjectName>TwinCAT Motion Designer Project2</ProjectName>
+	<Description>TwinCAT Motion Designer Project2</Description>
+	<ResourceFiles />
+	<ReportExtension />
+	<DClinks />
+	<CustomerParam>
+		<Name />
+		<Parameter>
+			<PropertyName>PersonName</PropertyName>
+			<Value />
+		</Parameter>
+		<Parameter>
+			<PropertyName>Company</PropertyName>
+			<Value />
+		</Parameter>
+		<Parameter>
+			<PropertyName>Department</PropertyName>
+			<Value />
+		</Parameter>
+		<Parameter>
+			<PropertyName>Street</PropertyName>
+			<Value />
+		</Parameter>
+		<Parameter>
+			<PropertyName>ZipCode</PropertyName>
+			<Value />
+		</Parameter>
+		<Parameter>
+			<PropertyName>City</PropertyName>
+			<Value />
+		</Parameter>
+		<Parameter>
+			<PropertyName>Country</PropertyName>
+			<Value />
+		</Parameter>
+		<Parameter>
+			<PropertyName>Telephone</PropertyName>
+			<Value />
+		</Parameter>
+		<Parameter>
+			<PropertyName>Email</PropertyName>
+			<Value />
+		</Parameter>
+	</CustomerParam>
+	<UserParam>
+		<Name />
+		<Parameter>
+			<PropertyName>PersonName</PropertyName>
+			<Value />
+		</Parameter>
+		<Parameter>
+			<PropertyName>Company</PropertyName>
+			<Value />
+		</Parameter>
+		<Parameter>
+			<PropertyName>Department</PropertyName>
+			<Value />
+		</Parameter>
+		<Parameter>
+			<PropertyName>Street</PropertyName>
+			<Value />
+		</Parameter>
+		<Parameter>
+			<PropertyName>ZipCode</PropertyName>
+			<Value />
+		</Parameter>
+		<Parameter>
+			<PropertyName>City</PropertyName>
+			<Value />
+		</Parameter>
+		<Parameter>
+			<PropertyName>Country</PropertyName>
+			<Value />
+		</Parameter>
+		<Parameter>
+			<PropertyName>Telephone</PropertyName>
+			<Value />
+		</Parameter>
+		<Parameter>
+			<PropertyName>Email</PropertyName>
+			<Value />
+		</Parameter>
+	</UserParam>
+</TcMDProject>

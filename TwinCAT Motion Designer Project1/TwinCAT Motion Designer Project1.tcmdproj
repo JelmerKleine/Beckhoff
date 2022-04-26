@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Name>TwinCAT Motion Designer</Name>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{ad211950-59cf-4101-8fbe-70754ada50ff}</ProjectGuid>
+    <ProjectGuid>{23d6be9b-df36-42b0-850a-c5eb30112c6f}</ProjectGuid>
     <AssemblyName>TwinCAT Motion Designer Project1</AssemblyName>
     <RootNamespace>TwinCAT Motion Designer Project1</RootNamespace>
   </PropertyGroup>

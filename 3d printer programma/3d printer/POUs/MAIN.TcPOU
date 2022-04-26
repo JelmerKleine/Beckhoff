@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
-  <POU Name="MAIN" Id="{7d554d0f-1162-429d-8d78-ee6190d9367c}" SpecialFunc="None">
+  <POU Name="MAIN" Id="{3ce5e4ac-bfb0-49c4-b2f9-09c5e5f1024f}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
+	
 	fbPower: FB_PowerChannel;
 	runGCode: ItpEnableDefaultGCode;
 	fbBuildGroup: CfgBuildExt3DGroup;
@@ -11,18 +12,27 @@ VAR
 	fbConfirmHsk: ItpConfirmHsk;
 	//getSParam :ItpGetSParam;
 	
+	fbConfigKinGroup: FB_KinConfigGroup;
+    stAxesConfig: ST_KinAxes;
+	in_stKinToPlc AT %I*  : NCTOPLC_NCICHANNEL_REF;
+	
 	Xaxis: AXIS_REF;
 	Yaxis: AXIS_REF;
 	Zaxis: AXIS_REF;
 	Extruder: AXIS_REF;
+	XY_1: AXIS_REF;
+	XY_2: AXIS_REF;
 
 	Xhome: MC_Home;
 	Yhome: MC_Home;
 	Zhome: MC_Home;
 	
-	HomingSensorX: BOOL;
-	HomingSensorY: BOOL;
-	HomingSensorZ: BOOL;
+	Xjog: MC_Jog;
+	Yjog: MC_Jog;
+	
+	HomingSensorX AT %I*: BOOL;
+	HomingSensorY AT %I*: BOOL;
+	HomingSensorZ AT %I*: BOOL;
 	
 	
 	in_stNciToPlc AT %I*: NCTOPLC_NCICHANNEL_REF;
@@ -34,16 +44,19 @@ VAR
 	sPrgName: STRING(255) := 'test.txt';
 	nInterpreterState: UDINT;
 	
+	bEnable: BOOL := TRUE;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[
 fbPower(
-	bEnable:=TRUE, 
+	bEnable:=bEnable, 
 	fOvr:= 100.0, 
 	stX:=Xaxis, 
 	stY:=Yaxis, 
-	stZ:=Zaxis, 
+	stZ:=Zaxis,
+	stXY_1:= XY_1,
+	stXY_2:= XY_2,
 	stPlcToNci:=out_stPlcToNci , 
 	bAllAxesReady=> );
 	
@@ -53,43 +66,46 @@ CASE State OF
 	0: // init
 	
 	IF fbPower.bAllAxesReady THEN
-		State := 20; 
+		State := 10; 
 	END_IF
 	
 	10:
 	
-	Xhome(axis := Xaxis,execute := TRUE,BCalibrationCam := HomingSensorX);
-	IF Xhome.Done THEN
-		State:=11;
+	stAxesConfig.nAxisIdsAcs[1] := XY_2.NcToPlc.AxisId;
+	stAxesConfig.nAxisIdsAcs[2] := XY_1.NcToPlc.AxisId;
+	stAxesConfig.nAxisIdsMcs[1] := Xaxis.NcToPlc.AxisId;
+	stAxesConfig.nAxisIdsMcs[2] := Yaxis.NcToPlc.AxisId;
+	
+	fbConfigKinGroup(
+    bExecute       := TRUE ,
+    bCartesianMode := TRUE ,
+    stAxesList     := stAxesConfig,
+    stKinRefIn     := in_stKinToPlc );
+	
+	IF NOT fbConfigKinGroup.bBusy THEN
+		IF NOT fbConfigKinGroup.bError THEN
+			State:=20;
+		END_IF
 	END_IF
-	
-	11:
-	
-	Yhome(axis := Yaxis,execute := TRUE,BCalibrationCam := HomingSensorY);
-	IF Xhome.Done THEN
-		State:=12;
-	END_IF
-	
-	12:
-	
-	Zhome(axis := Zaxis,execute := TRUE,BCalibrationCam := HomingSensorZ);
-	IF Zhome.Done THEN
-		State:=12;
-	END_IF
-	
 	20:
+	Xjog(Axis:= Xaxis,JogBackwards:= TRUE , Velocity:= 0.01, Deceleration:= 1500);
+	IF NOT HomingSensorX THEN
+		Xjog(Axis:= Xaxis,JogBackwards:= FALSE);
+		//State:=21;
+	END_IF
 	
-	fbBuildGroup(
-		bExecute:=TRUE,
-		nGroupId:=ItpGetGroupId(sNciToPlc:=in_stNciToPlc),
-		nXAxisId:=XAxis.NcToPlc.AxisId,
-		nYAxisId:=YAxis.NcToPlc.AxisId,
-		nZAxisId:=ZAxis.NcToPlc.AxisId,
-		tTimeOut:=t#2s );
-	IF NOT fbBuildGroup.bBusy THEN
-		fbBuildGroup( bExecute:=FALSE );
-		(* error handling missing *)
-		State	:= 30;
+	21:
+	Yjog(Axis:= Yaxis,JogBackwards:= TRUE , Velocity:= 0.01, Deceleration:= 1500);
+	IF NOT HomingSensorY THEN
+		Yjog(Axis:= Yaxis,JogBackwards:= FALSE);
+		
+		//State:=21;
+	END_IF
+	
+	22:
+	Zhome(axis := Zaxis,execute := TRUE,BCalibrationCam := NOT HomingSensorZ);
+	IF Zhome.Done THEN
+		//State:=30;
 	END_IF
 	
 	30:
@@ -105,9 +121,9 @@ CASE State OF
 		nErrId=> );
 	IF NOT fbLoadGCode.bBusy THEN
 		IF NOT fbLoadGCode.bErr THEN
+			fbLoadGCode(sNciToPlc:=in_stNciToPlc, bExecute:=FALSE); 
 			State	:= 40;				
 		END_IF
-		fbLoadGCode(sNciToPlc:=in_stNciToPlc, bExecute:=FALSE); 
 	END_IF
 	40:
 	
@@ -116,25 +132,22 @@ CASE State OF
 		State	:= 50;		
 	END_IF
 	50:
+	fbBuildGroup(
+		bExecute:=TRUE,
+		nGroupId:=ItpGetGroupId(sNciToPlc:=in_stNciToPlc),
+		nXAxisId:=XAxis.NcToPlc.AxisId,
+		nYAxisId:=YAxis.NcToPlc.AxisId,
+		nZAxisId:=ZAxis.NcToPlc.AxisId,
+		tTimeOut:=T#2S );
 		
-	Xhome(axis := Xaxis,execute := TRUE,BCalibrationCam := HomingSensorX);
-	IF Xhome.Done THEN
-		State:=51;
+	IF NOT fbBuildGroup.bBusy THEN
+		fbBuildGroup( bExecute:=FALSE );
+		
+		IF NOT fbBuildGroup.bErr THEN
+			State	:= 30;
+		END_IF
 	END_IF
-	
-	51:
-	
-	Yhome(axis := Yaxis,execute := TRUE,BCalibrationCam := HomingSensorY);
-	IF Xhome.Done THEN
-		State:=52;
-	END_IF
-	
-	52:
-	
-	Zhome(axis := Zaxis,execute := TRUE,BCalibrationCam := HomingSensorZ);
-	IF Zhome.Done THEN
-		State:=60;
-	END_IF
+
 	
 	60:
 	
@@ -155,81 +168,37 @@ CASE State OF
 	END_IF
 	70: //during print
 	
-	END_CASE
-
-
-IF ItpIsHskMFunc(in_stNciToPlc) AND NOT fbConfirmHsk.bBusy THEN
-	bConfirmHsk	:= TRUE;
-ELSE	
-	bConfirmHsk	:= FALSE;
-END_IF	
-
-
-//fbConfirmHsk(
-	//bExecute:=bConfirmHsk , 
-	//sNciToPlc:=in_stNciToPlc , 
-	//sPlcToNci:=out_stPlcToNci , 
-	//bBusy=> , 
-	//bErr=> , 
-	//nErrId=> );]]></ST>
+	END_CASE]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="32" Count="7" />
-      <LineId Id="18" Count="0" />
-      <LineId Id="55" Count="1" />
-      <LineId Id="113" Count="0" />
-      <LineId Id="2" Count="0" />
-      <LineId Id="19" Count="0" />
-      <LineId Id="79" Count="0" />
-      <LineId Id="46" Count="2" />
-      <LineId Id="80" Count="0" />
-      <LineId Id="49" Count="0" />
+      <LineId Id="6" Count="6" />
+      <LineId Id="155" Count="1" />
+      <LineId Id="13" Count="17" />
+      <LineId Id="162" Count="0" />
+      <LineId Id="31" Count="4" />
       <LineId Id="164" Count="0" />
-      <LineId Id="50" Count="0" />
-      <LineId Id="69" Count="0" />
-      <LineId Id="73" Count="1" />
-      <LineId Id="81" Count="0" />
-      <LineId Id="62" Count="0" />
-      <LineId Id="165" Count="0" />
-      <LineId Id="64" Count="0" />
-      <LineId Id="75" Count="1" />
-      <LineId Id="71" Count="0" />
-      <LineId Id="82" Count="0" />
-      <LineId Id="65" Count="0" />
-      <LineId Id="167" Count="0" />
-      <LineId Id="68" Count="0" />
-      <LineId Id="77" Count="1" />
-      <LineId Id="72" Count="0" />
-      <LineId Id="83" Count="0" />
-      <LineId Id="29" Count="0" />
-      <LineId Id="163" Count="0" />
-      <LineId Id="115" Count="10" />
-      <LineId Id="30" Count="0" />
-      <LineId Id="168" Count="0" />
-      <LineId Id="139" Count="0" />
-      <LineId Id="169" Count="0" />
-      <LineId Id="142" Count="11" />
+      <LineId Id="170" Count="0" />
+      <LineId Id="36" Count="0" />
       <LineId Id="160" Count="1" />
-      <LineId Id="85" Count="0" />
-      <LineId Id="87" Count="0" />
-      <LineId Id="84" Count="0" />
-      <LineId Id="173" Count="2" />
-      <LineId Id="172" Count="0" />
-      <LineId Id="184" Count="0" />
-      <LineId Id="293" Count="19" />
-      <LineId Id="292" Count="0" />
-      <LineId Id="186" Count="0" />
-      <LineId Id="188" Count="10" />
-      <LineId Id="228" Count="0" />
-      <LineId Id="199" Count="0" />
-      <LineId Id="207" Count="0" />
-      <LineId Id="185" Count="0" />
-      <LineId Id="171" Count="0" />
-      <LineId Id="241" Count="0" />
-      <LineId Id="313" Count="6" />
-      <LineId Id="242" Count="0" />
-      <LineId Id="248" Count="7" />
-      <LineId Id="243" Count="0" />
+      <LineId Id="163" Count="0" />
+      <LineId Id="39" Count="0" />
+      <LineId Id="229" Count="1" />
+      <LineId Id="291" Count="0" />
+      <LineId Id="231" Count="3" />
+      <LineId Id="292" Count="2" />
+      <LineId Id="296" Count="0" />
+      <LineId Id="295" Count="0" />
+      <LineId Id="239" Count="2" />
+      <LineId Id="243" Count="2" />
+      <LineId Id="52" Count="14" />
+      <LineId Id="159" Count="0" />
+      <LineId Id="67" Count="1" />
+      <LineId Id="70" Count="6" />
+      <LineId Id="157" Count="0" />
+      <LineId Id="213" Count="13" />
+      <LineId Id="158" Count="0" />
+      <LineId Id="96" Count="20" />
+      <LineId Id="2" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

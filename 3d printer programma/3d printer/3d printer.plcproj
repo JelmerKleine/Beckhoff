@@ -20,16 +20,10 @@
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB_HotEndControl.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\FB_PowerChannel.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\M_commands_handling.TcPOU">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -47,6 +41,10 @@
     <PlaceholderReference Include="Tc2_NCI">
       <DefaultResolution>Tc2_NCI, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_NCI</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_NcKinematicTransformation">
+      <DefaultResolution>Tc2_NcKinematicTransformation, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_NcKinematicTransformation</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc2_PlcInterpolation">
       <DefaultResolution>Tc2_PlcInterpolation, * (Beckhoff Automation GmbH)</DefaultResolution>
