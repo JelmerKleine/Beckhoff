@@ -42,6 +42,9 @@ VAR
 	in_stNciToPlc AT %I*: NCTOPLC_NCICHANNEL_REF;
 	out_stPlcToNci AT %Q*: PLCTONC_NCICHANNEL_REF;
 	
+	Xoffset: LREAL := 0;
+	Yoffset: LREAL := 0;
+	Zoffset: LREAL := 0.4;
 	
 	State: INT ;
 	bConfirmHsk: BOOL := FALSE;
@@ -123,8 +126,8 @@ CASE State OF
 	
 	
 	IF NOT fbConfigKinGroup.bBusy THEN
-		SetXY1(execute:= TRUE ,axis:= XY_1 ,position:= 0);
-		SetXY2(execute:= TRUE ,axis:= XY_2 ,position:= 0);
+		SetXY1(execute:= TRUE ,axis:= XY_1 ,position:= Xoffset);
+		SetXY2(execute:= TRUE ,axis:= XY_2 ,position:= Yoffset);
 		IF NOT fbConfigKinGroup.bError THEN
 			ExecuteKinConfig:=FALSE;
 			fbConfigKinGroup(
@@ -136,7 +139,7 @@ CASE State OF
 	END_IF
 	
 	23:
-	Zhome(axis := Zaxis,execute := TRUE,BCalibrationCam := NOT HomingSensorZ);
+	Zhome(axis := Zaxis,execute := TRUE,BCalibrationCam := NOT HomingSensorZ,Position := Zoffset);
 	IF Zhome.Done THEN
 		ExecuteKinConfig:=TRUE;
 		State:=24;
