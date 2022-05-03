@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
   <POU Name="MAIN" Id="{3ce5e4ac-bfb0-49c4-b2f9-09c5e5f1024f}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
@@ -51,7 +51,11 @@ VAR
 	sPrgName: STRING(255) := 'test_2.nc';
 	nInterpreterState: UDINT;
 	
-	bEnable: BOOL := TRUE;
+	bEnable: BOOL := FALSE;
+	homeAxi: BOOL := FALSE;
+	loadGcode: BOOL := FALSE;
+	executeGcode: BOOL := FALSE;
+	stopGcode: BOOL := FALSE;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -64,6 +68,7 @@ fbPower(
 	stZ:=Zaxis,
 	stXY_1:= XY_1,
 	stXY_2:= XY_2,
+	stExt:= Extruder,
 	stPlcToNci:=out_stPlcToNci , 
 	bAllAxesReady=> );
 	
@@ -226,6 +231,7 @@ CASE State OF
     <LineIds Name="MAIN">
       <LineId Id="6" Count="6" />
       <LineId Id="155" Count="1" />
+      <LineId Id="808" Count="0" />
       <LineId Id="13" Count="7" />
       <LineId Id="443" Count="0" />
       <LineId Id="21" Count="9" />
