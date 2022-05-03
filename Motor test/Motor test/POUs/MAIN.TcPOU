@@ -11,6 +11,7 @@ VAR
 	fbStartGCode: ItpStartStopEx;
 	fbConfirmHsk: ItpConfirmHsk;
 	//getSParam :ItpGetSParam;
+	starStopEx: ItpStartStopEx;
 	
 	fbConfigKinGroup: FB_KinConfigGroup;
     stAxesConfig: ST_KinAxes;
@@ -102,7 +103,9 @@ CASE State OF
 			bExecute       := ExecuteKinConfig ,
 			stAxesList     := stAxesConfig,
 			stKinRefIn     := in_stKinToPlc );
-			State:=20;
+			IF homeAxi THEN
+				State:=20;
+			END_IF
 		END_IF
 	END_IF
 	
@@ -177,10 +180,11 @@ CASE State OF
 		fbBuildGroup( bExecute:=FALSE );
 		
 		IF NOT fbBuildGroup.bErr THEN
-			State	:= 40;
+			IF loadGcode THEN
+					State	:= 40;
+			END_IF
 		END_IF
 	END_IF
-
 	
 	40:
 	fbLoadGCode(
@@ -202,7 +206,9 @@ CASE State OF
 	50:
 	nInterpreterState	:= ItpGetStateInterpreter(sNciToPlc:=in_stNciToPlc);
 	IF nInterpreterState = Tc2_NCI.NCI_INTERPRETER_READY THEN
-		State	:= 60;		
+		IF executeGcode THEN
+			State	:= 60;	
+		END_IF	
 	END_IF
 
 	
@@ -221,10 +227,14 @@ CASE State OF
 		IF NOT fbStartGCode.bErr THEN
 			State	:= 70;			
 		END_IF
-		fbStartGCode( bStart:=FALSE, sNciToPlc:= in_stNciToPlc ); 
+		fbStartGCode( bStart:= stopGcode, sNciToPlc:= in_stNciToPlc); 
 	END_IF
 	
 	70: //during print
+	
+	
+	starStopEx(sNciToPlc:= in_stNciToPlc, bStart:= );
+	80: // print stopped
 	
 	END_CASE]]></ST>
     </Implementation>
@@ -244,7 +254,8 @@ CASE State OF
       <LineId Id="501" Count="1" />
       <LineId Id="504" Count="0" />
       <LineId Id="500" Count="0" />
-      <LineId Id="160" Count="1" />
+      <LineId Id="865" Count="2" />
+      <LineId Id="161" Count="0" />
       <LineId Id="163" Count="0" />
       <LineId Id="342" Count="0" />
       <LineId Id="39" Count="0" />
@@ -278,18 +289,30 @@ CASE State OF
       <LineId Id="622" Count="0" />
       <LineId Id="635" Count="0" />
       <LineId Id="54" Count="0" />
-      <LineId Id="704" Count="15" />
-      <LineId Id="55" Count="0" />
+      <LineId Id="704" Count="11" />
+      <LineId Id="868" Count="0" />
+      <LineId Id="716" Count="0" />
+      <LineId Id="871" Count="0" />
+      <LineId Id="717" Count="0" />
+      <LineId Id="870" Count="0" />
+      <LineId Id="872" Count="0" />
       <LineId Id="71" Count="0" />
       <LineId Id="738" Count="13" />
       <LineId Id="72" Count="0" />
       <LineId Id="734" Count="0" />
       <LineId Id="157" Count="0" />
-      <LineId Id="735" Count="2" />
+      <LineId Id="735" Count="1" />
+      <LineId Id="873" Count="0" />
+      <LineId Id="737" Count="0" />
+      <LineId Id="874" Count="0" />
       <LineId Id="158" Count="0" />
       <LineId Id="96" Count="18" />
       <LineId Id="641" Count="0" />
-      <LineId Id="115" Count="1" />
+      <LineId Id="115" Count="0" />
+      <LineId Id="875" Count="0" />
+      <LineId Id="879" Count="1" />
+      <LineId Id="116" Count="0" />
+      <LineId Id="877" Count="0" />
       <LineId Id="2" Count="0" />
     </LineIds>
   </POU>
