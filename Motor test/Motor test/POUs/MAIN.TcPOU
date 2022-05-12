@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
   <POU Name="MAIN" Id="{3ce5e4ac-bfb0-49c4-b2f9-09c5e5f1024f}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
@@ -10,8 +10,8 @@ VAR
 	fbLoadGCode: ItpLoadProgEx;
 	fbStartGCode: ItpStartStopEx;
 	fbConfirmHsk: ItpConfirmHsk;
-	//getSParam :ItpGetSParam;
 	starStopEx: ItpStartStopEx;
+	ItpReadRParamsEx:ItpReadRParamsEx;
 	
 	fbConfigKinGroup: FB_KinConfigGroup;
     stAxesConfig: ST_KinAxes;
@@ -26,6 +26,7 @@ VAR
 
 	setXY1:MC_SetPosition;
 	setXY2:MC_SetPosition;
+	setExtruder:MC_SetPosition;
 	
 	Xhome: MC_Home;
 	Yhome: MC_Home;
@@ -33,6 +34,7 @@ VAR
 	
 	Xjog: MC_Jog;
 	Yjog: MC_Jog;
+	moveExtruderAbsolute: MC_MoveAbsolute;
 	
 	ExecuteKinConfig: BOOL := true;
 	HomingSensorX AT %I*: BOOL;
@@ -47,6 +49,10 @@ VAR
 	Yoffset: LREAL := 0;
 	Zoffset: LREAL := 0.4;
 	
+	printerSpeed: LREAL;
+	extruderSpeed: LREAL;
+	extruderValue: LREAL;
+	hParam: DINT;
 	State: INT ;
 	bConfirmHsk: BOOL := FALSE;
 	sPrgName: STRING(255) := 'test_2.nc';
@@ -57,6 +63,10 @@ VAR
 	loadGcode: BOOL := FALSE;
 	executeGcode: BOOL := FALSE;
 	stopGcode: BOOL := FALSE;
+	executeExtruderMovement :BOOL := TRUE;
+	resetExtruder : BOOL :=FALSE;
+	test : BOOL :=FALSE;
+	
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -104,7 +114,7 @@ CASE State OF
 			stAxesList     := stAxesConfig,
 			stKinRefIn     := in_stKinToPlc );
 			IF homeAxi THEN
-				State:=20;
+				State:=30;
 			END_IF
 		END_IF
 	END_IF
@@ -180,9 +190,7 @@ CASE State OF
 		fbBuildGroup( bExecute:=FALSE );
 		
 		IF NOT fbBuildGroup.bErr THEN
-			IF loadGcode THEN
-					State	:= 40;
-			END_IF
+				State	:= 40;
 		END_IF
 	END_IF
 	
@@ -206,9 +214,7 @@ CASE State OF
 	50:
 	nInterpreterState	:= ItpGetStateInterpreter(sNciToPlc:=in_stNciToPlc);
 	IF nInterpreterState = Tc2_NCI.NCI_INTERPRETER_READY THEN
-		IF executeGcode THEN
 			State	:= 60;	
-		END_IF	
 	END_IF
 
 	
@@ -232,11 +238,62 @@ CASE State OF
 	
 	70: //during print
 	
+	IF ItpIsHskMFunc( in_stNciToPlc )THEN
+		IF ItpGetHskMFunc( in_stNciToPlc ) = 1 THEN
+			resetExtruder := TRUE;
+			test := TRUE;
+			setExtruder(execute:= resetExtruder ,axis:= Extruder ,position:= 0);
+			fbConfirmHsk(sNciToPlc := in_stNciToPlc,
+						  sPlcToNci:= out_stPlcToNci,
+						  bExecute:= TRUE);
+			resetExtruder := FALSE;
+			setExtruder(execute:= resetExtruder ,axis:= Extruder);
+		END_IF
+	ELSE 
+		fbConfirmHsk(sNciToPlc := in_stNciToPlc,
+						  sPlcToNci:= out_stPlcToNci,
+						  bExecute:= FALSE);
+	END_IF
+	
+	executeExtruderMovement:= TRUE;
+	hParam := ItpGetHParam( in_stNciToPlc );
+	extruderValue := (DINT_TO_LREAL (hParam)/100000);
+	printerSpeed := ItpGetSetPathVelocity( in_stNciToPlc );
+	extruderSpeed := printerSpeed*(3.3/10); // 3.3 mm/s extrusion when at 100 mm/s speed 
+	
+	IF printerSpeed > 0 THEN
+		moveExtruderAbsolute(Execute :=executeExtruderMovement ,
+				Axis := Extruder,
+				Position := (extruderValue/((Pi*EXPT(1.75,2))/4)) , 
+				Velocity := extruderSpeed );
+	END_IF
 	
 	starStopEx(sNciToPlc:= in_stNciToPlc, bStart:= );
+	executeExtruderMovement:=FALSE;
+	
+	IF printerSpeed > 0 THEN
+		moveExtruderAbsolute(Execute :=executeExtruderMovement ,
+				Axis := Extruder);
+	END_IF
+	
 	80: // print stopped
 	
-	END_CASE]]></ST>
+	
+	state := 70;
+END_CASE
+	
+IF ItpIsHskMFunc(in_stNciToPlc) AND NOT fbConfirmHsk.bBusy THEN
+	bConfirmHsk	:= TRUE;
+(*ELSE	
+	bConfirmHsk	:= FALSE;*)
+END_IF	
+(*fbConfirmHsk(
+	bExecute:=bConfirmHsk , 
+	sNciToPlc:=in_stNciToPlc , 
+	sPlcToNci:=out_stPlcToNci , 
+	bBusy=> , 
+	bErr=> , 
+	nErrId=> );*)]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="6" Count="6" />
@@ -289,11 +346,7 @@ CASE State OF
       <LineId Id="622" Count="0" />
       <LineId Id="635" Count="0" />
       <LineId Id="54" Count="0" />
-      <LineId Id="704" Count="11" />
-      <LineId Id="868" Count="0" />
-      <LineId Id="716" Count="0" />
-      <LineId Id="871" Count="0" />
-      <LineId Id="717" Count="0" />
+      <LineId Id="704" Count="13" />
       <LineId Id="870" Count="0" />
       <LineId Id="872" Count="0" />
       <LineId Id="71" Count="0" />
@@ -301,19 +354,46 @@ CASE State OF
       <LineId Id="72" Count="0" />
       <LineId Id="734" Count="0" />
       <LineId Id="157" Count="0" />
-      <LineId Id="735" Count="1" />
-      <LineId Id="873" Count="0" />
-      <LineId Id="737" Count="0" />
-      <LineId Id="874" Count="0" />
+      <LineId Id="735" Count="2" />
       <LineId Id="158" Count="0" />
       <LineId Id="96" Count="18" />
       <LineId Id="641" Count="0" />
       <LineId Id="115" Count="0" />
+      <LineId Id="1284" Count="0" />
+      <LineId Id="1270" Count="9" />
+      <LineId Id="1283" Count="0" />
+      <LineId Id="1286" Count="0" />
+      <LineId Id="1288" Count="1" />
+      <LineId Id="1287" Count="0" />
+      <LineId Id="1269" Count="0" />
+      <LineId Id="1285" Count="0" />
+      <LineId Id="1077" Count="0" />
+      <LineId Id="1064" Count="0" />
       <LineId Id="875" Count="0" />
-      <LineId Id="879" Count="1" />
+      <LineId Id="1065" Count="0" />
+      <LineId Id="879" Count="0" />
+      <LineId Id="1234" Count="0" />
+      <LineId Id="1070" Count="0" />
+      <LineId Id="1072" Count="0" />
+      <LineId Id="1074" Count="0" />
+      <LineId Id="1073" Count="0" />
+      <LineId Id="941" Count="0" />
+      <LineId Id="1071" Count="0" />
+      <LineId Id="1235" Count="0" />
+      <LineId Id="880" Count="0" />
+      <LineId Id="1076" Count="0" />
+      <LineId Id="1238" Count="0" />
+      <LineId Id="1240" Count="2" />
+      <LineId Id="1239" Count="0" />
+      <LineId Id="1236" Count="0" />
       <LineId Id="116" Count="0" />
       <LineId Id="877" Count="0" />
+      <LineId Id="1079" Count="1" />
       <LineId Id="2" Count="0" />
+      <LineId Id="1252" Count="0" />
+      <LineId Id="1254" Count="4" />
+      <LineId Id="1260" Count="5" />
+      <LineId Id="1253" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

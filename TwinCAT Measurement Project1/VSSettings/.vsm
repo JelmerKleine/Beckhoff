@@ -5,22 +5,16 @@
   <Children>
     <Node>
       <Title>YT Scope Project</Title>
-      <Expanded>False</Expanded>
-      <FileName>C:\Users\jelmer\Desktop\Nieuwe map\Beckhoff\TwinCAT Measurement Project1\YT Scope Project.tcscopex</FileName>
+      <Expanded>True</Expanded>
+      <FileName>C:\Users\jelme\Desktop\3d print\3d printer programma\TwinCAT Measurement Project1\YT Scope Project.tcscopex</FileName>
       <Children>
         <Node>
           <Title>DataPool</Title>
-          <Expanded>False</Expanded>
+          <Expanded>True</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
-              <Title>ActPosxy1</Title>
-              <Expanded>False</Expanded>
-              <FileName></FileName>
-              <Children />
-            </Node>
-            <Node>
-              <Title>ActPosxy2</Title>
+              <Title>ActPos</Title>
               <Expanded>False</Expanded>
               <FileName></FileName>
               <Children />
@@ -32,19 +26,25 @@
               <Children />
             </Node>
             <Node>
-              <Title>ActVelo (1)</Title>
+              <Title>extruderSpeed</Title>
               <Expanded>False</Expanded>
               <FileName></FileName>
               <Children />
             </Node>
             <Node>
-              <Title>XActPos</Title>
+              <Title>Position</Title>
               <Expanded>False</Expanded>
               <FileName></FileName>
               <Children />
             </Node>
             <Node>
-              <Title>YActPos</Title>
+              <Title>printerSpeed</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children />
+            </Node>
+            <Node>
+              <Title>Velocity</Title>
               <Expanded>False</Expanded>
               <FileName></FileName>
               <Children />
@@ -53,34 +53,22 @@
         </Node>
         <Node>
           <Title>YT Chart</Title>
-          <Expanded>False</Expanded>
+          <Expanded>True</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
               <Title>Axis Group</Title>
-              <Expanded>False</Expanded>
+              <Expanded>True</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
-                  <Title>XActPos</Title>
+                  <Title>Position</Title>
                   <Expanded>False</Expanded>
                   <FileName></FileName>
                   <Children />
                 </Node>
                 <Node>
-                  <Title>YActPos</Title>
-                  <Expanded>False</Expanded>
-                  <FileName></FileName>
-                  <Children />
-                </Node>
-                <Node>
-                  <Title>XActVelo</Title>
-                  <Expanded>False</Expanded>
-                  <FileName></FileName>
-                  <Children />
-                </Node>
-                <Node>
-                  <Title>YActVelo</Title>
+                  <Title>ActPos</Title>
                   <Expanded>False</Expanded>
                   <FileName></FileName>
                   <Children />
@@ -89,17 +77,23 @@
             </Node>
             <Node>
               <Title>Axis Group (1)</Title>
-              <Expanded>False</Expanded>
+              <Expanded>True</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
-                  <Title>ActPosxy1</Title>
+                  <Title>extruderSpeed</Title>
                   <Expanded>False</Expanded>
                   <FileName></FileName>
                   <Children />
                 </Node>
                 <Node>
-                  <Title>ActPosxy2</Title>
+                  <Title>printerSpeed</Title>
+                  <Expanded>False</Expanded>
+                  <FileName></FileName>
+                  <Children />
+                </Node>
+                <Node>
+                  <Title>ActVelo</Title>
                   <Expanded>False</Expanded>
                   <FileName></FileName>
                   <Children />
