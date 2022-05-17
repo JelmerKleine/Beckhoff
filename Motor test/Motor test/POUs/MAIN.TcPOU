@@ -57,8 +57,8 @@ VAR
 	hParam: DINT;
 	State: INT ;
 	bConfirmHsk: BOOL := FALSE;
-	sPrgNameSegment1: STRING(255) := 'test_3_segment1.nc';
-	sPrgNameSegment2: STRING(255) := 'test_3_segment2.nc';
+	sPrgNameSegment1: STRING(255) := 'test_3_segment_1.nc';
+	sPrgNameSegment2: STRING(255) := 'test_3_segment_2.nc';
 	nInterpreterState: UDINT;
 	
 	bEnable: BOOL := FALSE;
@@ -69,8 +69,8 @@ VAR
 	executeExtruderMovement :BOOL := TRUE;
 	resetExtruder : BOOL :=FALSE;
 	test : BOOL :=FALSE;
-	
-END_VAR
+	intreperterState : UDINT;
+	END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[
@@ -198,33 +198,33 @@ CASE State OF
 		END_IF
 	END_IF
 	
-	40:
+	40: // laad segment 1
 	fbLoadGCode(
 		sNciToPlc:=in_stNciToPlc, 
 		bExecute:=TRUE, 
-		sPrg:= sPrgName, 
-		nLength:= INT_TO_UDINT(LEN(sPrgName)), 
+		sPrg:= sPrgNameSegment1, 
+		nLength:= INT_TO_UDINT(LEN(sPrgNameSegment1)), 
 		tTimeOut:= , 
 		bBusy=> , 
 		bErr=> , 
 		nErrId=> );
 	IF NOT fbLoadGCode.bBusy THEN
 		IF NOT fbLoadGCode.bErr THEN
-			State	:= 50;				
+			State	:= 41;				
 		END_IF
 		fbLoadGCode(sNciToPlc:=in_stNciToPlc, bExecute:=FALSE); 
 	END_IF
 	
-	50:
+	41: // check status NCI
+	fbLoadGCode(
+		sNciToPlc:=in_stNciToPlc, 
+		bExecute:=FALSE);
 	nInterpreterState	:= ItpGetStateInterpreter(sNciToPlc:=in_stNciToPlc);
-	IF nInterpreterState = Tc2_NCI.NCI_INTERPRETER_READY THEN
-			State	:= 60;	
+	IF nInterpreterState = Tc2_NCI.NCI_INTERPRETER_READY THEN // als de interpreter klaar is kan het programma verder
+			State	:= 42;	
 	END_IF
 
-	
-	60:
-	
-	// start g-code file
+	42: // start segment 1
 	fbStartGCode(
 		bStart:=TRUE, 
 		bStop:=FALSE, 
@@ -235,86 +235,64 @@ CASE State OF
 		nErrId=> );
 	IF NOT fbStartGCode.bBusy THEN
 		IF NOT fbStartGCode.bErr THEN
-			State	:= 70;			
+			State	:= 43;			
 		END_IF
 		fbStartGCode( bStart:= stopGcode, sNciToPlc:= in_stNciToPlc); 
 	END_IF
 	
-	70: //during print
-	
-	IF ItpIsHskMFunc( in_stNciToPlc )THEN
-		IF ItpGetHskMFunc( in_stNciToPlc ) = 1 THEN
-			resetExtruder := TRUE;
-			test := TRUE;
-			state:=71;
+	43: //during segment 1
+	nInterpreterState	:= ItpGetStateInterpreter(sNciToPlc:=in_stNciToPlc); // status van de NCI
+	IF nInterpreterState = Tc2_NCI.NCI_INTERPRETER_READY THEN // als de G-code klaar is gaat het programma naar de volgende state
+		//State:=44;
+	END_IF
+
+	44: // set position extruder axis
+	setExtruder(execute:= TRUE ,axis:= Extruder ,position:= 0);
+	IF setExtruder.Done THEN
+		state:= 50;
+	END_IF
+
+	50: //load segment 2
+	fbLoadGCode(
+		sNciToPlc:=in_stNciToPlc, 
+		bExecute:=TRUE, 
+		sPrg:= sPrgNameSegment2, 
+		nLength:= INT_TO_UDINT(LEN(sPrgNameSegment2)) );
+	IF NOT fbLoadGCode.bBusy THEN
+		IF NOT fbLoadGCode.bErr THEN
+			State	:= 51;				
 		END_IF
-	ELSE 
-		fbConfirmHsk(sNciToPlc := in_stNciToPlc,
-						  sPlcToNci:= out_stPlcToNci,
-						  bExecute:= FALSE);
+		fbLoadGCode(sNciToPlc:=in_stNciToPlc, bExecute:=FALSE); 
 	END_IF
 	
-	(*executeExtruderMovement:= TRUE;
-	hParam := ItpGetHParam( in_stNciToPlc );
-	extruderValue := (DINT_TO_LREAL (hParam)/100000);*)
-	printerSpeed := ItpGetSetPathVelocity( in_stNciToPlc );
-	(*extruderSpeed := printerSpeed* ((15/((Pi*EXPT(1.75,2))/4))/180); 
-	
-	IF printerSpeed > 0 THEN
-		moveExtruderAbsolute(Execute :=executeExtruderMovement ,
-				Axis := Extruder,
-				Position := (extruderValue/((Pi*EXPT(1.75,2))/4)), 
-				Velocity := 0.85);
+	51: // execute segment 2
+	fbLoadGCode(
+		sNciToPlc:=in_stNciToPlc, 
+		bExecute:=FALSE);
+	fbStartGCode(
+		bStart:=TRUE, 
+		bStop:=FALSE, 
+		tTimeOut:= , 
+		sNciToPlc:= in_stNciToPlc, 
+		bBusy=> , 
+		bErr=> , 
+		nErrId=> );
+	IF NOT fbStartGCode.bBusy THEN
+		IF NOT fbStartGCode.bErr THEN
+			State	:= 52;			
+		END_IF
+		fbStartGCode( bStart:= stopGcode, sNciToPlc:= in_stNciToPlc); 
 	END_IF
 	
-	starStopEx(sNciToPlc:= in_stNciToPlc, bStart:= );
-	*)
-	71: // m-function 01 stap 1
-		eStopEx(sNciToPlc := in_stNciToPlc,bExecute:=TRUE);
-		IF NOT eStopEx.bBusy THEN
-			state:= 72;
-		END_IF
-	72: // m-function 01 stap 2
-		eStopEx(sNciToPlc := in_stNciToPlc,bExecute:=FALSE);
-		IF(ItpGetSetPathVelocity( in_stNciToPlc ) = 0 ) THEN
-			fbReconfigAxis(bExecute := TRUE    ,
-			nAxisId := Extruder.NcToPlc.AxisId);
-			IF NOT fbReconfigAxis.bBusy THEN
-				state := 73;
-			END_IF
-		END_IF
-	73: // m-function 01 step 3
-		fbReconfigAxis(bExecute := FALSE   ,
-   		nAxisId := Extruder.NcToPlc.AxisId);
-		setExtruder(execute:= TRUE ,axis:= Extruder ,position:= 0);
-		IF setExtruder.Done THEN
-			setExtruder(execute:= FALSE ,axis:= Extruder);
-			state := 74;
-		END_IF
-	74: // m-function 01 step 4
-		fbAddAxis(bExecute := TRUE    ,
-   		nAxisId := Extruder.NcToPlc.AxisId,
-		nGroupId:= ItpGetGroupId(sNciToPlc:=in_stNciToPlc),
-		nIndex:= 3);
-		IF NOT fbAddAxis.bBusy THEN
-			state := 75;
-			fbAddAxis(bExecute := FALSE);	
-		END_IF
-	75:  // m-function 01 step 5
-		stepOnAfterEStop(bExecute:= TRUE, sNciToPlc:=in_stNciToPlc);
-		IF NOT stepOnAfterEStop.bBusy THEN
-			fbConfirmHsk(sNciToPlc := in_stNciToPlc,
-			sPlcToNci:= out_stPlcToNci,
-			bExecute:= TRUE);
-			stepOnAfterEStop(bExecute:= FALSE, sNciToPlc:=in_stNciToPlc);
-			state := 70; 
-		END_IF
+	52: // during print
+	nInterpreterState	:= ItpGetStateInterpreter(sNciToPlc:=in_stNciToPlc); // status of the NCI channel
+	IF nInterpreterState = Tc2_NCI.NCI_INTERPRETER_READY THEN // if g-code is finished then
+		State:=90;
+	END_IF
+			
 		
-	80: // print stopped
-	IF NOT starStopEx.bBusy THEN
-		starStopEx(sNciToPlc:= in_stNciToPlc,bStop:=FALSE ,bStart:=TRUE);
-		state:= 70;
-	END_IF
+	90: // print stopped
+	
 	
 END_CASE
 ]]></ST>
@@ -380,68 +358,32 @@ END_CASE
       <LineId Id="72" Count="0" />
       <LineId Id="734" Count="0" />
       <LineId Id="157" Count="0" />
+      <LineId Id="1908" Count="2" />
       <LineId Id="735" Count="2" />
       <LineId Id="158" Count="0" />
-      <LineId Id="96" Count="18" />
+      <LineId Id="97" Count="1" />
+      <LineId Id="101" Count="13" />
       <LineId Id="641" Count="0" />
       <LineId Id="115" Count="0" />
-      <LineId Id="1284" Count="0" />
-      <LineId Id="1270" Count="3" />
-      <LineId Id="1598" Count="0" />
-      <LineId Id="1283" Count="0" />
-      <LineId Id="1286" Count="0" />
-      <LineId Id="1288" Count="1" />
-      <LineId Id="1287" Count="0" />
-      <LineId Id="1269" Count="0" />
-      <LineId Id="1285" Count="0" />
-      <LineId Id="1077" Count="0" />
-      <LineId Id="1064" Count="0" />
-      <LineId Id="875" Count="0" />
-      <LineId Id="1065" Count="0" />
-      <LineId Id="879" Count="0" />
-      <LineId Id="1234" Count="0" />
-      <LineId Id="1070" Count="0" />
-      <LineId Id="1072" Count="0" />
-      <LineId Id="1074" Count="0" />
-      <LineId Id="1073" Count="0" />
-      <LineId Id="941" Count="0" />
-      <LineId Id="1071" Count="0" />
-      <LineId Id="1235" Count="0" />
-      <LineId Id="880" Count="0" />
-      <LineId Id="1236" Count="0" />
-      <LineId Id="1811" Count="1" />
-      <LineId Id="1814" Count="2" />
-      <LineId Id="1629" Count="0" />
-      <LineId Id="1817" Count="0" />
-      <LineId Id="1809" Count="0" />
-      <LineId Id="1611" Count="1" />
-      <LineId Id="1614" Count="0" />
-      <LineId Id="1662" Count="0" />
-      <LineId Id="1615" Count="0" />
-      <LineId Id="1810" Count="0" />
-      <LineId Id="1636" Count="0" />
-      <LineId Id="1739" Count="1" />
-      <LineId Id="1734" Count="0" />
-      <LineId Id="1737" Count="0" />
-      <LineId Id="1741" Count="0" />
-      <LineId Id="1738" Count="0" />
-      <LineId Id="1736" Count="0" />
-      <LineId Id="1735" Count="0" />
-      <LineId Id="1640" Count="4" />
-      <LineId Id="1652" Count="0" />
-      <LineId Id="1819" Count="0" />
-      <LineId Id="1637" Count="0" />
-      <LineId Id="1653" Count="0" />
-      <LineId Id="1889" Count="1" />
-      <LineId Id="1658" Count="2" />
-      <LineId Id="1892" Count="0" />
-      <LineId Id="1654" Count="0" />
-      <LineId Id="1891" Count="0" />
+      <LineId Id="1897" Count="0" />
+      <LineId Id="1902" Count="0" />
+      <LineId Id="1904" Count="1" />
+      <LineId Id="1939" Count="1" />
+      <LineId Id="1942" Count="3" />
+      <LineId Id="1938" Count="0" />
+      <LineId Id="1894" Count="0" />
+      <LineId Id="1917" Count="4" />
+      <LineId Id="1926" Count="9" />
+      <LineId Id="1916" Count="0" />
+      <LineId Id="1952" Count="12" />
+      <LineId Id="1946" Count="0" />
+      <LineId Id="1936" Count="0" />
+      <LineId Id="1949" Count="0" />
+      <LineId Id="1966" Count="2" />
+      <LineId Id="1965" Count="0" />
+      <LineId Id="1951" Count="0" />
       <LineId Id="1661" Count="0" />
       <LineId Id="116" Count="0" />
-      <LineId Id="1587" Count="0" />
-      <LineId Id="1450" Count="0" />
-      <LineId Id="1589" Count="0" />
       <LineId Id="1585" Count="0" />
       <LineId Id="2" Count="0" />
       <LineId Id="1451" Count="0" />
