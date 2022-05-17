@@ -7,9 +7,13 @@ VAR
 	fbPower: FB_PowerChannel;
 	runGCode: ItpEnableDefaultGCode;
 	fbBuildGroup: CfgBuildExt3DGroup;
+	fbReconfigAxis: CfgReconfigAxis;
+	fbAddAxis: CfgAddAxisToGroup;
 	fbLoadGCode: ItpLoadProgEx;
 	fbStartGCode: ItpStartStopEx;
 	fbConfirmHsk: ItpConfirmHsk;
+	eStopEx : ItpEStopEx;
+	stepOnAfterEStop : ItpStepOnAfterEStopEx;
 	starStopEx: ItpStartStopEx;
 	ItpReadRParamsEx:ItpReadRParamsEx;
 	
@@ -28,8 +32,6 @@ VAR
 	setXY2:MC_SetPosition;
 	setExtruder:MC_SetPosition;
 	
-	Xhome: MC_Home;
-	Yhome: MC_Home;
 	Zhome: MC_Home;
 	
 	Xjog: MC_Jog;
@@ -55,7 +57,8 @@ VAR
 	hParam: DINT;
 	State: INT ;
 	bConfirmHsk: BOOL := FALSE;
-	sPrgName: STRING(255) := 'test_2.nc';
+	sPrgNameSegment1: STRING(255) := 'test_3_segment1.nc';
+	sPrgNameSegment2: STRING(255) := 'test_3_segment2.nc';
 	nInterpreterState: UDINT;
 	
 	bEnable: BOOL := FALSE;
@@ -83,7 +86,7 @@ fbPower(
 	stPlcToNci:=out_stPlcToNci , 
 	bAllAxesReady=> );
 	
-
+starStopEx(sNciToPlc:= in_stNciToPlc);
 	
 CASE State OF
 	0: // init
@@ -184,6 +187,7 @@ CASE State OF
 		nXAxisId:=XAxis.NcToPlc.AxisId,
 		nYAxisId:=YAxis.NcToPlc.AxisId,
 		nZAxisId:=ZAxis.NcToPlc.AxisId,
+		nQ1AxisId:= Extruder.NcToPlc.AxisId,
 		tTimeOut:=T#2S );
 		
 	IF NOT fbBuildGroup.bBusy THEN
@@ -242,12 +246,7 @@ CASE State OF
 		IF ItpGetHskMFunc( in_stNciToPlc ) = 1 THEN
 			resetExtruder := TRUE;
 			test := TRUE;
-			setExtruder(execute:= resetExtruder ,axis:= Extruder ,position:= 0);
-			fbConfirmHsk(sNciToPlc := in_stNciToPlc,
-						  sPlcToNci:= out_stPlcToNci,
-						  bExecute:= TRUE);
-			resetExtruder := FALSE;
-			setExtruder(execute:= resetExtruder ,axis:= Extruder);
+			state:=71;
 		END_IF
 	ELSE 
 		fbConfirmHsk(sNciToPlc := in_stNciToPlc,
@@ -255,45 +254,70 @@ CASE State OF
 						  bExecute:= FALSE);
 	END_IF
 	
-	executeExtruderMovement:= TRUE;
+	(*executeExtruderMovement:= TRUE;
 	hParam := ItpGetHParam( in_stNciToPlc );
-	extruderValue := (DINT_TO_LREAL (hParam)/100000);
+	extruderValue := (DINT_TO_LREAL (hParam)/100000);*)
 	printerSpeed := ItpGetSetPathVelocity( in_stNciToPlc );
-	extruderSpeed := printerSpeed*(3.3/10); // 3.3 mm/s extrusion when at 100 mm/s speed 
+	(*extruderSpeed := printerSpeed* ((15/((Pi*EXPT(1.75,2))/4))/180); 
 	
 	IF printerSpeed > 0 THEN
 		moveExtruderAbsolute(Execute :=executeExtruderMovement ,
 				Axis := Extruder,
-				Position := (extruderValue/((Pi*EXPT(1.75,2))/4)) , 
-				Velocity := extruderSpeed );
+				Position := (extruderValue/((Pi*EXPT(1.75,2))/4)), 
+				Velocity := 0.85);
 	END_IF
 	
 	starStopEx(sNciToPlc:= in_stNciToPlc, bStart:= );
-	executeExtruderMovement:=FALSE;
-	
-	IF printerSpeed > 0 THEN
-		moveExtruderAbsolute(Execute :=executeExtruderMovement ,
-				Axis := Extruder);
+	*)
+	71: // m-function 01 stap 1
+		eStopEx(sNciToPlc := in_stNciToPlc,bExecute:=TRUE);
+		IF NOT eStopEx.bBusy THEN
+			state:= 72;
+		END_IF
+	72: // m-function 01 stap 2
+		eStopEx(sNciToPlc := in_stNciToPlc,bExecute:=FALSE);
+		IF(ItpGetSetPathVelocity( in_stNciToPlc ) = 0 ) THEN
+			fbReconfigAxis(bExecute := TRUE    ,
+			nAxisId := Extruder.NcToPlc.AxisId);
+			IF NOT fbReconfigAxis.bBusy THEN
+				state := 73;
+			END_IF
+		END_IF
+	73: // m-function 01 step 3
+		fbReconfigAxis(bExecute := FALSE   ,
+   		nAxisId := Extruder.NcToPlc.AxisId);
+		setExtruder(execute:= TRUE ,axis:= Extruder ,position:= 0);
+		IF setExtruder.Done THEN
+			setExtruder(execute:= FALSE ,axis:= Extruder);
+			state := 74;
+		END_IF
+	74: // m-function 01 step 4
+		fbAddAxis(bExecute := TRUE    ,
+   		nAxisId := Extruder.NcToPlc.AxisId,
+		nGroupId:= ItpGetGroupId(sNciToPlc:=in_stNciToPlc),
+		nIndex:= 3);
+		IF NOT fbAddAxis.bBusy THEN
+			state := 75;
+			fbAddAxis(bExecute := FALSE);	
+		END_IF
+	75:  // m-function 01 step 5
+		stepOnAfterEStop(bExecute:= TRUE, sNciToPlc:=in_stNciToPlc);
+		IF NOT stepOnAfterEStop.bBusy THEN
+			fbConfirmHsk(sNciToPlc := in_stNciToPlc,
+			sPlcToNci:= out_stPlcToNci,
+			bExecute:= TRUE);
+			stepOnAfterEStop(bExecute:= FALSE, sNciToPlc:=in_stNciToPlc);
+			state := 70; 
+		END_IF
+		
+	80: // print stopped
+	IF NOT starStopEx.bBusy THEN
+		starStopEx(sNciToPlc:= in_stNciToPlc,bStop:=FALSE ,bStart:=TRUE);
+		state:= 70;
 	END_IF
 	
-	80: // print stopped
-	
-	
-	state := 70;
 END_CASE
-	
-IF ItpIsHskMFunc(in_stNciToPlc) AND NOT fbConfirmHsk.bBusy THEN
-	bConfirmHsk	:= TRUE;
-(*ELSE	
-	bConfirmHsk	:= FALSE;*)
-END_IF	
-(*fbConfirmHsk(
-	bExecute:=bConfirmHsk , 
-	sNciToPlc:=in_stNciToPlc , 
-	sPlcToNci:=out_stPlcToNci , 
-	bBusy=> , 
-	bErr=> , 
-	nErrId=> );*)]]></ST>
+]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="6" Count="6" />
@@ -346,7 +370,9 @@ END_IF
       <LineId Id="622" Count="0" />
       <LineId Id="635" Count="0" />
       <LineId Id="54" Count="0" />
-      <LineId Id="704" Count="13" />
+      <LineId Id="704" Count="5" />
+      <LineId Id="1452" Count="0" />
+      <LineId Id="710" Count="7" />
       <LineId Id="870" Count="0" />
       <LineId Id="872" Count="0" />
       <LineId Id="71" Count="0" />
@@ -360,7 +386,8 @@ END_IF
       <LineId Id="641" Count="0" />
       <LineId Id="115" Count="0" />
       <LineId Id="1284" Count="0" />
-      <LineId Id="1270" Count="9" />
+      <LineId Id="1270" Count="3" />
+      <LineId Id="1598" Count="0" />
       <LineId Id="1283" Count="0" />
       <LineId Id="1286" Count="0" />
       <LineId Id="1288" Count="1" />
@@ -381,19 +408,44 @@ END_IF
       <LineId Id="1071" Count="0" />
       <LineId Id="1235" Count="0" />
       <LineId Id="880" Count="0" />
-      <LineId Id="1076" Count="0" />
-      <LineId Id="1238" Count="0" />
-      <LineId Id="1240" Count="2" />
-      <LineId Id="1239" Count="0" />
       <LineId Id="1236" Count="0" />
+      <LineId Id="1811" Count="1" />
+      <LineId Id="1814" Count="2" />
+      <LineId Id="1629" Count="0" />
+      <LineId Id="1817" Count="0" />
+      <LineId Id="1809" Count="0" />
+      <LineId Id="1611" Count="1" />
+      <LineId Id="1614" Count="0" />
+      <LineId Id="1662" Count="0" />
+      <LineId Id="1615" Count="0" />
+      <LineId Id="1810" Count="0" />
+      <LineId Id="1636" Count="0" />
+      <LineId Id="1739" Count="1" />
+      <LineId Id="1734" Count="0" />
+      <LineId Id="1737" Count="0" />
+      <LineId Id="1741" Count="0" />
+      <LineId Id="1738" Count="0" />
+      <LineId Id="1736" Count="0" />
+      <LineId Id="1735" Count="0" />
+      <LineId Id="1640" Count="4" />
+      <LineId Id="1652" Count="0" />
+      <LineId Id="1819" Count="0" />
+      <LineId Id="1637" Count="0" />
+      <LineId Id="1653" Count="0" />
+      <LineId Id="1889" Count="1" />
+      <LineId Id="1658" Count="2" />
+      <LineId Id="1892" Count="0" />
+      <LineId Id="1654" Count="0" />
+      <LineId Id="1891" Count="0" />
+      <LineId Id="1661" Count="0" />
       <LineId Id="116" Count="0" />
-      <LineId Id="877" Count="0" />
-      <LineId Id="1079" Count="1" />
+      <LineId Id="1587" Count="0" />
+      <LineId Id="1450" Count="0" />
+      <LineId Id="1589" Count="0" />
+      <LineId Id="1585" Count="0" />
       <LineId Id="2" Count="0" />
+      <LineId Id="1451" Count="0" />
       <LineId Id="1252" Count="0" />
-      <LineId Id="1254" Count="4" />
-      <LineId Id="1260" Count="5" />
-      <LineId Id="1253" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

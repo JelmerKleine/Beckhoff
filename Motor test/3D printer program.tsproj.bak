@@ -2110,8 +2110,11 @@ External Setpoint Generation:
 	</ImageDatas>
 	<Project ProjectGUID="{95038450-4025-403D-A4C7-055608762F85}" Target64Bit="true" ShowHideConfigurations="#x106">
 		<System>
+			<Settings>
+				<Cpu BaseTime="500"/>
+			</Settings>
 			<Tasks>
-				<Task Id="3" Priority="20" CycleTime="100000" AmsPort="350" AdtTasks="true">
+				<Task Id="3" Priority="20" CycleTime="10000" AmsPort="350" ExceedWarning="1" AdtTasks="true">
 					<Name>PlcTask</Name>
 				</Task>
 			</Tasks>
@@ -2130,7 +2133,7 @@ External Setpoint Generation:
 						<Name>Image</Name>
 					</Image>
 				</SafTask>
-				<SvbTask Priority="8" CycleTime="100000" AmsPort="511">
+				<SvbTask Priority="8" CycleTime="10000" AmsPort="511">
 					<Name>NC-Task 1 SVB</Name>
 				</SvbTask>
 				<Axis Id="1" CreateSymbols="true" AxisType="1">
@@ -3340,9 +3343,9 @@ External Setpoint Generation:
 							<Kinematic/>
 						</Parameter>
 					</Group>
-					<Interpreter ProgName="C:\TwinCAT\Mc\Nci\test_2.nc">
+					<Interpreter ProgName="C:\TwinCAT\Mc\Nci\test_3.nc">
 						<Name>Interpreter</Name>
-						<MFunc>01000000000000008200000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000000000000000000000000000000073657420657874727564657220706f736974696f6e00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</MFunc>
+						<MFunc>01000000010000000000000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000000000000000000000000000000073657420657874727564657220706f736974696f6e00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</MFunc>
 					</Interpreter>
 				</Channel>
 			</NC>
@@ -3438,7 +3441,7 @@ External Setpoint Generation:
 								<OTCID>#x02010030</OTCID>
 							</ManualConfig>
 							<Priority>20</Priority>
-							<CycleTime>10000000</CycleTime>
+							<CycleTime>1000000</CycleTime>
 						</Context>
 					</Contexts>
 					<TaskPouOids>
@@ -6050,7 +6053,7 @@ External Setpoint Generation:
 		</Io>
 	</Project>
 	<Mappings>
-		<MappingInfo Identifier="{05000010-2001-0850-1000-040300205008}" Id="#x02030010" Watchdog="14000000040000000400000004000000"/>
+		<MappingInfo Identifier="{05000010-2001-0850-1000-040300205008}" Id="#x02030010" Watchdog="04000000080000000400000004000000"/>
 		<OwnerA Name="TIPC^Motor test^Motor test Instance">
 			<OwnerB Name="TIID^Device 3 (EtherCAT)^Term 1 (EK1101)^Term 5 (EL1004)">
 				<Link VarA="PlcTask Inputs^MAIN.HomingSensorX" VarB="Channel 2^Input"/>

@@ -26,25 +26,7 @@
               <Children />
             </Node>
             <Node>
-              <Title>extruderSpeed</Title>
-              <Expanded>False</Expanded>
-              <FileName></FileName>
-              <Children />
-            </Node>
-            <Node>
-              <Title>Position</Title>
-              <Expanded>False</Expanded>
-              <FileName></FileName>
-              <Children />
-            </Node>
-            <Node>
-              <Title>printerSpeed</Title>
-              <Expanded>False</Expanded>
-              <FileName></FileName>
-              <Children />
-            </Node>
-            <Node>
-              <Title>Velocity</Title>
+              <Title>SetPathVelo</Title>
               <Expanded>False</Expanded>
               <FileName></FileName>
               <Children />
@@ -62,12 +44,6 @@
               <FileName></FileName>
               <Children>
                 <Node>
-                  <Title>Position</Title>
-                  <Expanded>False</Expanded>
-                  <FileName></FileName>
-                  <Children />
-                </Node>
-                <Node>
                   <Title>ActPos</Title>
                   <Expanded>False</Expanded>
                   <FileName></FileName>
@@ -81,19 +57,13 @@
               <FileName></FileName>
               <Children>
                 <Node>
-                  <Title>extruderSpeed</Title>
-                  <Expanded>False</Expanded>
-                  <FileName></FileName>
-                  <Children />
-                </Node>
-                <Node>
-                  <Title>printerSpeed</Title>
-                  <Expanded>False</Expanded>
-                  <FileName></FileName>
-                  <Children />
-                </Node>
-                <Node>
                   <Title>ActVelo</Title>
+                  <Expanded>False</Expanded>
+                  <FileName></FileName>
+                  <Children />
+                </Node>
+                <Node>
+                  <Title>SetPathVelo</Title>
                   <Expanded>False</Expanded>
                   <FileName></FileName>
                   <Children />
