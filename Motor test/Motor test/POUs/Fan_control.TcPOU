@@ -3,19 +3,30 @@
   <POU Name="Fan_control" Id="{be1f2def-5c1b-4bb3-9cfa-03da5698495b}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Fan_control
 VAR_INPUT
-	dutyCycleHotEnd:LREAL;
-	dutyCyclePrintBed:lreal;
+	dutyCycleFan1:LREAL;
+	dutyCycleFan2:LREAL;
 END_VAR
 VAR_OUTPUT
 END_VAR
 VAR
+	Fan1Output AT %Q* :BOOL;
+	Fan2Output AT %Q* :BOOL;
+	PWM1:FB_PWM;
+	PWM2:FB_PWM;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[]]></ST>
+      <ST><![CDATA[PWM1(dutyCycle := dutyCycleFan1);
+PWM2(dutyCycle := dutyCycleFan2);
+
+Fan1Output := PWM1.state;
+Fan2Output := PWM2.state;]]></ST>
     </Implementation>
     <LineIds Name="Fan_control">
+      <LineId Id="16" Count="0" />
       <LineId Id="9" Count="0" />
+      <LineId Id="18" Count="1" />
+      <LineId Id="17" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

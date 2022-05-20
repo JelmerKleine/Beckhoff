@@ -5,6 +5,9 @@
 VAR
 	
 	fbPower: FB_PowerChannel;
+	fbfanControl: Fan_control;
+	fbHeaterControl: Heater_control;
+	
 	runGCode: ItpEnableDefaultGCode;
 	fbBuildGroup: CfgBuildExt3DGroup;
 	fbReconfigAxis: CfgReconfigAxis;
@@ -16,7 +19,6 @@ VAR
 	stepOnAfterEStop : ItpStepOnAfterEStopEx;
 	starStopEx: ItpStartStopEx;
 	ItpReadRParamsEx:ItpReadRParamsEx;
-	
 	fbConfigKinGroup: FB_KinConfigGroup;
     stAxesConfig: ST_KinAxes;
 	in_stKinToPlc AT %I*  : NCTOPLC_NCICHANNEL_REF;
@@ -68,8 +70,11 @@ VAR
 	stopGcode: BOOL := FALSE;
 	executeExtruderMovement :BOOL := TRUE;
 	resetExtruder : BOOL :=FALSE;
-	test : BOOL :=FALSE;
 	intreperterState : UDINT;
+	
+	test : BOOL :=FALSE;
+	PWM:FB_PWM;
+	
 	END_VAR
 ]]></Declaration>
     <Implementation>
@@ -91,7 +96,6 @@ starStopEx(sNciToPlc:= in_stNciToPlc);
 CASE State OF
 	0: // init
 	ExecuteKinConfig:=TRUE;
-	
 	IF fbPower.bAllAxesReady THEN
 		State := 10; 
 	END_IF
@@ -103,7 +107,7 @@ CASE State OF
 	stAxesConfig.nAxisIdsMcs[1] := Xaxis.NcToPlc.AxisId;
 	stAxesConfig.nAxisIdsMcs[2] := Yaxis.NcToPlc.AxisId;
 	
-	fbConfigKinGroup(
+	fbConfigKinGroup( // voeg de xy core motoren toe tot de kinematische groep
     bExecute       := ExecuteKinConfig ,
     bCartesianMode := TRUE ,
     stAxesList     := stAxesConfig,
@@ -122,7 +126,7 @@ CASE State OF
 		END_IF
 	END_IF
 	
-	20:
+	20: // jog de x axis tot de eind switch wordt geraakt
 	Xjog(Axis:= Xaxis,JogBackwards:= TRUE , Deceleration:= 1500);
 	
 	IF NOT HomingSensorX THEN
@@ -130,16 +134,16 @@ CASE State OF
 		State:=21;
 	END_IF
 	
-	21:
+	21: // jog de y axis tot de eind switch wordt geraakt
 	Yjog(Axis:= Yaxis,JogBackwards:= TRUE , Deceleration:= 1500);
 	IF NOT HomingSensorY THEN
 		Yjog(Axis:= Yaxis,JogBackwards:= FALSE);	
 		State:=22;
 	END_IF
 	
-	22:
+	22: // Zet cartesian mode uit zodat de positie van de xy motoren op 0 geet kan worden om te homen
 	ExecuteKinConfig:=TRUE;
-	fbConfigKinGroup(
+	fbConfigKinGroup( 
     bExecute       := ExecuteKinConfig,
     bCartesianMode := FALSE ,
     stAxesList     := stAxesConfig,
@@ -159,7 +163,7 @@ CASE State OF
 		END_IF
 	END_IF
 	
-	23:
+	23: // home de z axis
 	Zhome(axis := Zaxis,execute := TRUE,BCalibrationCam := NOT HomingSensorZ,Position := Zoffset);
 	IF Zhome.Done THEN
 		ExecuteKinConfig:=TRUE;
@@ -168,7 +172,7 @@ CASE State OF
 	
 	24:
 	
-	fbConfigKinGroup(
+	fbConfigKinGroup( // zet de kinematische groep weer op cartesian mode om hem weer te kunnnen bewegen.
     bExecute       := ExecuteKinConfig,
     bCartesianMode := TRUE ,
     stAxesList     := stAxesConfig,
@@ -180,7 +184,7 @@ CASE State OF
 		END_IF
 	END_IF
 	
-	30:
+	30: // het configureren van de NCI met de x,y en z as
 	fbBuildGroup(
 		bExecute:=TRUE,
 		nGroupId:=ItpGetGroupId(sNciToPlc:=in_stNciToPlc),
@@ -249,7 +253,7 @@ CASE State OF
 		state:= 50;
 	END_IF
 
-	50: //load segment 2
+	50: //laad segment 2
 	fbLoadGCode(
 		sNciToPlc:=in_stNciToPlc, 
 		bExecute:=TRUE, 
@@ -262,7 +266,7 @@ CASE State OF
 		fbLoadGCode(sNciToPlc:=in_stNciToPlc, bExecute:=FALSE); 
 	END_IF
 	
-	51: // execute segment 2
+	51: // voer segment 2 uit
 	fbLoadGCode(
 		sNciToPlc:=in_stNciToPlc, 
 		bExecute:=FALSE);
@@ -281,14 +285,14 @@ CASE State OF
 		fbStartGCode( bStart:= stopGcode, sNciToPlc:= in_stNciToPlc); 
 	END_IF
 	
-	52: // during print
+	52: // tijdens het printen
 	nInterpreterState	:= ItpGetStateInterpreter(sNciToPlc:=in_stNciToPlc); // status of the NCI channel
 	IF nInterpreterState = Tc2_NCI.NCI_INTERPRETER_READY THEN // if g-code is finished then
 		State:=90;
 	END_IF
 			
 		
-	90: // print stopped
+	90: // print is klaar
 	
 	
 END_CASE
@@ -298,9 +302,7 @@ END_CASE
       <LineId Id="6" Count="6" />
       <LineId Id="155" Count="1" />
       <LineId Id="808" Count="0" />
-      <LineId Id="13" Count="7" />
-      <LineId Id="443" Count="0" />
-      <LineId Id="21" Count="9" />
+      <LineId Id="13" Count="17" />
       <LineId Id="162" Count="0" />
       <LineId Id="31" Count="4" />
       <LineId Id="164" Count="0" />

@@ -7,6 +7,9 @@
     <RootNamespace>TwinCAT Measurement Project1</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="Tests.tcscopex">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="YT Scope Project.tcscopex">
       <SubType>Content</SubType>
     </Content>

@@ -29,13 +29,13 @@
     <Compile Include="POUs\FB_PowerChannel.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\HeaterCatridge_control.TcPOU">
+    <Compile Include="POUs\Heater_control.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\PWM_control.TcPOU">
+    <Compile Include="POUs\FB_PWM.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Visualization Manager.TcVMO">
