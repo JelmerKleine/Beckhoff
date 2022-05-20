@@ -240,7 +240,7 @@ CASE State OF
 		fbStartGCode( bStart:= FALSE, sNciToPlc:= in_stNciToPlc); 
 	END_IF
 	
-	43: //during segment 1
+	43: //tijdens segment 1
 	fbStartGCode( bStart:= FALSE, sNciToPlc:= in_stNciToPlc);
 	nInterpreterState	:= ItpGetStateInterpreter(sNciToPlc:=in_stNciToPlc); // status van de NCI
 	IF nInterpreterState = Tc2_NCI.NCI_INTERPRETER_READY THEN // als de G-code klaar is gaat het programma naar de volgende state

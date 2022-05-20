@@ -10,13 +10,18 @@ VAR_OUTPUT
 END_VAR
 VAR
 	state: LREAL;
+	temperature :LREAL;
+	error: LREAL; // E(k)
+	previousError: LREAL; // E(k-1)
 	PWM: FB_PWM;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[]]></ST>
+      <ST><![CDATA[
+]]></ST>
     </Implementation>
     <LineIds Name="Heater_control">
+      <LineId Id="26" Count="0" />
       <LineId Id="9" Count="0" />
     </LineIds>
   </POU>
