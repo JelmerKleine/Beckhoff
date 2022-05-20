@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="Fan_control" Id="{be1f2def-5c1b-4bb3-9cfa-03da5698495b}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Fan_control
+VAR_INPUT
+	dutyCycleHotEnd:LREAL;
+	dutyCyclePrintBed:lreal;
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <LineIds Name="Fan_control">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

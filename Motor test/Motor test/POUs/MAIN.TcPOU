@@ -117,7 +117,7 @@ CASE State OF
 			stAxesList     := stAxesConfig,
 			stKinRefIn     := in_stKinToPlc );
 			IF homeAxi THEN
-				State:=30;
+				State:=20;
 			END_IF
 		END_IF
 	END_IF
@@ -202,12 +202,8 @@ CASE State OF
 	fbLoadGCode(
 		sNciToPlc:=in_stNciToPlc, 
 		bExecute:=TRUE, 
-		sPrg:= sPrgNameSegment1, 
-		nLength:= INT_TO_UDINT(LEN(sPrgNameSegment1)), 
-		tTimeOut:= , 
-		bBusy=> , 
-		bErr=> , 
-		nErrId=> );
+		sPrg:= sPrgNameSegment2, 
+		nLength:= INT_TO_UDINT(LEN(sPrgNameSegment2)) );
 	IF NOT fbLoadGCode.bBusy THEN
 		IF NOT fbLoadGCode.bErr THEN
 			State	:= 41;				
@@ -237,13 +233,14 @@ CASE State OF
 		IF NOT fbStartGCode.bErr THEN
 			State	:= 43;			
 		END_IF
-		fbStartGCode( bStart:= stopGcode, sNciToPlc:= in_stNciToPlc); 
+		fbStartGCode( bStart:= FALSE, sNciToPlc:= in_stNciToPlc); 
 	END_IF
 	
 	43: //during segment 1
+	fbStartGCode( bStart:= FALSE, sNciToPlc:= in_stNciToPlc);
 	nInterpreterState	:= ItpGetStateInterpreter(sNciToPlc:=in_stNciToPlc); // status van de NCI
 	IF nInterpreterState = Tc2_NCI.NCI_INTERPRETER_READY THEN // als de G-code klaar is gaat het programma naar de volgende state
-		//State:=44;
+		State:=44;
 	END_IF
 
 	44: // set position extruder axis
@@ -340,9 +337,7 @@ END_CASE
       <LineId Id="351" Count="0" />
       <LineId Id="512" Count="0" />
       <LineId Id="241" Count="0" />
-      <LineId Id="243" Count="1" />
-      <LineId Id="636" Count="0" />
-      <LineId Id="245" Count="0" />
+      <LineId Id="2039" Count="3" />
       <LineId Id="52" Count="1" />
       <LineId Id="623" Count="11" />
       <LineId Id="622" Count="0" />
@@ -354,7 +349,9 @@ END_CASE
       <LineId Id="870" Count="0" />
       <LineId Id="872" Count="0" />
       <LineId Id="71" Count="0" />
-      <LineId Id="738" Count="13" />
+      <LineId Id="738" Count="3" />
+      <LineId Id="2185" Count="0" />
+      <LineId Id="747" Count="4" />
       <LineId Id="72" Count="0" />
       <LineId Id="734" Count="0" />
       <LineId Id="157" Count="0" />
@@ -365,6 +362,7 @@ END_CASE
       <LineId Id="101" Count="13" />
       <LineId Id="641" Count="0" />
       <LineId Id="115" Count="0" />
+      <LineId Id="2184" Count="0" />
       <LineId Id="1897" Count="0" />
       <LineId Id="1902" Count="0" />
       <LineId Id="1904" Count="1" />

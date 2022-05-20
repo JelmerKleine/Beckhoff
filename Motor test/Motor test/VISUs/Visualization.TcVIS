@@ -1054,12 +1054,12 @@
                       <v n="Value">false</v>
                     </o>
                     <o>
-                      <v n="Id">823443203L</v>
-                      <v n="Value">"48"</v>
-                    </o>
-                    <o>
                       <v n="Id">2477733581L</v>
                       <v n="Value">"MAIN.State"</v>
+                    </o>
+                    <o>
+                      <v n="Id">823443203L</v>
+                      <v n="Value">"48"</v>
                     </o>
                   </l>
                 </o>
@@ -1344,10 +1344,10 @@
               <d n="FbMethods" t="CaseInsensitiveHashtable" ckt="String" cvt="Guid">
                 <v>FB_Init</v>
                 <v>d827605f-05b7-436e-846e-bad130211d6a</v>
-                <v>FB_Reinit</v>
-                <v>c1ce9564-809b-46b1-aff8-347cb9b8b444</v>
                 <v>FB_Exit</v>
                 <v>f2aaff96-ebfd-47b1-9621-0709f607c7c1</v>
+                <v>FB_Reinit</v>
+                <v>c1ce9564-809b-46b1-aff8-347cb9b8b444</v>
               </d>
               <v n="FbName">"NotImportant"</v>
               <v n="FbGuid">{c516dc77-fc6b-4961-8661-dc911a2ffdcb}</v>
@@ -1397,7 +1397,7 @@
               <o>
                 <v n="Id">2L</v>
                 <n n="Tag" />
-                <v n="Text">"VAR_IN_OUT"</v>
+                <v n="Text">" VAR_IN_OUT"</v>
               </o>
               <o>
                 <v n="Id">3L</v>
