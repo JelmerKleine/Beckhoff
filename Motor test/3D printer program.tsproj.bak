@@ -2121,7 +2121,7 @@ External Setpoint Generation:
 		</System>
 		<Motion>
 			<NC>
-				<SafTask Priority="4" CycleTime="10000" AmsPort="501" IoAtBegin="true" AmsNetId="10.68.134.4.1.1" SafTaskInfo="256">
+				<SafTask Priority="4" CycleTime="10000" AmsPort="501" IoAtBegin="true" SafTaskInfo="256">
 					<Name>NC-Task 1 SAF</Name>
 					<Vars VarGrpType="1" InsertType="1">
 						<Name>Inputs</Name>
@@ -3431,14 +3431,6 @@ External Setpoint Generation:
 						<Var>
 							<Name>MAIN.out_stPlcToNci</Name>
 							<Type GUID="{48415C2A-E750-483B-A619-8655B2BEA4B8}" Namespace="MC">PLCTONC_NCICHANNEL_REF</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbfanControl.Fan1Output</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbfanControl.Fan2Output</Name>
-							<Type>BOOL</Type>
 						</Var>
 					</Vars>
 					<Contexts>

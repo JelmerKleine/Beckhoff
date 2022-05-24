@@ -7,10 +7,10 @@ VAR_INPUT
 	dutyCycleFan2:LREAL;
 END_VAR
 VAR_OUTPUT
+	Fan1Output :BOOL;
+	Fan2Output :BOOL;
 END_VAR
 VAR
-	Fan1Output AT %Q* :BOOL;
-	Fan2Output AT %Q* :BOOL;
 	PWM1:FB_PWM;
 	PWM2:FB_PWM;
 END_VAR

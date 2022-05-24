@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="FB_SteinhartEquation" Id="{04c104f7-88ae-4993-b024-cd84f22f52e4}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_SteinhartEquation
+VAR_INPUT
+	R1: LREAL;
+	R2: LREAL;
+	R3: LREAL;
+	
+	T1: LREAL;
+	T2: LREAL;
+	T3: LREAL;
+	
+END_VAR
+VAR_OUTPUT
+	C: LREAL;
+	B: LREAL;
+	A: LREAL;
+	
+END_VAR
+VAR
+	L1: LREAL;
+	L2: LREAL;
+	L3: LREAL;
+	
+	Y1: LREAL;
+	Y2: LREAL;
+	Y3: LREAL;
+
+	H1: LREAL;
+	H2: LREAL;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[ L1 := LN(R1);
+ L2 := LN(R2);
+ L3 := LN(R3);
+ 
+ Y1 := 1/T1;
+ Y2 := 1/T2;
+ Y3 := 1/T3;
+   
+ H1 := (Y2 - Y1)/(L2 - L1);
+ H2 := (Y3 - Y1)/(L3 - L1);
+ 
+ C := ((H2 - H1)/(L3 - L2))* EXPT((L1+L2+L3),-1);
+ B := H1 - C*(EXPT(L1,2) + L1*L2 + EXPT(L2,2));
+ A := Y1 - (B+EXPT(L1,2)*C)*L1;
+ ]]></ST>
+    </Implementation>
+    <LineIds Name="FB_SteinhartEquation">
+      <LineId Id="7" Count="0" />
+      <LineId Id="14" Count="1" />
+      <LineId Id="19" Count="0" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="25" Count="2" />
+      <LineId Id="22" Count="0" />
+      <LineId Id="40" Count="0" />
+      <LineId Id="79" Count="1" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="81" Count="0" />
+      <LineId Id="10" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
