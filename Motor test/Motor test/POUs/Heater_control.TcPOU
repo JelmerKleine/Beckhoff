@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
   <POU Name="Heater_control" Id="{dd38d42a-bd3b-456e-a2fc-9f69da39d4fa}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Heater_control
 VAR_INPUT
-	Resistance: LREAL;
+	actualTemp: LREAL;
 	desiredTemp:LREAL;
 END_VAR
 VAR_OUTPUT
@@ -17,29 +17,42 @@ VAR
 	integral: LREAL;
 	derivative: LREAL;
 	cycleTime: LREAL;
+	controlSignal: LREAL;
 	PWM: FB_PWM;
 	FB_GETCURTASKINDEX:GETCURTASKINDEX;
 	
 	
-	Kp : LREAL;
-	Ki : LREAL;
-	Kd : LREAL;
+	Kp : LREAL := 1;
+	Ki : LREAL := 1;
+	Kd : LREAL := 1;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[error := desiredTemp - Resistance;
+      <ST><![CDATA[error := desiredTemp - actualTemp;
+FB_GETCURTASKINDEX();
 cycleTime := (UDINT_TO_LREAL(_TaskInfo[FB_GETCURTASKINDEX.index].CycleTime)/ 10_000_000);
 integral := integral + error * cycleTime;
 derivative := (error - previousError) / cycleTime;
-PWM( dutyCycle:=(Kp * error + Ki * integral + Kd * derivative));
+controlSignal := (Kp * error + Ki * integral + Kd * derivative);
+IF (error > 0 ) THEN
+	PWM( dutyCycle := controlSignal);	
+ELSE 
+	PWM(dutyCycle := 0);
+END_IF
+
 PWM_out := PWM.state; 
 previousError := error;]]></ST>
     </Implementation>
     <LineIds Name="Heater_control">
       <LineId Id="47" Count="0" />
+      <LineId Id="90" Count="0" />
       <LineId Id="65" Count="0" />
       <LineId Id="59" Count="0" />
       <LineId Id="62" Count="0" />
+      <LineId Id="96" Count="0" />
+      <LineId Id="91" Count="1" />
+      <LineId Id="94" Count="1" />
+      <LineId Id="93" Count="0" />
       <LineId Id="51" Count="0" />
       <LineId Id="58" Count="0" />
       <LineId Id="9" Count="0" />

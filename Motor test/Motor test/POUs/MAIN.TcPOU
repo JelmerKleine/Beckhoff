@@ -7,7 +7,7 @@ VAR
 	fbPower: FB_PowerChannel;
 	fbfanControl: Fan_control;
 	fbHeaterControl: Heater_control;
-	
+	fbGetTemperature : FB_GetTemperature;
 	runGCode: ItpEnableDefaultGCode;
 	fbBuildGroup: CfgBuildExt3DGroup;
 	fbReconfigAxis: CfgReconfigAxis;
@@ -53,9 +53,15 @@ VAR
 	Yoffset: LREAL := 0;
 	Zoffset: LREAL := 0.4;
 	
-	printerSpeed: LREAL;
-	extruderSpeed: LREAL;
-	extruderValue: LREAL;
+
+	hotendResitance AT %I*  : INT := 1;
+	hotbedResitance AT %I*  : INT := 1;
+	hotendHeater AT %Q*  : BOOL;
+	hotbedHeater AT %Q*  : BOOL;
+	hotendFan1 AT %Q*  : BOOL;
+	hotendFan2 AT %Q*  : BOOL;
+	
+	
 	hParam: DINT;
 	State: INT ;
 	bConfirmHsk: BOOL := FALSE;
@@ -72,8 +78,8 @@ VAR
 	resetExtruder : BOOL :=FALSE;
 	intreperterState : UDINT;
 	
-	test : BOOL :=FALSE;
-	PWM:FB_PWM;
+
+	
 	
 	END_VAR
 ]]></Declaration>
@@ -92,9 +98,18 @@ fbPower(
 	bAllAxesReady=> );
 	
 starStopEx(sNciToPlc:= in_stNciToPlc);
+
+fbGetTemperature(terminalResistance := (10*INT_TO_REAL(hotendResitance)));
+fbHeaterControl(actualTemp := fbGetTemperature.temperatureSensor,desiredTemp := 30);
+hotendHeater := fbHeaterControl.PWM_out;
 	
 CASE State OF
 	0: // init
+	
+	
+	hotendFan1 := TRUE;
+	hotendFan2 := TRUE;
+	
 	ExecuteKinConfig:=TRUE;
 	IF fbPower.bAllAxesReady THEN
 		State := 10; 
@@ -206,8 +221,8 @@ CASE State OF
 	fbLoadGCode(
 		sNciToPlc:=in_stNciToPlc, 
 		bExecute:=TRUE, 
-		sPrg:= sPrgNameSegment2, 
-		nLength:= INT_TO_UDINT(LEN(sPrgNameSegment2)) );
+		sPrg:= sPrgNameSegment1, 
+		nLength:= INT_TO_UDINT(LEN(sPrgNameSegment1)) );
 	IF NOT fbLoadGCode.bBusy THEN
 		IF NOT fbLoadGCode.bErr THEN
 			State	:= 41;				
@@ -302,7 +317,18 @@ END_CASE
       <LineId Id="6" Count="6" />
       <LineId Id="155" Count="1" />
       <LineId Id="808" Count="0" />
-      <LineId Id="13" Count="17" />
+      <LineId Id="13" Count="3" />
+      <LineId Id="2513" Count="0" />
+      <LineId Id="2512" Count="0" />
+      <LineId Id="2515" Count="0" />
+      <LineId Id="2514" Count="0" />
+      <LineId Id="17" Count="2" />
+      <LineId Id="2261" Count="0" />
+      <LineId Id="2348" Count="0" />
+      <LineId Id="2344" Count="0" />
+      <LineId Id="2430" Count="0" />
+      <LineId Id="2347" Count="0" />
+      <LineId Id="20" Count="10" />
       <LineId Id="162" Count="0" />
       <LineId Id="31" Count="4" />
       <LineId Id="164" Count="0" />
