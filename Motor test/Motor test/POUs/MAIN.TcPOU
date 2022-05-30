@@ -8,17 +8,12 @@ VAR
 	fbfanControl: Fan_control;
 	fbHeaterControl: Heater_control;
 	fbGetTemperature : FB_GetTemperature;
-	runGCode: ItpEnableDefaultGCode;
+	fbExecuteGcode: FB_ExecuteGcode;
 	fbBuildGroup: CfgBuildExt3DGroup;
 	fbReconfigAxis: CfgReconfigAxis;
 	fbAddAxis: CfgAddAxisToGroup;
 	fbLoadGCode: ItpLoadProgEx;
 	fbStartGCode: ItpStartStopEx;
-	fbConfirmHsk: ItpConfirmHsk;
-	eStopEx : ItpEStopEx;
-	stepOnAfterEStop : ItpStepOnAfterEStopEx;
-	starStopEx: ItpStartStopEx;
-	ItpReadRParamsEx:ItpReadRParamsEx;
 	fbConfigKinGroup: FB_KinConfigGroup;
     stAxesConfig: ST_KinAxes;
 	in_stKinToPlc AT %I*  : NCTOPLC_NCICHANNEL_REF;
@@ -96,12 +91,10 @@ fbPower(
 	stExt:= Extruder,
 	stPlcToNci:=out_stPlcToNci , 
 	bAllAxesReady=> );
-	
-starStopEx(sNciToPlc:= in_stNciToPlc);
 
 fbGetTemperature(terminalResistance := (10*INT_TO_REAL(hotendResitance)));//hotendResitance
-//fbHeaterControl(actualTemp := fbGetTemperature.temperatureSensor,desiredTemp := 210);
-hotendHeater := FALSE;//fbHeaterControl.PWM_out;
+fbHeaterControl(actualTemp := fbGetTemperature.temperatureSensor,desiredTemp := 210);
+hotendHeater := FALSE; // fbHeaterControl.PWM_out; 
 	
 CASE State OF
 	0: // init
@@ -195,8 +188,13 @@ CASE State OF
 	
 	IF NOT fbConfigKinGroup.bBusy THEN
 		IF NOT fbConfigKinGroup.bError THEN
-			State:=30;
+			State:= 25;
 		END_IF
+	END_IF
+	25:
+	setExtruder(execute:= TRUE ,axis:= Extruder ,position:= 0);
+	IF setExtruder.Done THEN
+		state:= 30;
 	END_IF
 	
 	30: // het configureren van de NCI met de x,y en z as
@@ -218,96 +216,42 @@ CASE State OF
 	END_IF
 	
 	40: // laad segment 1
-	fbLoadGCode(
-		sNciToPlc:=in_stNciToPlc, 
-		bExecute:=TRUE, 
-		sPrg:= sPrgNameSegment1, 
-		nLength:= INT_TO_UDINT(LEN(sPrgNameSegment1)) );
-	IF NOT fbLoadGCode.bBusy THEN
-		IF NOT fbLoadGCode.bErr THEN
-			State	:= 41;				
-		END_IF
-		fbLoadGCode(sNciToPlc:=in_stNciToPlc, bExecute:=FALSE); 
+	fbExecuteGcode(execute:= TRUE ,sPrgName:= sPrgNameSegment1 ,in_stNciToPlc:= in_stNciToPlc, reset:= FALSE);
+	
+	IF fbExecuteGcode.done THEN
+		fbExecuteGcode(execute:= FALSE, reset:= TRUE);
+		state:= 41;
 	END_IF
 	
-	41: // check status NCI
-	fbLoadGCode(
-		sNciToPlc:=in_stNciToPlc, 
-		bExecute:=FALSE);
-	nInterpreterState	:= ItpGetStateInterpreter(sNciToPlc:=in_stNciToPlc);
-	IF nInterpreterState = Tc2_NCI.NCI_INTERPRETER_READY THEN // als de interpreter klaar is kan het programma verder
-			State	:= 42;	
-	END_IF
-
-	42: // start segment 1
-	fbStartGCode(
-		bStart:=TRUE, 
-		bStop:=FALSE, 
-		tTimeOut:= , 
-		sNciToPlc:= in_stNciToPlc, 
-		bBusy=> , 
-		bErr=> , 
-		nErrId=> );
-	IF NOT fbStartGCode.bBusy THEN
-		IF NOT fbStartGCode.bErr THEN
-			State	:= 43;			
-		END_IF
-		fbStartGCode( bStart:= FALSE, sNciToPlc:= in_stNciToPlc); 
-	END_IF
-	
-	43: //tijdens segment 1
+	41: //tijdens segment 1
 	fbStartGCode( bStart:= FALSE, sNciToPlc:= in_stNciToPlc);
 	nInterpreterState	:= ItpGetStateInterpreter(sNciToPlc:=in_stNciToPlc); // status van de NCI
 	IF nInterpreterState = Tc2_NCI.NCI_INTERPRETER_READY THEN // als de G-code klaar is gaat het programma naar de volgende state
-		State:=44;
+		State:=42;
 	END_IF
 
-	44: // set position extruder axis
+	42: // set position extruder axis
 	setExtruder(execute:= TRUE ,axis:= Extruder ,position:= 0);
 	IF setExtruder.Done THEN
 		state:= 50;
 	END_IF
 
-	50: //laad segment 2
-	fbLoadGCode(
-		sNciToPlc:=in_stNciToPlc, 
-		bExecute:=TRUE, 
-		sPrg:= sPrgNameSegment2, 
-		nLength:= INT_TO_UDINT(LEN(sPrgNameSegment2)) );
-	IF NOT fbLoadGCode.bBusy THEN
-		IF NOT fbLoadGCode.bErr THEN
-			State	:= 51;				
-		END_IF
-		fbLoadGCode(sNciToPlc:=in_stNciToPlc, bExecute:=FALSE); 
+	50: //voer g-code uit
+	fbExecuteGcode(execute:= TRUE, sPrgName:= sPrgNameSegment2,in_stNciToPlc:= in_stNciToPlc, reset:= FALSE);
+	
+	IF fbExecuteGcode.done THEN
+		fbExecuteGcode(execute:= FALSE, reset:= TRUE);
+		state:= 51;
 	END_IF
 	
-	51: // voer segment 2 uit
-	fbLoadGCode(
-		sNciToPlc:=in_stNciToPlc, 
-		bExecute:=FALSE);
-	fbStartGCode(
-		bStart:=TRUE, 
-		bStop:=FALSE, 
-		tTimeOut:= , 
-		sNciToPlc:= in_stNciToPlc, 
-		bBusy=> , 
-		bErr=> , 
-		nErrId=> );
-	IF NOT fbStartGCode.bBusy THEN
-		IF NOT fbStartGCode.bErr THEN
-			State	:= 52;			
-		END_IF
-		fbStartGCode( bStart:= stopGcode, sNciToPlc:= in_stNciToPlc); 
-	END_IF
-	
-	52: // tijdens het printen
+	51: // tijdens het printen
 	nInterpreterState	:= ItpGetStateInterpreter(sNciToPlc:=in_stNciToPlc); // status of the NCI channel
 	IF nInterpreterState = Tc2_NCI.NCI_INTERPRETER_READY THEN // if g-code is finished then
-		State:=90;
+		State:=60;
 	END_IF
 			
 		
-	90: // print is klaar
+	60: // print is klaar
 	
 	
 END_CASE
@@ -317,7 +261,7 @@ END_CASE
       <LineId Id="6" Count="6" />
       <LineId Id="155" Count="1" />
       <LineId Id="808" Count="0" />
-      <LineId Id="13" Count="3" />
+      <LineId Id="13" Count="1" />
       <LineId Id="2513" Count="0" />
       <LineId Id="2512" Count="0" />
       <LineId Id="2515" Count="0" />
@@ -369,6 +313,9 @@ END_CASE
       <LineId Id="52" Count="1" />
       <LineId Id="623" Count="11" />
       <LineId Id="622" Count="0" />
+      <LineId Id="2615" Count="0" />
+      <LineId Id="2618" Count="2" />
+      <LineId Id="2617" Count="0" />
       <LineId Id="635" Count="0" />
       <LineId Id="54" Count="0" />
       <LineId Id="704" Count="5" />
@@ -377,17 +324,10 @@ END_CASE
       <LineId Id="870" Count="0" />
       <LineId Id="872" Count="0" />
       <LineId Id="71" Count="0" />
-      <LineId Id="738" Count="3" />
-      <LineId Id="2185" Count="0" />
-      <LineId Id="747" Count="4" />
-      <LineId Id="72" Count="0" />
-      <LineId Id="734" Count="0" />
-      <LineId Id="157" Count="0" />
-      <LineId Id="1908" Count="2" />
-      <LineId Id="735" Count="2" />
-      <LineId Id="158" Count="0" />
-      <LineId Id="97" Count="1" />
-      <LineId Id="101" Count="13" />
+      <LineId Id="114" Count="0" />
+      <LineId Id="2605" Count="2" />
+      <LineId Id="2609" Count="0" />
+      <LineId Id="2608" Count="0" />
       <LineId Id="641" Count="0" />
       <LineId Id="115" Count="0" />
       <LineId Id="2184" Count="0" />
@@ -398,10 +338,7 @@ END_CASE
       <LineId Id="1942" Count="3" />
       <LineId Id="1938" Count="0" />
       <LineId Id="1894" Count="0" />
-      <LineId Id="1917" Count="4" />
-      <LineId Id="1926" Count="9" />
-      <LineId Id="1916" Count="0" />
-      <LineId Id="1952" Count="12" />
+      <LineId Id="2610" Count="4" />
       <LineId Id="1946" Count="0" />
       <LineId Id="1936" Count="0" />
       <LineId Id="1949" Count="0" />

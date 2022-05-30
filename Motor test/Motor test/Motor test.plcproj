@@ -26,6 +26,9 @@
     <Compile Include="POUs\Fan_control.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\FB_ExecuteGcode.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\FB_GetTemperature.TcPOU">
       <SubType>Code</SubType>
     </Compile>

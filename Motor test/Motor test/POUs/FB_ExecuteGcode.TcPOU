@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="FB_ExecuteGcode" Id="{2069b1af-391a-4a29-945a-fe64923ed0d3}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_ExecuteGcode
+VAR_INPUT
+	sPrgName: STRING(255);
+	execute: BOOL;
+	in_stNciToPlc: NCTOPLC_NCICHANNEL_REF;
+	reset: bool := FALSE;
+END_VAR
+VAR_OUTPUT
+	done: BOOL;
+END_VAR
+VAR
+	state: INT := 0;
+	nInterpreterState: UDINT;
+	
+	fbLoadGCode: ItpLoadProgEx;
+	fbStartGCode: ItpStartStopEx;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CASE state OF
+	0:
+	IF execute = TRUE THEN
+		done:=FALSE;
+		state:= 10;
+	END_IF
+	
+	10:// laad g-code
+	fbLoadGCode(
+		sNciToPlc:=in_stNciToPlc, 
+		bExecute:=TRUE, 
+		sPrg:= sPrgName, 
+		nLength:= INT_TO_UDINT(LEN(sPrgName)) );
+	IF NOT fbLoadGCode.bBusy THEN
+		IF NOT fbLoadGCode.bErr THEN
+			State	:= 20;				
+		END_IF
+		fbLoadGCode(sNciToPlc:=in_stNciToPlc, bExecute:=FALSE); 
+	END_IF 
+	
+	20:// check status NCI
+	fbLoadGCode(
+		sNciToPlc:=in_stNciToPlc, 
+		bExecute:=FALSE);
+	nInterpreterState	:= ItpGetStateInterpreter(sNciToPlc:=in_stNciToPlc);
+	IF nInterpreterState = Tc2_NCI.NCI_INTERPRETER_READY THEN // als de interpreter klaar is kan het programma verder
+			State	:= 30;	
+	END_IF
+	
+	30: // start g-code
+	fbStartGCode(
+		bStart:=TRUE, 
+		bStop:=FALSE, 
+		tTimeOut:= , 
+		sNciToPlc:= in_stNciToPlc, 
+		bBusy=> , 
+		bErr=> , 
+		nErrId=> );
+	IF NOT fbStartGCode.bBusy THEN
+		IF NOT fbStartGCode.bErr THEN
+			State	:= 40;			
+		END_IF
+		fbStartGCode( bStart:= FALSE, sNciToPlc:= in_stNciToPlc); 
+	END_IF
+	
+	40: // g-code is gestart
+	fbStartGCode( bStart:= FALSE, sNciToPlc:= in_stNciToPlc);
+	done := TRUE;
+	state := 50;
+	
+	50:
+	IF reset = TRUE THEN
+		state := 0;
+	END_IF
+	
+END_CASE]]></ST>
+    </Implementation>
+    <LineIds Name="FB_ExecuteGcode">
+      <LineId Id="9" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="19" Count="0" />
+      <LineId Id="125" Count="0" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="84" Count="10" />
+      <LineId Id="20" Count="1" />
+      <LineId Id="95" Count="6" />
+      <LineId Id="22" Count="1" />
+      <LineId Id="102" Count="13" />
+      <LineId Id="24" Count="1" />
+      <LineId Id="116" Count="1" />
+      <LineId Id="124" Count="0" />
+      <LineId Id="129" Count="0" />
+      <LineId Id="127" Count="1" />
+      <LineId Id="130" Count="0" />
+      <LineId Id="132" Count="1" />
+      <LineId Id="123" Count="0" />
+      <LineId Id="18" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
