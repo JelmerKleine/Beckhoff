@@ -5,7 +5,7 @@
   <Children>
     <Node>
       <Title>Tests</Title>
-      <Expanded>True</Expanded>
+      <Expanded>False</Expanded>
       <FileName>C:\Users\jelme\Desktop\3d print\3d printer programma\TwinCAT Measurement Project1\Tests.tcscopex</FileName>
       <Children>
         <Node>
@@ -14,7 +14,25 @@
           <FileName></FileName>
           <Children>
             <Node>
-              <Title>state</Title>
+              <Title>actualTemp</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children />
+            </Node>
+            <Node>
+              <Title>controlSignal</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children />
+            </Node>
+            <Node>
+              <Title>desiredTemp</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children />
+            </Node>
+            <Node>
+              <Title>hotendHeater</Title>
               <Expanded>False</Expanded>
               <FileName></FileName>
               <Children />
@@ -32,7 +50,39 @@
               <FileName></FileName>
               <Children>
                 <Node>
-                  <Title>state</Title>
+                  <Title>actualTemp</Title>
+                  <Expanded>False</Expanded>
+                  <FileName></FileName>
+                  <Children />
+                </Node>
+                <Node>
+                  <Title>desiredTemp</Title>
+                  <Expanded>False</Expanded>
+                  <FileName></FileName>
+                  <Children />
+                </Node>
+              </Children>
+            </Node>
+            <Node>
+              <Title>Axis Group (1)</Title>
+              <Expanded>True</Expanded>
+              <FileName></FileName>
+              <Children>
+                <Node>
+                  <Title>hotendHeater</Title>
+                  <Expanded>False</Expanded>
+                  <FileName></FileName>
+                  <Children />
+                </Node>
+              </Children>
+            </Node>
+            <Node>
+              <Title>Axis Group (2)</Title>
+              <Expanded>True</Expanded>
+              <FileName></FileName>
+              <Children>
+                <Node>
+                  <Title>controlSignal</Title>
                   <Expanded>False</Expanded>
                   <FileName></FileName>
                   <Children />
@@ -51,7 +101,7 @@
     </Node>
     <Node>
       <Title>YT Scope Project</Title>
-      <Expanded>True</Expanded>
+      <Expanded>False</Expanded>
       <FileName>C:\Users\jelme\Desktop\3d print\3d printer programma\TwinCAT Measurement Project1\YT Scope Project.tcscopex</FileName>
       <Children>
         <Node>

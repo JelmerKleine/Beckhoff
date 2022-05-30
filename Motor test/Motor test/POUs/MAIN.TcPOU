@@ -99,9 +99,9 @@ fbPower(
 	
 starStopEx(sNciToPlc:= in_stNciToPlc);
 
-fbGetTemperature(terminalResistance := (10*INT_TO_REAL(hotendResitance)));
-fbHeaterControl(actualTemp := fbGetTemperature.temperatureSensor,desiredTemp := 30);
-hotendHeater := fbHeaterControl.PWM_out;
+fbGetTemperature(terminalResistance := (10*INT_TO_REAL(hotendResitance)));//hotendResitance
+//fbHeaterControl(actualTemp := fbGetTemperature.temperatureSensor,desiredTemp := 210);
+hotendHeater := FALSE;//fbHeaterControl.PWM_out;
 	
 CASE State OF
 	0: // init

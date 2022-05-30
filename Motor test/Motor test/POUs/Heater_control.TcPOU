@@ -20,11 +20,13 @@ VAR
 	controlSignal: LREAL;
 	PWM: FB_PWM;
 	FB_GETCURTASKINDEX:GETCURTASKINDEX;
+	PID : FB_CTRL_PID;
 	
+	PID_params : ST_CTRL_PID_PARAMS := ( tCtrlCycleTime := T#1MS,  tTaskCycleTime:= T#1MS,fKp := 40, tTn := T#1MS ,tTv := T#1MS,  tTd := T#1M );
 	
-	Kp : LREAL := 1;
-	Ki : LREAL := 1;
-	Kd : LREAL := 1;
+	Kp : LREAL := 120;
+	Ki : LREAL := 1.5;
+	Kd : LREAL := 45;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -33,8 +35,12 @@ FB_GETCURTASKINDEX();
 cycleTime := (UDINT_TO_LREAL(_TaskInfo[FB_GETCURTASKINDEX.index].CycleTime)/ 10_000_000);
 integral := integral + error * cycleTime;
 derivative := (error - previousError) / cycleTime;
-controlSignal := (Kp * error + Ki * integral + Kd * derivative);
-IF (error > 0 ) THEN
+controlSignal := (Kp * error  + Kd * derivative); //+ Ki * integral
+
+//PID(fSetpointValue := desiredTemp, fActualValue := actualTemp, stParams := PID_params );
+//controlSignal := PID.fOut;
+
+IF (controlSignal > 0 ) THEN
 	PWM( dutyCycle := controlSignal);	
 ELSE 
 	PWM(dutyCycle := 0);
@@ -47,9 +53,12 @@ previousError := error;]]></ST>
       <LineId Id="47" Count="0" />
       <LineId Id="90" Count="0" />
       <LineId Id="65" Count="0" />
-      <LineId Id="59" Count="0" />
+      <LineId Id="122" Count="0" />
       <LineId Id="62" Count="0" />
       <LineId Id="96" Count="0" />
+      <LineId Id="153" Count="0" />
+      <LineId Id="150" Count="0" />
+      <LineId Id="158" Count="1" />
       <LineId Id="91" Count="1" />
       <LineId Id="94" Count="1" />
       <LineId Id="93" Count="0" />

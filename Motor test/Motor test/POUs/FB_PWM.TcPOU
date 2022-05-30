@@ -9,27 +9,27 @@ VAR_OUTPUT
 	state:BOOL;
 END_VAR
 VAR
-	pulseWidth:INT := 0;
-	hertz: INT;
-	currentTimeStep:INT;
+	pulseWidth:LREAL := 0;
+	hertz: LREAL;
+	currentTimeStep:LREAL;
 	FB_GETCURTASKINDEX:GETCURTASKINDEX;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[// a simple PWM function
 FB_GETCURTASKINDEX();
-Hertz:= LREAL_TO_INT (1 / (UDINT_TO_LREAL(_TaskInfo[FB_GETCURTASKINDEX.index].CycleTime)/ 10_000_000)); // function takes the cycle time of the system to calculate the hertz
+Hertz:= 1 / (UDINT_TO_LREAL(_TaskInfo[FB_GETCURTASKINDEX.index].CycleTime)/ 10_000_000); // function takes the cycle time of the system to calculate the hertz
 currentTimeStep:= currentTimeStep+1;
 
 
-IF currentTimeStep <= pulseWidth THEN // time on
+IF currentTimeStep <= pulseWidth  AND currentTimeStep <= hertz THEN // time on
 	state:=TRUE;
 ELSIF currentTimeStep >= hertz THEN // when finished
 	state:=FALSE;
-	pulseWidth:=LREAL_TO_INT( hertz*dutyCycle); // the value is onverted to in to get rid of the values after the dot
+	pulseWidth:= hertz * dutyCycle; // the value is onverted to in to get rid of the values after the dot
 	currentTimeStep:=0;
 ELSE 
-	state := TRUE;
+	state := FALSE;
 END_IF]]></ST>
     </Implementation>
     <LineIds Name="FB_PWM">
