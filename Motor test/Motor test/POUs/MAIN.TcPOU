@@ -5,9 +5,13 @@
 VAR
 	
 	fbPower: FB_PowerChannel;
-	fbfanControl: Fan_control;
-	fbHeaterControl: Heater_control;
-	fbGetTemperature : FB_GetTemperature;
+	
+	//fbfanControl: Fan_control;
+	fbHotEndHeatingControl: Heater_control;
+	fbGetHotEndTemperature : FB_GetTemperature;
+	fbHotBedHeatingControl: Heater_control;
+	fbGetHotBedTemperature : FB_GetTemperature;
+	
 	fbExecuteGcode: FB_ExecuteGcode;
 	fbBuildGroup: CfgBuildExt3DGroup;
 	fbReconfigAxis: CfgReconfigAxis;
@@ -56,6 +60,10 @@ VAR
 	hotendFan1 AT %Q*  : BOOL;
 	hotendFan2 AT %Q*  : BOOL;
 	
+	// Verschillende temperturen met hun weerstanden voor de steinhart equation
+	// temperaturen die dichter bij de use case zitten vebeter de precisie van de gemeten temperatuur
+	hotEndCalibrationValues  : ARRAY [1..6] OF LREAL := [200 ,552.99 ,210 ,456.11, 220, 378.95];
+	hotBedCalibrationValues : ARRAY [1..6] OF LREAL := [50 ,35262 ,60 ,24136 ,70 ,16841 ]; 
 	
 	hParam: DINT;
 	State: INT ;
@@ -74,8 +82,6 @@ VAR
 	intreperterState : UDINT;
 	
 
-	
-	
 	END_VAR
 ]]></Declaration>
     <Implementation>
@@ -92,9 +98,13 @@ fbPower(
 	stPlcToNci:=out_stPlcToNci , 
 	bAllAxesReady=> );
 
-fbGetTemperature(terminalResistance := (10*INT_TO_REAL(hotendResitance)));//hotendResitance
-fbHeaterControl(actualTemp := fbGetTemperature.temperatureSensor,desiredTemp := 210);
-hotendHeater := FALSE; // fbHeaterControl.PWM_out; 
+fbGetHotEndTemperature(terminalResistance := (10*INT_TO_REAL(hotendResitance)), calibrationValues := hotEndCalibrationValues );//hotendResitance
+fbHotEndHeatingControl(actualTemp := fbGetHotEndTemperature.temperatureSensor,desiredTemp := 210);
+hotendHeater := FALSE; // fbHotEndHeatingControl.PWM_out; 
+
+fbGetHotBedTemperature(terminalResistance := (10*INT_TO_REAL(hotbedResitance)), calibrationValues := hotBedCalibrationValues );//hotbed temperatuur
+fbHotBedHeatingControl(actualTemp := fbGetHotBedTemperature.temperatureSensor,desiredTemp := 60); // pd controlller die een pwm signaal output
+hotbedHeater := fbHotBedHeatingControl.PWM_out;
 	
 CASE State OF
 	0: // init
@@ -129,7 +139,7 @@ CASE State OF
 			stAxesList     := stAxesConfig,
 			stKinRefIn     := in_stKinToPlc );
 			IF homeAxi THEN
-				State:=20;
+				State:=30;
 			END_IF
 		END_IF
 	END_IF
@@ -266,6 +276,9 @@ END_CASE
       <LineId Id="2512" Count="0" />
       <LineId Id="2515" Count="0" />
       <LineId Id="2514" Count="0" />
+      <LineId Id="2703" Count="1" />
+      <LineId Id="2702" Count="0" />
+      <LineId Id="2701" Count="0" />
       <LineId Id="17" Count="2" />
       <LineId Id="2261" Count="0" />
       <LineId Id="2348" Count="0" />

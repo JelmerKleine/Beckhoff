@@ -5,6 +5,8 @@
 VAR_INPUT
 	terminalResistance : LREAL := 1;
 	
+	//values based on the EPCOS B57560G104F NTS sensor
+	calibrationValues : ARRAY [1..6] OF LREAL := [25 ,100000 ,100 ,6338.3 , 200, 552.99];
 	
 END_VAR
 VAR_OUTPUT
@@ -13,14 +15,7 @@ END_VAR
 VAR
 	FBSteinHart : FB_SteinhartEquation; 
 	
-	//values based on the EPCOS B57560G104F NTS sensor
-	T25 : LREAL := 25;
-	T100 : LREAL := 100;
-	T200 : LREAL := 200;
 	
-	R25 : LREAL := 100000;
-	R100 : LREAL := 6369;
-	R200 : LREAL := 557.6;
 	
 	A : LREAL;
 	B : LREAL;
@@ -29,17 +24,13 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[
-FBSteinHart(R1 := R25, R2 := R100,R3 := R200,
-			T1 := T25,T2 := T100,T3 := T200,
-			A  => A,B  => B,C  => C);
+FBSteinHart(CV := calibrationValues , A => A, B => B, C => C);
 
 temperatureSensor := 1/(A+ B*LN(terminalResistance) + C * EXPT(LN(terminalResistance),3)); // steinhart equation is used to calculate the temperature of the sensor
 ]]></ST>
     </Implementation>
     <LineIds Name="FB_GetTemperature">
       <LineId Id="28" Count="0" />
-      <LineId Id="23" Count="0" />
-      <LineId Id="45" Count="0" />
       <LineId Id="48" Count="0" />
       <LineId Id="39" Count="0" />
       <LineId Id="38" Count="0" />

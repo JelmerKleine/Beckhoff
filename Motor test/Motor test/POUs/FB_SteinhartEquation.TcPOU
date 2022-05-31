@@ -3,13 +3,7 @@
   <POU Name="FB_SteinhartEquation" Id="{04c104f7-88ae-4993-b024-cd84f22f52e4}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_SteinhartEquation
 VAR_INPUT
-	R1: LREAL;
-	R2: LREAL;
-	R3: LREAL;
-	
-	T1: LREAL;
-	T2: LREAL;
-	T3: LREAL;
+	CV : ARRAY [1..6] OF LREAL;
 	
 END_VAR
 VAR_OUTPUT
@@ -33,13 +27,13 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[ L1 := LN(R1);
- L2 := LN(R2);
- L3 := LN(R3);
+      <ST><![CDATA[ L1 := LN(CV[2]);
+ L2 := LN(CV[4]);
+ L3 := LN(CV[6]);
  
- Y1 := 1/T1;
- Y2 := 1/T2;
- Y3 := 1/T3;
+ Y1 := 1/CV[1];
+ Y2 := 1/CV[3];
+ Y3 := 1/CV[5];
    
  H1 := (Y2 - Y1)/(L2 - L1);
  H2 := (Y3 - Y1)/(L3 - L1);
