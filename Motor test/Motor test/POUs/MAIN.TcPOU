@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
   <POU Name="MAIN" Id="{3ce5e4ac-bfb0-49c4-b2f9-09c5e5f1024f}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
@@ -123,6 +123,7 @@ CASE State OF
 		State := 10; 
 	END_IF
 	
+	
 	10:
 	
 	stAxesConfig.nAxisIdsAcs[1] := XY_2.NcToPlc.AxisId;
@@ -149,6 +150,7 @@ CASE State OF
 		END_IF
 	END_IF
 	
+	
 	20: // jog de x axis tot de eind switch wordt geraakt
 	Xjog(Axis:= Xaxis,JogBackwards:= TRUE , Deceleration:= 1500);
 	
@@ -157,12 +159,14 @@ CASE State OF
 		State:=21;
 	END_IF
 	
+	
 	21: // jog de y axis tot de eind switch wordt geraakt
 	Yjog(Axis:= Yaxis,JogBackwards:= TRUE , Deceleration:= 1500);
 	IF NOT HomingSensorY THEN
 		Yjog(Axis:= Yaxis,JogBackwards:= FALSE);	
 		State:=22;
 	END_IF
+	
 	
 	22: // Zet cartesian mode uit zodat de positie van de xy motoren op 0 geet kan worden om te homen
 	ExecuteKinConfig:=TRUE;
@@ -186,12 +190,14 @@ CASE State OF
 		END_IF
 	END_IF
 	
+	
 	23: // home de z axis
 	Zhome(axis := Zaxis,execute := TRUE,BCalibrationCam := NOT HomingSensorZ,Position := Zoffset);
 	IF Zhome.Done THEN
 		ExecuteKinConfig:=TRUE;
 		State:=24;
 	END_IF
+	
 	
 	24:
 	
@@ -206,11 +212,14 @@ CASE State OF
 			State:= 25;
 		END_IF
 	END_IF
+	
+	
 	25:
 	setExtruder(execute:= TRUE ,axis:= Extruder ,position:= 0);
 	IF setExtruder.Done THEN
 		state:= 30;
 	END_IF
+	
 	
 	30: // het configureren van de NCI met de x,y en z as
 	fbBuildGroup(
@@ -230,6 +239,7 @@ CASE State OF
 		END_IF
 	END_IF
 	
+	
 	40: // laad segment 1
 	fbExecuteGcode(execute:= TRUE ,sPrgName:= sPrgNameSegment1 ,in_stNciToPlc:= in_stNciToPlc, reset:= FALSE);
 	
@@ -238,17 +248,11 @@ CASE State OF
 		state:= 41;
 	END_IF
 	
-	41: //tijdens g-code
-	fbStartGCode( bStart:= FALSE, sNciToPlc:= in_stNciToPlc);
 	
+	41: //tijdens g-code absoluut commando 1
 	
-	hParam := ItpGetHParam( in_stNciToPlc );
-	extruderValue := (DINT_TO_LREAL (hParam)/100000);
-	printerSpeed := ItpGetSetPathVelocity( in_stNciToPlc );
-	extruderSpeed := printerSpeed*(2/25);
-
 	IF ItpIsHskMFunc( in_stNciToPlc ) AND ItpGetHskMFunc( in_stNciToPlc ) = 1 THEN // Bij m- function 1 gaan naar de set etruder position stte
-		State:=42;
+		State:=43;
 	ELSE 
 		fbConfirmHsk(sNciToPlc := in_stNciToPlc,
 						  sPlcToNci:= out_stPlcToNci,
@@ -260,8 +264,44 @@ CASE State OF
 		State:=50;
 	END_IF
 	
+	hParam := ItpGetHParam( in_stNciToPlc );
+	extruderValue := (DINT_TO_LREAL (hParam)/100000);
+	printerSpeed := ItpGetSetPathVelocity( in_stNciToPlc );
+	extruderSpeed := printerSpeed*(2/25);
+	
+	
+	moveExtruderAbsolute1(Axis := Extruder ,execute := TRUE , Position := extruderValue ,Velocity := extruderSpeed ,buffermode := "Aborting" );
+	moveExtruderAbsolute1(Axis := Extruder ,execute := TRUE);
+	state := 42;
 
-	42: // set position extruder axis
+	
+	42: //tijdens g-code absoluut commando 2
+	
+	IF ItpIsHskMFunc( in_stNciToPlc ) AND ItpGetHskMFunc( in_stNciToPlc ) = 1 THEN // Bij m- function 1 gaan naar de set etruder position stte
+		State:=43;
+	ELSE 
+		fbConfirmHsk(sNciToPlc := in_stNciToPlc,
+						  sPlcToNci:= out_stPlcToNci,
+						  bExecute:= FALSE);
+	END_IF
+	
+	nInterpreterState	:= ItpGetStateInterpreter(sNciToPlc:=in_stNciToPlc); // status van de NCI
+	IF nInterpreterState = Tc2_NCI.NCI_INTERPRETER_READY THEN // als de g-code is klaar
+		State:=50;
+	END_IF
+	
+	hParam := ItpGetHParam( in_stNciToPlc );
+	extruderValue := (DINT_TO_LREAL (hParam)/100000);
+	printerSpeed := ItpGetSetPathVelocity( in_stNciToPlc );
+	extruderSpeed := printerSpeed*(2/25);
+	
+	
+	
+	moveExtruderAbsolute2(Axis := Extruder ,execute := TRUE , Position := extruderValue ,Velocity := extruderSpeed ,buffermode := "Aborting" );
+	moveExtruderAbsolute2(Axis := Extruder ,execute := TRUE);
+	state := 41;
+	
+	43: // set position extruder axis
 	hParam := ItpGetHParam( in_stNciToPlc );
 	extruderValue := (DINT_TO_LREAL (hParam)/100000);
 	
@@ -279,7 +319,7 @@ CASE State OF
 	60:// rotzooi
 	
 	
-END_CASEhParam := ItpGetHParam( in_stNciToPlc );
+END_CASE
 	
 ]]></ST>
     </Implementation>
@@ -301,7 +341,9 @@ END_CASEhParam := ItpGetHParam( in_stNciToPlc );
       <LineId Id="2344" Count="0" />
       <LineId Id="2430" Count="0" />
       <LineId Id="2347" Count="0" />
-      <LineId Id="20" Count="10" />
+      <LineId Id="20" Count="4" />
+      <LineId Id="3008" Count="0" />
+      <LineId Id="25" Count="5" />
       <LineId Id="162" Count="0" />
       <LineId Id="31" Count="4" />
       <LineId Id="164" Count="0" />
@@ -315,15 +357,19 @@ END_CASEhParam := ItpGetHParam( in_stNciToPlc );
       <LineId Id="161" Count="0" />
       <LineId Id="163" Count="0" />
       <LineId Id="342" Count="0" />
+      <LineId Id="3007" Count="0" />
       <LineId Id="39" Count="0" />
       <LineId Id="229" Count="0" />
       <LineId Id="385" Count="0" />
       <LineId Id="230" Count="0" />
       <LineId Id="291" Count="0" />
-      <LineId Id="231" Count="3" />
+      <LineId Id="231" Count="2" />
+      <LineId Id="3006" Count="0" />
+      <LineId Id="234" Count="0" />
       <LineId Id="292" Count="3" />
       <LineId Id="239" Count="0" />
       <LineId Id="505" Count="0" />
+      <LineId Id="3005" Count="0" />
       <LineId Id="240" Count="0" />
       <LineId Id="447" Count="0" />
       <LineId Id="352" Count="4" />
@@ -337,41 +383,53 @@ END_CASEhParam := ItpGetHParam( in_stNciToPlc );
       <LineId Id="360" Count="1" />
       <LineId Id="351" Count="0" />
       <LineId Id="512" Count="0" />
+      <LineId Id="3004" Count="0" />
       <LineId Id="241" Count="0" />
       <LineId Id="2039" Count="3" />
       <LineId Id="52" Count="1" />
+      <LineId Id="3003" Count="0" />
       <LineId Id="623" Count="11" />
       <LineId Id="622" Count="0" />
+      <LineId Id="3001" Count="1" />
       <LineId Id="2615" Count="0" />
       <LineId Id="2618" Count="2" />
       <LineId Id="2617" Count="0" />
       <LineId Id="635" Count="0" />
+      <LineId Id="3000" Count="0" />
       <LineId Id="54" Count="0" />
       <LineId Id="704" Count="5" />
       <LineId Id="1452" Count="0" />
       <LineId Id="710" Count="7" />
       <LineId Id="870" Count="0" />
       <LineId Id="872" Count="0" />
+      <LineId Id="2999" Count="0" />
       <LineId Id="71" Count="0" />
       <LineId Id="114" Count="0" />
       <LineId Id="2605" Count="2" />
       <LineId Id="2609" Count="0" />
       <LineId Id="2608" Count="0" />
       <LineId Id="641" Count="0" />
+      <LineId Id="2998" Count="0" />
       <LineId Id="115" Count="0" />
-      <LineId Id="2184" Count="0" />
       <LineId Id="1897" Count="0" />
-      <LineId Id="2845" Count="0" />
-      <LineId Id="2842" Count="2" />
-      <LineId Id="1902" Count="0" />
-      <LineId Id="2830" Count="0" />
       <LineId Id="2833" Count="5" />
       <LineId Id="2831" Count="0" />
       <LineId Id="2846" Count="0" />
       <LineId Id="2832" Count="0" />
       <LineId Id="2829" Count="0" />
       <LineId Id="1904" Count="1" />
+      <LineId Id="2967" Count="0" />
+      <LineId Id="2964" Count="2" />
+      <LineId Id="2963" Count="0" />
+      <LineId Id="2968" Count="1" />
       <LineId Id="2874" Count="0" />
+      <LineId Id="2970" Count="0" />
+      <LineId Id="3015" Count="0" />
+      <LineId Id="2997" Count="0" />
+      <LineId Id="2971" Count="0" />
+      <LineId Id="2973" Count="22" />
+      <LineId Id="3014" Count="0" />
+      <LineId Id="2996" Count="0" />
       <LineId Id="1939" Count="1" />
       <LineId Id="2847" Count="2" />
       <LineId Id="1942" Count="1" />

@@ -24,6 +24,7 @@
   <ImageAutoDeleteCapacity>0</ImageAutoDeleteCapacity>
   <ImageAutoDeleteOlderThan>0</ImageAutoDeleteOlderThan>
   <ImagesDeleteMode>Disabled</ImagesDeleteMode>
+  <IsTemplate>false</IsTemplate>
   <Layout>&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;Layout&gt;
   &lt;Window Guid="ac87bdb7-4122-4eaf-85e7-52386909dff9" LastFocused="132984617112853440" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="550, 400" LastOpenDockSituation="Document" LastFixedDockSituation="Document" LastFixedDockLocation="Right" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="0" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="00000000-0000-0000-0000-000000000000" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="90682084-9789-43bd-bc19-20bb9337695e" DocumentIndexInWindowGroup="1" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
@@ -421,15 +422,15 @@
               <Name>None</Name>
               <ScaleFactor>1</ScaleFactor>
               <SourceUnitPrefix>none</SourceUnitPrefix>
-              <SourceUnitString />
+              <SourceUnitString></SourceUnitString>
               <Symbol>1</Symbol>
-              <TargetUnitString />
+              <TargetUnitString></TargetUnitString>
               <TargetUnitValue>0</TargetUnitValue>
             </Transformation>
             <Unit>
-              <BaseUnitString />
+              <BaseUnitString></BaseUnitString>
               <BaseUnitValue>0</BaseUnitValue>
-              <NameExtension />
+              <NameExtension></NameExtension>
               <Offset>0</Offset>
               <Prefix>none</Prefix>
               <ReturnText> (None) </ReturnText>
@@ -440,10 +441,10 @@
             <UnitScaleResult>1</UnitScaleResult>
             <UserUnit>
               <BaseName>UnitOfOne</BaseName>
-              <BaseUnitString />
+              <BaseUnitString></BaseUnitString>
               <BaseUnitValue>0</BaseUnitValue>
               <Name>None</Name>
-              <NameExtension />
+              <NameExtension></NameExtension>
               <Offset>0</Offset>
               <Prefix>none</Prefix>
               <ScaleFactor>1</ScaleFactor>
@@ -503,15 +504,15 @@
               <Name>None</Name>
               <ScaleFactor>1</ScaleFactor>
               <SourceUnitPrefix>none</SourceUnitPrefix>
-              <SourceUnitString />
+              <SourceUnitString></SourceUnitString>
               <Symbol>1</Symbol>
-              <TargetUnitString />
+              <TargetUnitString></TargetUnitString>
               <TargetUnitValue>0</TargetUnitValue>
             </Transformation>
             <Unit>
-              <BaseUnitString />
+              <BaseUnitString></BaseUnitString>
               <BaseUnitValue>0</BaseUnitValue>
-              <NameExtension />
+              <NameExtension></NameExtension>
               <Offset>0</Offset>
               <Prefix>none</Prefix>
               <ReturnText> (None) </ReturnText>
@@ -522,10 +523,10 @@
             <UnitScaleResult>1</UnitScaleResult>
             <UserUnit>
               <BaseName>UnitOfOne</BaseName>
-              <BaseUnitString />
+              <BaseUnitString></BaseUnitString>
               <BaseUnitValue>0</BaseUnitValue>
               <Name>None</Name>
-              <NameExtension />
+              <NameExtension></NameExtension>
               <Offset>0</Offset>
               <Prefix>none</Prefix>
               <ScaleFactor>1</ScaleFactor>
@@ -585,15 +586,15 @@
               <Name>None</Name>
               <ScaleFactor>1</ScaleFactor>
               <SourceUnitPrefix>none</SourceUnitPrefix>
-              <SourceUnitString />
+              <SourceUnitString></SourceUnitString>
               <Symbol>1</Symbol>
-              <TargetUnitString />
+              <TargetUnitString></TargetUnitString>
               <TargetUnitValue>0</TargetUnitValue>
             </Transformation>
             <Unit>
-              <BaseUnitString />
+              <BaseUnitString></BaseUnitString>
               <BaseUnitValue>0</BaseUnitValue>
-              <NameExtension />
+              <NameExtension></NameExtension>
               <Offset>0</Offset>
               <Prefix>none</Prefix>
               <ReturnText> (None) </ReturnText>
@@ -604,10 +605,10 @@
             <UnitScaleResult>1</UnitScaleResult>
             <UserUnit>
               <BaseName>UnitOfOne</BaseName>
-              <BaseUnitString />
+              <BaseUnitString></BaseUnitString>
               <BaseUnitValue>0</BaseUnitValue>
               <Name>None</Name>
-              <NameExtension />
+              <NameExtension></NameExtension>
               <Offset>0</Offset>
               <Prefix>none</Prefix>
               <ScaleFactor>1</ScaleFactor>
@@ -633,16 +634,13 @@
       <Title>DataPool_79</Title>
     </DataPool>
     <YTChart AssemblyName="TwinCAT.Measurement.Scope.API.Model">
-      <AnchorTimestamp>0</AnchorTimestamp>
       <AssignedCore>0</AssignedCore>
       <AutoStart>true</AutoStart>
       <Comment />
-      <ConnectedTimeMemberGuid>00000000-0000-0000-0000-000000000000</ConnectedTimeMemberGuid>
       <DefaultDisplayWidth>100000000</DefaultDisplayWidth>
-      <DisplayColor>-986896</DisplayColor>
+      <DisplayColor>-13816528</DisplayColor>
       <DisplayOverwriteMode>false</DisplayOverwriteMode>
-      <DurationLength>0</DurationLength>
-      <ForeColor>-16777216</ForeColor>
+      <ForeColor>-921103</ForeColor>
       <Guid>ab7dff02-44e5-4488-9f82-819b1a63957b</Guid>
       <MasterChart>00000000-0000-0000-0000-000000000000</MasterChart>
       <Name>YT Chart</Name>
@@ -651,7 +649,7 @@
       <SubMember>
         <AxisGroup AssemblyName="TwinCAT.Measurement.Scope.API.Model">
           <Comment />
-          <DisplayColor>-1</DisplayColor>
+          <DisplayColor>-14342874</DisplayColor>
           <Enabled>true</Enabled>
           <Guid>ecc7fe67-99af-4576-a4c5-09173dfa9b51</Guid>
           <Name>Axis Group</Name>
@@ -672,9 +670,9 @@
               <SubMember>
                 <AxisStyle AssemblyName="TwinCAT.Measurement.Scope.API.Model">
                   <Comment />
-                  <DisplayColor>-16777216</DisplayColor>
+                  <DisplayColor>-921103</DisplayColor>
                   <Grid>true</Grid>
-                  <GridColor>-16777216</GridColor>
+                  <GridColor>-921103</GridColor>
                   <GridDivisions>10</GridDivisions>
                   <GridLineWidth>1</GridLineWidth>
                   <Guid>3434c915-13f2-408d-8070-ada4ee787a7f</Guid>
@@ -706,9 +704,9 @@
               <SubMember>
                 <AxisStyle AssemblyName="TwinCAT.Measurement.Scope.API.Model">
                   <Comment />
-                  <DisplayColor>-16777216</DisplayColor>
+                  <DisplayColor>-921103</DisplayColor>
                   <Grid>true</Grid>
-                  <GridColor>-16777216</GridColor>
+                  <GridColor>-921103</GridColor>
                   <GridDivisions>10</GridDivisions>
                   <GridLineWidth>1</GridLineWidth>
                   <Guid>5b0e410c-d5eb-45fa-a706-5e04711bdaf4</Guid>
@@ -748,6 +746,7 @@
                   <Comment />
                   <DisplayColor>Black</DisplayColor>
                   <Guid>8f575f60-0819-48ae-8a15-474e41ef125a</Guid>
+                  <HideInHierarchy>false</HideInHierarchy>
                   <Name>Y: actualTemp</Name>
                   <Offset>0</Offset>
                   <ResultingUnit>
@@ -856,6 +855,7 @@
                   <Comment />
                   <DisplayColor>Black</DisplayColor>
                   <Guid>f5b48937-a29f-4486-a97f-e9a15f912a54</Guid>
+                  <HideInHierarchy>false</HideInHierarchy>
                   <Name>Y: desiredTemp</Name>
                   <Offset>0</Offset>
                   <ResultingUnit>
@@ -955,8 +955,8 @@
         </AxisGroup>
         <OverviewChart AssemblyName="TwinCAT.Measurement.Scope.API.Model">
           <Comment />
-          <DisplayColor>-1</DisplayColor>
-          <ForeColor>-16777216</ForeColor>
+          <DisplayColor>-14342874</DisplayColor>
+          <ForeColor>-921103</ForeColor>
           <Guid>e7fcc1a7-f171-4e0d-9868-9d235265f8dc</Guid>
           <Name>Overview Chart</Name>
           <OverviewVisible>true</OverviewVisible>
@@ -990,10 +990,9 @@
               </ButtonSize>
               <Comment />
               <DisplayColor>Black</DisplayColor>
-              <EnabledButtons>RunButton PauseButton Splitter1 DisplaywidthTextBox Splitter2 ScrollBackBig ScrollBackSmall ScrollForwardSmall ScrollForwardBig Splitter3 PositionTextBox Splitter4 UndoButton RedoButton Splitter5 PanXButton PanXYButton ZoomXButton ZoomXYButton UnzoomButton ZoomOutMaxButton OverviewButton CopyToClipboard OpenCurveCreatorButton</EnabledButtons>
+              <EnabledButtons>RunButton PauseButton Splitter1 DisplaywidthTextBox Splitter2 ScrollBackBig ScrollBackSmall ScrollForwardSmall ScrollForwardBig Splitter3 PositionTextBox Splitter4 UndoButton RedoButton Splitter5 PanXButton PanXYButton ZoomXButton ZoomXYButton UnzoomButton ZoomOutMaxButton OverviewButton CopyToClipboard</EnabledButtons>
               <EnabledTimeLabels>All</EnabledTimeLabels>
               <Guid>4e9cf0b1-28b0-491f-9309-b892fe2e889e</Guid>
-              <IndexNavigation>false</IndexNavigation>
               <Name>Chartmenu Style</Name>
               <SortPriority>100</SortPriority>
               <TimeStripFontSize>8.25</TimeStripFontSize>
@@ -1018,7 +1017,7 @@
         </MarkerContainer>
         <AxisGroup AssemblyName="TwinCAT.Measurement.Scope.API.Model">
           <Comment />
-          <DisplayColor>-1</DisplayColor>
+          <DisplayColor>-14342874</DisplayColor>
           <Enabled>true</Enabled>
           <Guid>cb28b356-ee66-467d-b43b-b460e892be2e</Guid>
           <Name>Axis Group (1)</Name>
@@ -1040,9 +1039,9 @@
               <SubMember>
                 <AxisStyle AssemblyName="TwinCAT.Measurement.Scope.API.Model">
                   <Comment />
-                  <DisplayColor>-16777216</DisplayColor>
+                  <DisplayColor>-921103</DisplayColor>
                   <Grid>true</Grid>
-                  <GridColor>-16777216</GridColor>
+                  <GridColor>-921103</GridColor>
                   <GridDivisions>10</GridDivisions>
                   <GridLineWidth>1</GridLineWidth>
                   <Guid>3ac64037-8658-40d0-9900-b0612ac1836b</Guid>
@@ -1082,6 +1081,7 @@
                   <Comment />
                   <DisplayColor>Black</DisplayColor>
                   <Guid>23e38772-a3be-49c6-8810-0fecc3131068</Guid>
+                  <HideInHierarchy>false</HideInHierarchy>
                   <Name>Y: hotendHeater</Name>
                   <Offset>0</Offset>
                   <ResultingUnit>
@@ -1180,10 +1180,7 @@
           <Title>AxisGroup_165</Title>
         </AxisGroup>
       </SubMember>
-      <TimeOffset>0</TimeOffset>
-      <TimeRefreshMode>Explicit</TimeRefreshMode>
       <Title>YTChart_80</Title>
-      <TriggerGroupOffset>0</TriggerGroupOffset>
     </YTChart>
     <TriggerModule AssemblyName="TwinCAT.Measurement.Scope.API.Model">
       <Comment />
@@ -1195,16 +1192,13 @@
       <Title>TriggerModule_91</Title>
     </TriggerModule>
     <YTChart AssemblyName="TwinCAT.Measurement.Scope.API.Model">
-      <AnchorTimestamp>0</AnchorTimestamp>
       <AssignedCore>0</AssignedCore>
       <AutoStart>true</AutoStart>
       <Comment />
-      <ConnectedTimeMemberGuid>00000000-0000-0000-0000-000000000000</ConnectedTimeMemberGuid>
       <DefaultDisplayWidth>100000000</DefaultDisplayWidth>
-      <DisplayColor>-986896</DisplayColor>
+      <DisplayColor>-13816528</DisplayColor>
       <DisplayOverwriteMode>false</DisplayOverwriteMode>
-      <DurationLength>0</DurationLength>
-      <ForeColor>-16777216</ForeColor>
+      <ForeColor>-921103</ForeColor>
       <Guid>ac87bdb7-4122-4eaf-85e7-52386909dff9</Guid>
       <MasterChart>00000000-0000-0000-0000-000000000000</MasterChart>
       <Name>YT Chart (1)</Name>
@@ -1213,8 +1207,8 @@
       <SubMember>
         <OverviewChart AssemblyName="TwinCAT.Measurement.Scope.API.Model">
           <Comment />
-          <DisplayColor>-1</DisplayColor>
-          <ForeColor>-16777216</ForeColor>
+          <DisplayColor>-14342874</DisplayColor>
+          <ForeColor>-921103</ForeColor>
           <Guid>36ddef4c-b94b-4b5a-807b-fec6d6610ccd</Guid>
           <Name>Overview Chart (1)</Name>
           <OverviewVisible>false</OverviewVisible>
@@ -1248,10 +1242,9 @@
               </ButtonSize>
               <Comment />
               <DisplayColor>Black</DisplayColor>
-              <EnabledButtons>RunButton PauseButton Splitter1 DisplaywidthTextBox Splitter2 ScrollBackBig ScrollBackSmall ScrollForwardSmall ScrollForwardBig Splitter3 PositionTextBox Splitter4 UndoButton RedoButton Splitter5 PanXButton PanXYButton ZoomXButton ZoomXYButton UnzoomButton ZoomOutMaxButton OverviewButton CopyToClipboard OpenCurveCreatorButton</EnabledButtons>
+              <EnabledButtons>RunButton PauseButton Splitter1 DisplaywidthTextBox Splitter2 ScrollBackBig ScrollBackSmall ScrollForwardSmall ScrollForwardBig Splitter3 PositionTextBox Splitter4 UndoButton RedoButton Splitter5 PanXButton PanXYButton ZoomXButton ZoomXYButton UnzoomButton ZoomOutMaxButton OverviewButton CopyToClipboard</EnabledButtons>
               <EnabledTimeLabels>All</EnabledTimeLabels>
               <Guid>ca67d842-ca09-49f1-8764-244154c51ebd</Guid>
-              <IndexNavigation>false</IndexNavigation>
               <Name>Chartmenu Style (1)</Name>
               <SortPriority>100</SortPriority>
               <TimeStripFontSize>8.25</TimeStripFontSize>
@@ -1276,7 +1269,7 @@
         </MarkerContainer>
         <AxisGroup AssemblyName="TwinCAT.Measurement.Scope.API.Model">
           <Comment />
-          <DisplayColor>-1</DisplayColor>
+          <DisplayColor>-14342874</DisplayColor>
           <Enabled>true</Enabled>
           <Guid>4aba1cb3-5bc3-4de2-9b4a-df09e84b528b</Guid>
           <Name>Axis Group (2)</Name>
@@ -1296,6 +1289,7 @@
                   <Comment />
                   <DisplayColor>Black</DisplayColor>
                   <Guid>81819b46-801d-4c8e-8db5-96c221e944bc</Guid>
+                  <HideInHierarchy>false</HideInHierarchy>
                   <Name>Y: actualTemp (1)</Name>
                   <Offset>0</Offset>
                   <ResultingUnit>
@@ -1304,15 +1298,15 @@
                       <Name>None</Name>
                       <ScaleFactor>1</ScaleFactor>
                       <SourceUnitPrefix>none</SourceUnitPrefix>
-                      <SourceUnitString />
+                      <SourceUnitString></SourceUnitString>
                       <Symbol>1</Symbol>
-                      <TargetUnitString />
+                      <TargetUnitString></TargetUnitString>
                       <TargetUnitValue>0</TargetUnitValue>
                     </Transformation>
                     <Unit>
-                      <BaseUnitString />
+                      <BaseUnitString></BaseUnitString>
                       <BaseUnitValue>0</BaseUnitValue>
-                      <NameExtension />
+                      <NameExtension></NameExtension>
                       <Offset>0</Offset>
                       <Prefix>none</Prefix>
                       <ReturnText> (None) </ReturnText>
@@ -1323,10 +1317,10 @@
                     <UnitScaleResult>1</UnitScaleResult>
                     <UserUnit>
                       <BaseName>UnitOfOne</BaseName>
-                      <BaseUnitString />
+                      <BaseUnitString></BaseUnitString>
                       <BaseUnitValue>0</BaseUnitValue>
                       <Name>None</Name>
-                      <NameExtension />
+                      <NameExtension></NameExtension>
                       <Offset>0</Offset>
                       <Prefix>none</Prefix>
                       <ScaleFactor>1</ScaleFactor>
@@ -1405,9 +1399,9 @@
               <SubMember>
                 <AxisStyle AssemblyName="TwinCAT.Measurement.Scope.API.Model">
                   <Comment />
-                  <DisplayColor>-16777216</DisplayColor>
+                  <DisplayColor>-921103</DisplayColor>
                   <Grid>true</Grid>
-                  <GridColor>-16777216</GridColor>
+                  <GridColor>-921103</GridColor>
                   <GridDivisions>10</GridDivisions>
                   <GridLineWidth>1</GridLineWidth>
                   <Guid>630c5714-0931-41b7-a11a-5f410b345c23</Guid>
@@ -1439,9 +1433,9 @@
               <SubMember>
                 <AxisStyle AssemblyName="TwinCAT.Measurement.Scope.API.Model">
                   <Comment />
-                  <DisplayColor>-16777216</DisplayColor>
+                  <DisplayColor>-921103</DisplayColor>
                   <Grid>true</Grid>
-                  <GridColor>-16777216</GridColor>
+                  <GridColor>-921103</GridColor>
                   <GridDivisions>10</GridDivisions>
                   <GridLineWidth>1</GridLineWidth>
                   <Guid>852cfa26-b7cb-4adb-a812-f31483d662ff</Guid>
@@ -1481,6 +1475,7 @@
                   <Comment />
                   <DisplayColor>Black</DisplayColor>
                   <Guid>41653cdc-95dc-4704-aaa9-bbbada6a1002</Guid>
+                  <HideInHierarchy>false</HideInHierarchy>
                   <Name>Y: desiredTemp (1)</Name>
                   <Offset>0</Offset>
                   <ResultingUnit>
@@ -1489,15 +1484,15 @@
                       <Name>None</Name>
                       <ScaleFactor>1</ScaleFactor>
                       <SourceUnitPrefix>none</SourceUnitPrefix>
-                      <SourceUnitString />
+                      <SourceUnitString></SourceUnitString>
                       <Symbol>1</Symbol>
-                      <TargetUnitString />
+                      <TargetUnitString></TargetUnitString>
                       <TargetUnitValue>0</TargetUnitValue>
                     </Transformation>
                     <Unit>
-                      <BaseUnitString />
+                      <BaseUnitString></BaseUnitString>
                       <BaseUnitValue>0</BaseUnitValue>
-                      <NameExtension />
+                      <NameExtension></NameExtension>
                       <Offset>0</Offset>
                       <Prefix>none</Prefix>
                       <ReturnText> (None) </ReturnText>
@@ -1508,10 +1503,10 @@
                     <UnitScaleResult>1</UnitScaleResult>
                     <UserUnit>
                       <BaseName>UnitOfOne</BaseName>
-                      <BaseUnitString />
+                      <BaseUnitString></BaseUnitString>
                       <BaseUnitValue>0</BaseUnitValue>
                       <Name>None</Name>
-                      <NameExtension />
+                      <NameExtension></NameExtension>
                       <Offset>0</Offset>
                       <Prefix>none</Prefix>
                       <ScaleFactor>1</ScaleFactor>
@@ -1580,11 +1575,11 @@
         </AxisGroup>
         <AxisGroup AssemblyName="TwinCAT.Measurement.Scope.API.Model">
           <Comment />
-          <DisplayColor>-1</DisplayColor>
+          <DisplayColor>-14342874</DisplayColor>
           <Enabled>true</Enabled>
           <Guid>1d965e3c-94e4-480d-b130-2a813e21ef9c</Guid>
           <Name>Axis Group (5)</Name>
-          <SortPriority>13</SortPriority>
+          <SortPriority>11</SortPriority>
           <SubMember>
             <Channel AssemblyName="TwinCAT.Measurement.Scope.API.Model">
               <Comment />
@@ -1600,6 +1595,7 @@
                   <Comment />
                   <DisplayColor>Black</DisplayColor>
                   <Guid>ddb72677-c43b-4b49-a2d0-877758e7736d</Guid>
+                  <HideInHierarchy>false</HideInHierarchy>
                   <Name>Y: PWM_out</Name>
                   <Offset>0</Offset>
                   <ResultingUnit>
@@ -1608,15 +1604,15 @@
                       <Name>None</Name>
                       <ScaleFactor>1</ScaleFactor>
                       <SourceUnitPrefix>none</SourceUnitPrefix>
-                      <SourceUnitString />
+                      <SourceUnitString></SourceUnitString>
                       <Symbol>1</Symbol>
-                      <TargetUnitString />
+                      <TargetUnitString></TargetUnitString>
                       <TargetUnitValue>0</TargetUnitValue>
                     </Transformation>
                     <Unit>
-                      <BaseUnitString />
+                      <BaseUnitString></BaseUnitString>
                       <BaseUnitValue>0</BaseUnitValue>
-                      <NameExtension />
+                      <NameExtension></NameExtension>
                       <Offset>0</Offset>
                       <Prefix>none</Prefix>
                       <ReturnText> (None) </ReturnText>
@@ -1627,10 +1623,10 @@
                     <UnitScaleResult>1</UnitScaleResult>
                     <UserUnit>
                       <BaseName>UnitOfOne</BaseName>
-                      <BaseUnitString />
+                      <BaseUnitString></BaseUnitString>
                       <BaseUnitValue>0</BaseUnitValue>
                       <Name>None</Name>
-                      <NameExtension />
+                      <NameExtension></NameExtension>
                       <Offset>0</Offset>
                       <Prefix>none</Prefix>
                       <ScaleFactor>1</ScaleFactor>
@@ -1710,9 +1706,9 @@
               <SubMember>
                 <AxisStyle AssemblyName="TwinCAT.Measurement.Scope.API.Model">
                   <Comment />
-                  <DisplayColor>-16777216</DisplayColor>
+                  <DisplayColor>-921103</DisplayColor>
                   <Grid>true</Grid>
-                  <GridColor>-16777216</GridColor>
+                  <GridColor>-921103</GridColor>
                   <GridDivisions>10</GridDivisions>
                   <GridLineWidth>1</GridLineWidth>
                   <Guid>940a8051-4088-4b6b-b55a-fb38fea5c337</Guid>
@@ -1742,10 +1738,7 @@
           <Title>AxisGroup_178</Title>
         </AxisGroup>
       </SubMember>
-      <TimeOffset>0</TimeOffset>
-      <TimeRefreshMode>Explicit</TimeRefreshMode>
       <Title>YTChart_162</Title>
-      <TriggerGroupOffset>0</TriggerGroupOffset>
     </YTChart>
   </SubMember>
   <SynchronisationMode>Default</SynchronisationMode>
@@ -1753,6 +1746,7 @@
   <Title>ScopeProject_3</Title>
   <UseAutoSave>false</UseAutoSave>
   <UseFileStore>true</UseFileStore>
+  <UseUserSettings>true</UseUserSettings>
   <Version>1.0.0.1</Version>
   <ViewDetailLevel>Default</ViewDetailLevel>
 </ScopeProject>

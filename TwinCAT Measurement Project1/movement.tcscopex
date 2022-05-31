@@ -24,6 +24,7 @@
   <ImageAutoDeleteCapacity>0</ImageAutoDeleteCapacity>
   <ImageAutoDeleteOlderThan>0</ImageAutoDeleteOlderThan>
   <ImagesDeleteMode>Disabled</ImagesDeleteMode>
+  <IsTemplate>false</IsTemplate>
   <Layout>&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;Layout&gt;
   &lt;Window Guid="ca802f86-8691-4ac7-bd34-34968fd3d70d" LastFocused="132984733513247043" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="550, 400" LastOpenDockSituation="Document" LastFixedDockSituation="Document" LastFixedDockLocation="Right" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="0" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="00000000-0000-0000-0000-000000000000" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="d6ab2d5c-350c-4902-b772-1bde912fcffe" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
@@ -77,7 +78,7 @@
           <DataType>REAL64</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>1</FileHandle>
+          <FileHandle>0</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>8528ad80-0758-4627-bd2f-2b18b7f77bbf</Guid>
           <IndexGroup>16644</IndexGroup>
@@ -91,15 +92,15 @@
               <Name>None</Name>
               <ScaleFactor>1</ScaleFactor>
               <SourceUnitPrefix>none</SourceUnitPrefix>
-              <SourceUnitString />
+              <SourceUnitString></SourceUnitString>
               <Symbol>1</Symbol>
-              <TargetUnitString />
+              <TargetUnitString></TargetUnitString>
               <TargetUnitValue>0</TargetUnitValue>
             </Transformation>
             <Unit>
-              <BaseUnitString />
+              <BaseUnitString></BaseUnitString>
               <BaseUnitValue>0</BaseUnitValue>
-              <NameExtension />
+              <NameExtension></NameExtension>
               <Offset>0</Offset>
               <Prefix>none</Prefix>
               <ReturnText> (None) </ReturnText>
@@ -110,10 +111,10 @@
             <UnitScaleResult>1</UnitScaleResult>
             <UserUnit>
               <BaseName>UnitOfOne</BaseName>
-              <BaseUnitString />
+              <BaseUnitString></BaseUnitString>
               <BaseUnitValue>0</BaseUnitValue>
               <Name>None</Name>
-              <NameExtension />
+              <NameExtension></NameExtension>
               <Offset>0</Offset>
               <Prefix>none</Prefix>
               <ScaleFactor>1</ScaleFactor>
@@ -159,7 +160,7 @@
           <DataType>REAL64</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>2</FileHandle>
+          <FileHandle>0</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>5fb8a542-9aa4-4aa0-bfac-fe77170f9e23</Guid>
           <IndexGroup>16644</IndexGroup>
@@ -173,15 +174,15 @@
               <Name>None</Name>
               <ScaleFactor>1</ScaleFactor>
               <SourceUnitPrefix>none</SourceUnitPrefix>
-              <SourceUnitString />
+              <SourceUnitString></SourceUnitString>
               <Symbol>1</Symbol>
-              <TargetUnitString />
+              <TargetUnitString></TargetUnitString>
               <TargetUnitValue>0</TargetUnitValue>
             </Transformation>
             <Unit>
-              <BaseUnitString />
+              <BaseUnitString></BaseUnitString>
               <BaseUnitValue>0</BaseUnitValue>
-              <NameExtension />
+              <NameExtension></NameExtension>
               <Offset>0</Offset>
               <Prefix>none</Prefix>
               <ReturnText> (None) </ReturnText>
@@ -192,10 +193,10 @@
             <UnitScaleResult>1</UnitScaleResult>
             <UserUnit>
               <BaseName>UnitOfOne</BaseName>
-              <BaseUnitString />
+              <BaseUnitString></BaseUnitString>
               <BaseUnitValue>0</BaseUnitValue>
               <Name>None</Name>
-              <NameExtension />
+              <NameExtension></NameExtension>
               <Offset>0</Offset>
               <Prefix>none</Prefix>
               <ScaleFactor>1</ScaleFactor>
@@ -241,7 +242,7 @@
           <DataType>REAL64</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>3</FileHandle>
+          <FileHandle>0</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>791a732d-119c-495c-a743-da868613cc01</Guid>
           <IndexGroup>16645</IndexGroup>
@@ -255,15 +256,15 @@
               <Name>None</Name>
               <ScaleFactor>1</ScaleFactor>
               <SourceUnitPrefix>none</SourceUnitPrefix>
-              <SourceUnitString />
+              <SourceUnitString></SourceUnitString>
               <Symbol>1</Symbol>
-              <TargetUnitString />
+              <TargetUnitString></TargetUnitString>
               <TargetUnitValue>0</TargetUnitValue>
             </Transformation>
             <Unit>
-              <BaseUnitString />
+              <BaseUnitString></BaseUnitString>
               <BaseUnitValue>0</BaseUnitValue>
-              <NameExtension />
+              <NameExtension></NameExtension>
               <Offset>0</Offset>
               <Prefix>none</Prefix>
               <ReturnText> (None) </ReturnText>
@@ -274,10 +275,10 @@
             <UnitScaleResult>1</UnitScaleResult>
             <UserUnit>
               <BaseName>UnitOfOne</BaseName>
-              <BaseUnitString />
+              <BaseUnitString></BaseUnitString>
               <BaseUnitValue>0</BaseUnitValue>
               <Name>None</Name>
-              <NameExtension />
+              <NameExtension></NameExtension>
               <Offset>0</Offset>
               <Prefix>none</Prefix>
               <ScaleFactor>1</ScaleFactor>
@@ -323,7 +324,7 @@
           <DataType>REAL64</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>4</FileHandle>
+          <FileHandle>0</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>e012bce3-04d1-4e2c-a143-990f9c18b7aa</Guid>
           <IndexGroup>16646</IndexGroup>
@@ -337,15 +338,15 @@
               <Name>None</Name>
               <ScaleFactor>1</ScaleFactor>
               <SourceUnitPrefix>none</SourceUnitPrefix>
-              <SourceUnitString />
+              <SourceUnitString></SourceUnitString>
               <Symbol>1</Symbol>
-              <TargetUnitString />
+              <TargetUnitString></TargetUnitString>
               <TargetUnitValue>0</TargetUnitValue>
             </Transformation>
             <Unit>
-              <BaseUnitString />
+              <BaseUnitString></BaseUnitString>
               <BaseUnitValue>0</BaseUnitValue>
-              <NameExtension />
+              <NameExtension></NameExtension>
               <Offset>0</Offset>
               <Prefix>none</Prefix>
               <ReturnText> (None) </ReturnText>
@@ -356,10 +357,10 @@
             <UnitScaleResult>1</UnitScaleResult>
             <UserUnit>
               <BaseName>UnitOfOne</BaseName>
-              <BaseUnitString />
+              <BaseUnitString></BaseUnitString>
               <BaseUnitValue>0</BaseUnitValue>
               <Name>None</Name>
-              <NameExtension />
+              <NameExtension></NameExtension>
               <Offset>0</Offset>
               <Prefix>none</Prefix>
               <ScaleFactor>1</ScaleFactor>
@@ -405,7 +406,7 @@
           <DataType>REAL64</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>5</FileHandle>
+          <FileHandle>0</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>992a5e71-ff06-4077-94d3-1277f4160075</Guid>
           <IndexGroup>16643</IndexGroup>
@@ -419,15 +420,15 @@
               <Name>None</Name>
               <ScaleFactor>1</ScaleFactor>
               <SourceUnitPrefix>none</SourceUnitPrefix>
-              <SourceUnitString />
+              <SourceUnitString></SourceUnitString>
               <Symbol>1</Symbol>
-              <TargetUnitString />
+              <TargetUnitString></TargetUnitString>
               <TargetUnitValue>0</TargetUnitValue>
             </Transformation>
             <Unit>
-              <BaseUnitString />
+              <BaseUnitString></BaseUnitString>
               <BaseUnitValue>0</BaseUnitValue>
-              <NameExtension />
+              <NameExtension></NameExtension>
               <Offset>0</Offset>
               <Prefix>none</Prefix>
               <ReturnText> (None) </ReturnText>
@@ -438,10 +439,10 @@
             <UnitScaleResult>1</UnitScaleResult>
             <UserUnit>
               <BaseName>UnitOfOne</BaseName>
-              <BaseUnitString />
+              <BaseUnitString></BaseUnitString>
               <BaseUnitValue>0</BaseUnitValue>
               <Name>None</Name>
-              <NameExtension />
+              <NameExtension></NameExtension>
               <Offset>0</Offset>
               <Prefix>none</Prefix>
               <ScaleFactor>1</ScaleFactor>
@@ -487,7 +488,7 @@
           <DataType>REAL64</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>6</FileHandle>
+          <FileHandle>0</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>7c08cc25-5f88-4056-bfd8-780553cf37af</Guid>
           <IndexGroup>16645</IndexGroup>
@@ -501,15 +502,15 @@
               <Name>None</Name>
               <ScaleFactor>1</ScaleFactor>
               <SourceUnitPrefix>none</SourceUnitPrefix>
-              <SourceUnitString />
+              <SourceUnitString></SourceUnitString>
               <Symbol>1</Symbol>
-              <TargetUnitString />
+              <TargetUnitString></TargetUnitString>
               <TargetUnitValue>0</TargetUnitValue>
             </Transformation>
             <Unit>
-              <BaseUnitString />
+              <BaseUnitString></BaseUnitString>
               <BaseUnitValue>0</BaseUnitValue>
-              <NameExtension />
+              <NameExtension></NameExtension>
               <Offset>0</Offset>
               <Prefix>none</Prefix>
               <ReturnText> (None) </ReturnText>
@@ -520,10 +521,10 @@
             <UnitScaleResult>1</UnitScaleResult>
             <UserUnit>
               <BaseName>UnitOfOne</BaseName>
-              <BaseUnitString />
+              <BaseUnitString></BaseUnitString>
               <BaseUnitValue>0</BaseUnitValue>
               <Name>None</Name>
-              <NameExtension />
+              <NameExtension></NameExtension>
               <Offset>0</Offset>
               <Prefix>none</Prefix>
               <ScaleFactor>1</ScaleFactor>
@@ -569,7 +570,7 @@
           <DataType>REAL64</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>7</FileHandle>
+          <FileHandle>0</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>a5198940-9c60-406e-8962-685dc136f9af</Guid>
           <IndexGroup>16646</IndexGroup>
@@ -583,15 +584,15 @@
               <Name>None</Name>
               <ScaleFactor>1</ScaleFactor>
               <SourceUnitPrefix>none</SourceUnitPrefix>
-              <SourceUnitString />
+              <SourceUnitString></SourceUnitString>
               <Symbol>1</Symbol>
-              <TargetUnitString />
+              <TargetUnitString></TargetUnitString>
               <TargetUnitValue>0</TargetUnitValue>
             </Transformation>
             <Unit>
-              <BaseUnitString />
+              <BaseUnitString></BaseUnitString>
               <BaseUnitValue>0</BaseUnitValue>
-              <NameExtension />
+              <NameExtension></NameExtension>
               <Offset>0</Offset>
               <Prefix>none</Prefix>
               <ReturnText> (None) </ReturnText>
@@ -602,10 +603,10 @@
             <UnitScaleResult>1</UnitScaleResult>
             <UserUnit>
               <BaseName>UnitOfOne</BaseName>
-              <BaseUnitString />
+              <BaseUnitString></BaseUnitString>
               <BaseUnitValue>0</BaseUnitValue>
               <Name>None</Name>
-              <NameExtension />
+              <NameExtension></NameExtension>
               <Offset>0</Offset>
               <Prefix>none</Prefix>
               <ScaleFactor>1</ScaleFactor>
@@ -651,7 +652,7 @@
           <DataType>REAL64</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>8</FileHandle>
+          <FileHandle>0</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>aeab3a26-2e52-45fb-b39f-88964b2e412b</Guid>
           <IndexGroup>16643</IndexGroup>
@@ -665,15 +666,15 @@
               <Name>None</Name>
               <ScaleFactor>1</ScaleFactor>
               <SourceUnitPrefix>none</SourceUnitPrefix>
-              <SourceUnitString />
+              <SourceUnitString></SourceUnitString>
               <Symbol>1</Symbol>
-              <TargetUnitString />
+              <TargetUnitString></TargetUnitString>
               <TargetUnitValue>0</TargetUnitValue>
             </Transformation>
             <Unit>
-              <BaseUnitString />
+              <BaseUnitString></BaseUnitString>
               <BaseUnitValue>0</BaseUnitValue>
-              <NameExtension />
+              <NameExtension></NameExtension>
               <Offset>0</Offset>
               <Prefix>none</Prefix>
               <ReturnText> (None) </ReturnText>
@@ -684,10 +685,10 @@
             <UnitScaleResult>1</UnitScaleResult>
             <UserUnit>
               <BaseName>UnitOfOne</BaseName>
-              <BaseUnitString />
+              <BaseUnitString></BaseUnitString>
               <BaseUnitValue>0</BaseUnitValue>
               <Name>None</Name>
-              <NameExtension />
+              <NameExtension></NameExtension>
               <Offset>0</Offset>
               <Prefix>none</Prefix>
               <ScaleFactor>1</ScaleFactor>
@@ -713,16 +714,13 @@
       <Title>DataPool_111</Title>
     </DataPool>
     <YTChart AssemblyName="TwinCAT.Measurement.Scope.API.Model">
-      <AnchorTimestamp>0</AnchorTimestamp>
       <AssignedCore>0</AssignedCore>
       <AutoStart>true</AutoStart>
       <Comment />
-      <ConnectedTimeMemberGuid>00000000-0000-0000-0000-000000000000</ConnectedTimeMemberGuid>
       <DefaultDisplayWidth>100000000</DefaultDisplayWidth>
-      <DisplayColor>-986896</DisplayColor>
+      <DisplayColor>-13816528</DisplayColor>
       <DisplayOverwriteMode>false</DisplayOverwriteMode>
-      <DurationLength>0</DurationLength>
-      <ForeColor>-16777216</ForeColor>
+      <ForeColor>-921103</ForeColor>
       <Guid>ca802f86-8691-4ac7-bd34-34968fd3d70d</Guid>
       <MasterChart>00000000-0000-0000-0000-000000000000</MasterChart>
       <Name>YT Chart</Name>
@@ -731,7 +729,7 @@
       <SubMember>
         <AxisGroup AssemblyName="TwinCAT.Measurement.Scope.API.Model">
           <Comment />
-          <DisplayColor>-1</DisplayColor>
+          <DisplayColor>-14342874</DisplayColor>
           <Enabled>true</Enabled>
           <Guid>921082da-76df-41af-ad9d-b0b364ce7dc2</Guid>
           <Name>Extruder</Name>
@@ -752,9 +750,9 @@
               <SubMember>
                 <AxisStyle AssemblyName="TwinCAT.Measurement.Scope.API.Model">
                   <Comment />
-                  <DisplayColor>-16777216</DisplayColor>
+                  <DisplayColor>-921103</DisplayColor>
                   <Grid>true</Grid>
-                  <GridColor>-16777216</GridColor>
+                  <GridColor>-921103</GridColor>
                   <GridDivisions>10</GridDivisions>
                   <GridLineWidth>1</GridLineWidth>
                   <Guid>de1826a9-2404-430e-a1d2-ed43b2a272ad</Guid>
@@ -786,9 +784,9 @@
               <SubMember>
                 <AxisStyle AssemblyName="TwinCAT.Measurement.Scope.API.Model">
                   <Comment />
-                  <DisplayColor>-16777216</DisplayColor>
+                  <DisplayColor>-921103</DisplayColor>
                   <Grid>true</Grid>
-                  <GridColor>-16777216</GridColor>
+                  <GridColor>-921103</GridColor>
                   <GridDivisions>10</GridDivisions>
                   <GridLineWidth>1</GridLineWidth>
                   <Guid>9d5cab82-2e73-4b2b-8cb5-2594dadffc51</Guid>
@@ -828,6 +826,7 @@
                   <Comment />
                   <DisplayColor>Black</DisplayColor>
                   <Guid>f980a836-1f95-4ab5-bf50-233b2d684699</Guid>
+                  <HideInHierarchy>false</HideInHierarchy>
                   <Name>Y: ActPos</Name>
                   <Offset>0</Offset>
                   <ResultingUnit>
@@ -836,15 +835,15 @@
                       <Name>None</Name>
                       <ScaleFactor>1</ScaleFactor>
                       <SourceUnitPrefix>none</SourceUnitPrefix>
-                      <SourceUnitString />
+                      <SourceUnitString></SourceUnitString>
                       <Symbol>1</Symbol>
-                      <TargetUnitString />
+                      <TargetUnitString></TargetUnitString>
                       <TargetUnitValue>0</TargetUnitValue>
                     </Transformation>
                     <Unit>
-                      <BaseUnitString />
+                      <BaseUnitString></BaseUnitString>
                       <BaseUnitValue>0</BaseUnitValue>
-                      <NameExtension />
+                      <NameExtension></NameExtension>
                       <Offset>0</Offset>
                       <Prefix>none</Prefix>
                       <ReturnText> (None) </ReturnText>
@@ -855,10 +854,10 @@
                     <UnitScaleResult>1</UnitScaleResult>
                     <UserUnit>
                       <BaseName>UnitOfOne</BaseName>
-                      <BaseUnitString />
+                      <BaseUnitString></BaseUnitString>
                       <BaseUnitValue>0</BaseUnitValue>
                       <Name>None</Name>
-                      <NameExtension />
+                      <NameExtension></NameExtension>
                       <Offset>0</Offset>
                       <Prefix>none</Prefix>
                       <ScaleFactor>1</ScaleFactor>
@@ -936,6 +935,7 @@
                   <Comment />
                   <DisplayColor>Black</DisplayColor>
                   <Guid>cf12af6b-c4d4-45a5-92dc-ec6b4887c930</Guid>
+                  <HideInHierarchy>false</HideInHierarchy>
                   <Name>Y: ActVelo</Name>
                   <Offset>0</Offset>
                   <ResultingUnit>
@@ -944,15 +944,15 @@
                       <Name>None</Name>
                       <ScaleFactor>1</ScaleFactor>
                       <SourceUnitPrefix>none</SourceUnitPrefix>
-                      <SourceUnitString />
+                      <SourceUnitString></SourceUnitString>
                       <Symbol>1</Symbol>
-                      <TargetUnitString />
+                      <TargetUnitString></TargetUnitString>
                       <TargetUnitValue>0</TargetUnitValue>
                     </Transformation>
                     <Unit>
-                      <BaseUnitString />
+                      <BaseUnitString></BaseUnitString>
                       <BaseUnitValue>0</BaseUnitValue>
-                      <NameExtension />
+                      <NameExtension></NameExtension>
                       <Offset>0</Offset>
                       <Prefix>none</Prefix>
                       <ReturnText> (None) </ReturnText>
@@ -963,10 +963,10 @@
                     <UnitScaleResult>1</UnitScaleResult>
                     <UserUnit>
                       <BaseName>UnitOfOne</BaseName>
-                      <BaseUnitString />
+                      <BaseUnitString></BaseUnitString>
                       <BaseUnitValue>0</BaseUnitValue>
                       <Name>None</Name>
-                      <NameExtension />
+                      <NameExtension></NameExtension>
                       <Offset>0</Offset>
                       <Prefix>none</Prefix>
                       <ScaleFactor>1</ScaleFactor>
@@ -1035,8 +1035,8 @@
         </AxisGroup>
         <OverviewChart AssemblyName="TwinCAT.Measurement.Scope.API.Model">
           <Comment />
-          <DisplayColor>-1</DisplayColor>
-          <ForeColor>-16777216</ForeColor>
+          <DisplayColor>-14342874</DisplayColor>
+          <ForeColor>-921103</ForeColor>
           <Guid>458ddeed-cc7e-4df8-b917-f770816d4568</Guid>
           <Name>Overview Chart</Name>
           <OverviewVisible>true</OverviewVisible>
@@ -1070,10 +1070,9 @@
               </ButtonSize>
               <Comment />
               <DisplayColor>Black</DisplayColor>
-              <EnabledButtons>RunButton PauseButton Splitter1 DisplaywidthTextBox Splitter2 ScrollBackBig ScrollBackSmall ScrollForwardSmall ScrollForwardBig Splitter3 PositionTextBox Splitter4 UndoButton RedoButton Splitter5 PanXButton PanXYButton ZoomXButton ZoomXYButton UnzoomButton ZoomOutMaxButton OverviewButton CopyToClipboard OpenCurveCreatorButton</EnabledButtons>
+              <EnabledButtons>RunButton PauseButton Splitter1 DisplaywidthTextBox Splitter2 ScrollBackBig ScrollBackSmall ScrollForwardSmall ScrollForwardBig Splitter3 PositionTextBox Splitter4 UndoButton RedoButton Splitter5 PanXButton PanXYButton ZoomXButton ZoomXYButton UnzoomButton ZoomOutMaxButton OverviewButton CopyToClipboard</EnabledButtons>
               <EnabledTimeLabels>All</EnabledTimeLabels>
               <Guid>945156e6-ab98-4b90-a49b-fb0a03953f9b</Guid>
-              <IndexNavigation>false</IndexNavigation>
               <Name>Chartmenu Style</Name>
               <SortPriority>100</SortPriority>
               <TimeStripFontSize>8.25</TimeStripFontSize>
@@ -1098,7 +1097,7 @@
         </MarkerContainer>
         <AxisGroup AssemblyName="TwinCAT.Measurement.Scope.API.Model">
           <Comment />
-          <DisplayColor>-1</DisplayColor>
+          <DisplayColor>-14342874</DisplayColor>
           <Enabled>true</Enabled>
           <Guid>4b91fe4b-fa44-4405-9e7e-5145a36eb613</Guid>
           <Name>XYZ Pos</Name>
@@ -1120,9 +1119,9 @@
               <SubMember>
                 <AxisStyle AssemblyName="TwinCAT.Measurement.Scope.API.Model">
                   <Comment />
-                  <DisplayColor>-16777216</DisplayColor>
+                  <DisplayColor>-921103</DisplayColor>
                   <Grid>true</Grid>
-                  <GridColor>-16777216</GridColor>
+                  <GridColor>-921103</GridColor>
                   <GridDivisions>10</GridDivisions>
                   <GridLineWidth>1</GridLineWidth>
                   <Guid>91231d2f-4647-4eb0-bf30-225d35c1fd04</Guid>
@@ -1162,6 +1161,7 @@
                   <Comment />
                   <DisplayColor>Black</DisplayColor>
                   <Guid>3a2a572d-5897-484c-8c08-c2176fb5a606</Guid>
+                  <HideInHierarchy>false</HideInHierarchy>
                   <Name>Y: ActPos (1)</Name>
                   <Offset>0</Offset>
                   <ResultingUnit>
@@ -1170,15 +1170,15 @@
                       <Name>None</Name>
                       <ScaleFactor>1</ScaleFactor>
                       <SourceUnitPrefix>none</SourceUnitPrefix>
-                      <SourceUnitString />
+                      <SourceUnitString></SourceUnitString>
                       <Symbol>1</Symbol>
-                      <TargetUnitString />
+                      <TargetUnitString></TargetUnitString>
                       <TargetUnitValue>0</TargetUnitValue>
                     </Transformation>
                     <Unit>
-                      <BaseUnitString />
+                      <BaseUnitString></BaseUnitString>
                       <BaseUnitValue>0</BaseUnitValue>
-                      <NameExtension />
+                      <NameExtension></NameExtension>
                       <Offset>0</Offset>
                       <Prefix>none</Prefix>
                       <ReturnText> (None) </ReturnText>
@@ -1189,10 +1189,10 @@
                     <UnitScaleResult>1</UnitScaleResult>
                     <UserUnit>
                       <BaseName>UnitOfOne</BaseName>
-                      <BaseUnitString />
+                      <BaseUnitString></BaseUnitString>
                       <BaseUnitValue>0</BaseUnitValue>
                       <Name>None</Name>
-                      <NameExtension />
+                      <NameExtension></NameExtension>
                       <Offset>0</Offset>
                       <Prefix>none</Prefix>
                       <ScaleFactor>1</ScaleFactor>
@@ -1270,6 +1270,7 @@
                   <Comment />
                   <DisplayColor>Black</DisplayColor>
                   <Guid>0fa5dbeb-e7d4-45b6-8991-ce22599e9ae5</Guid>
+                  <HideInHierarchy>false</HideInHierarchy>
                   <Name>Y: ActPos (2)</Name>
                   <Offset>0</Offset>
                   <ResultingUnit>
@@ -1278,15 +1279,15 @@
                       <Name>None</Name>
                       <ScaleFactor>1</ScaleFactor>
                       <SourceUnitPrefix>none</SourceUnitPrefix>
-                      <SourceUnitString />
+                      <SourceUnitString></SourceUnitString>
                       <Symbol>1</Symbol>
-                      <TargetUnitString />
+                      <TargetUnitString></TargetUnitString>
                       <TargetUnitValue>0</TargetUnitValue>
                     </Transformation>
                     <Unit>
-                      <BaseUnitString />
+                      <BaseUnitString></BaseUnitString>
                       <BaseUnitValue>0</BaseUnitValue>
-                      <NameExtension />
+                      <NameExtension></NameExtension>
                       <Offset>0</Offset>
                       <Prefix>none</Prefix>
                       <ReturnText> (None) </ReturnText>
@@ -1297,10 +1298,10 @@
                     <UnitScaleResult>1</UnitScaleResult>
                     <UserUnit>
                       <BaseName>UnitOfOne</BaseName>
-                      <BaseUnitString />
+                      <BaseUnitString></BaseUnitString>
                       <BaseUnitValue>0</BaseUnitValue>
                       <Name>None</Name>
-                      <NameExtension />
+                      <NameExtension></NameExtension>
                       <Offset>0</Offset>
                       <Prefix>none</Prefix>
                       <ScaleFactor>1</ScaleFactor>
@@ -1378,6 +1379,7 @@
                   <Comment />
                   <DisplayColor>Black</DisplayColor>
                   <Guid>5196b44e-a81f-4e3b-8cfb-3bef7089f2e5</Guid>
+                  <HideInHierarchy>false</HideInHierarchy>
                   <Name>Y: ActPos (3)</Name>
                   <Offset>0</Offset>
                   <ResultingUnit>
@@ -1386,15 +1388,15 @@
                       <Name>None</Name>
                       <ScaleFactor>1</ScaleFactor>
                       <SourceUnitPrefix>none</SourceUnitPrefix>
-                      <SourceUnitString />
+                      <SourceUnitString></SourceUnitString>
                       <Symbol>1</Symbol>
-                      <TargetUnitString />
+                      <TargetUnitString></TargetUnitString>
                       <TargetUnitValue>0</TargetUnitValue>
                     </Transformation>
                     <Unit>
-                      <BaseUnitString />
+                      <BaseUnitString></BaseUnitString>
                       <BaseUnitValue>0</BaseUnitValue>
-                      <NameExtension />
+                      <NameExtension></NameExtension>
                       <Offset>0</Offset>
                       <Prefix>none</Prefix>
                       <ReturnText> (None) </ReturnText>
@@ -1405,10 +1407,10 @@
                     <UnitScaleResult>1</UnitScaleResult>
                     <UserUnit>
                       <BaseName>UnitOfOne</BaseName>
-                      <BaseUnitString />
+                      <BaseUnitString></BaseUnitString>
                       <BaseUnitValue>0</BaseUnitValue>
                       <Name>None</Name>
-                      <NameExtension />
+                      <NameExtension></NameExtension>
                       <Offset>0</Offset>
                       <Prefix>none</Prefix>
                       <ScaleFactor>1</ScaleFactor>
@@ -1477,7 +1479,7 @@
         </AxisGroup>
         <AxisGroup AssemblyName="TwinCAT.Measurement.Scope.API.Model">
           <Comment />
-          <DisplayColor>-1</DisplayColor>
+          <DisplayColor>-14342874</DisplayColor>
           <Enabled>true</Enabled>
           <Guid>05cfe839-db43-4ceb-a401-0b5137153a1b</Guid>
           <Name>XYZ Velo</Name>
@@ -1499,9 +1501,9 @@
               <SubMember>
                 <AxisStyle AssemblyName="TwinCAT.Measurement.Scope.API.Model">
                   <Comment />
-                  <DisplayColor>-16777216</DisplayColor>
+                  <DisplayColor>-921103</DisplayColor>
                   <Grid>true</Grid>
-                  <GridColor>-16777216</GridColor>
+                  <GridColor>-921103</GridColor>
                   <GridDivisions>10</GridDivisions>
                   <GridLineWidth>1</GridLineWidth>
                   <Guid>63bb7ade-6696-4b72-99d8-f23a8d7de7c1</Guid>
@@ -1541,6 +1543,7 @@
                   <Comment />
                   <DisplayColor>Black</DisplayColor>
                   <Guid>fc536a0c-883b-43ad-aa35-ff1a5804df97</Guid>
+                  <HideInHierarchy>false</HideInHierarchy>
                   <Name>Y: ActVelo (1)</Name>
                   <Offset>0</Offset>
                   <ResultingUnit>
@@ -1549,15 +1552,15 @@
                       <Name>None</Name>
                       <ScaleFactor>1</ScaleFactor>
                       <SourceUnitPrefix>none</SourceUnitPrefix>
-                      <SourceUnitString />
+                      <SourceUnitString></SourceUnitString>
                       <Symbol>1</Symbol>
-                      <TargetUnitString />
+                      <TargetUnitString></TargetUnitString>
                       <TargetUnitValue>0</TargetUnitValue>
                     </Transformation>
                     <Unit>
-                      <BaseUnitString />
+                      <BaseUnitString></BaseUnitString>
                       <BaseUnitValue>0</BaseUnitValue>
-                      <NameExtension />
+                      <NameExtension></NameExtension>
                       <Offset>0</Offset>
                       <Prefix>none</Prefix>
                       <ReturnText> (None) </ReturnText>
@@ -1568,10 +1571,10 @@
                     <UnitScaleResult>1</UnitScaleResult>
                     <UserUnit>
                       <BaseName>UnitOfOne</BaseName>
-                      <BaseUnitString />
+                      <BaseUnitString></BaseUnitString>
                       <BaseUnitValue>0</BaseUnitValue>
                       <Name>None</Name>
-                      <NameExtension />
+                      <NameExtension></NameExtension>
                       <Offset>0</Offset>
                       <Prefix>none</Prefix>
                       <ScaleFactor>1</ScaleFactor>
@@ -1649,6 +1652,7 @@
                   <Comment />
                   <DisplayColor>Black</DisplayColor>
                   <Guid>bce65fe3-d2fb-46b2-b1b1-cf889aa27e1e</Guid>
+                  <HideInHierarchy>false</HideInHierarchy>
                   <Name>Y: ActVelo (2)</Name>
                   <Offset>0</Offset>
                   <ResultingUnit>
@@ -1657,15 +1661,15 @@
                       <Name>None</Name>
                       <ScaleFactor>1</ScaleFactor>
                       <SourceUnitPrefix>none</SourceUnitPrefix>
-                      <SourceUnitString />
+                      <SourceUnitString></SourceUnitString>
                       <Symbol>1</Symbol>
-                      <TargetUnitString />
+                      <TargetUnitString></TargetUnitString>
                       <TargetUnitValue>0</TargetUnitValue>
                     </Transformation>
                     <Unit>
-                      <BaseUnitString />
+                      <BaseUnitString></BaseUnitString>
                       <BaseUnitValue>0</BaseUnitValue>
-                      <NameExtension />
+                      <NameExtension></NameExtension>
                       <Offset>0</Offset>
                       <Prefix>none</Prefix>
                       <ReturnText> (None) </ReturnText>
@@ -1676,10 +1680,10 @@
                     <UnitScaleResult>1</UnitScaleResult>
                     <UserUnit>
                       <BaseName>UnitOfOne</BaseName>
-                      <BaseUnitString />
+                      <BaseUnitString></BaseUnitString>
                       <BaseUnitValue>0</BaseUnitValue>
                       <Name>None</Name>
-                      <NameExtension />
+                      <NameExtension></NameExtension>
                       <Offset>0</Offset>
                       <Prefix>none</Prefix>
                       <ScaleFactor>1</ScaleFactor>
@@ -1757,6 +1761,7 @@
                   <Comment />
                   <DisplayColor>Black</DisplayColor>
                   <Guid>40a2815f-0f8f-405c-9ec7-0a0233543967</Guid>
+                  <HideInHierarchy>false</HideInHierarchy>
                   <Name>Y: ActVelo (3)</Name>
                   <Offset>0</Offset>
                   <ResultingUnit>
@@ -1765,15 +1770,15 @@
                       <Name>None</Name>
                       <ScaleFactor>1</ScaleFactor>
                       <SourceUnitPrefix>none</SourceUnitPrefix>
-                      <SourceUnitString />
+                      <SourceUnitString></SourceUnitString>
                       <Symbol>1</Symbol>
-                      <TargetUnitString />
+                      <TargetUnitString></TargetUnitString>
                       <TargetUnitValue>0</TargetUnitValue>
                     </Transformation>
                     <Unit>
-                      <BaseUnitString />
+                      <BaseUnitString></BaseUnitString>
                       <BaseUnitValue>0</BaseUnitValue>
-                      <NameExtension />
+                      <NameExtension></NameExtension>
                       <Offset>0</Offset>
                       <Prefix>none</Prefix>
                       <ReturnText> (None) </ReturnText>
@@ -1784,10 +1789,10 @@
                     <UnitScaleResult>1</UnitScaleResult>
                     <UserUnit>
                       <BaseName>UnitOfOne</BaseName>
-                      <BaseUnitString />
+                      <BaseUnitString></BaseUnitString>
                       <BaseUnitValue>0</BaseUnitValue>
                       <Name>None</Name>
-                      <NameExtension />
+                      <NameExtension></NameExtension>
                       <Offset>0</Offset>
                       <Prefix>none</Prefix>
                       <ScaleFactor>1</ScaleFactor>
@@ -1855,10 +1860,7 @@
           <Title>AxisGroup_145</Title>
         </AxisGroup>
       </SubMember>
-      <TimeOffset>0</TimeOffset>
-      <TimeRefreshMode>Explicit</TimeRefreshMode>
       <Title>YTChart_112</Title>
-      <TriggerGroupOffset>0</TriggerGroupOffset>
     </YTChart>
     <TriggerModule AssemblyName="TwinCAT.Measurement.Scope.API.Model">
       <Comment />
@@ -1875,6 +1877,7 @@
   <Title>ScopeProject_3</Title>
   <UseAutoSave>false</UseAutoSave>
   <UseFileStore>true</UseFileStore>
+  <UseUserSettings>true</UseUserSettings>
   <Version>1.0.0.1</Version>
   <ViewDetailLevel>Default</ViewDetailLevel>
 </ScopeProject>
