@@ -3337,7 +3337,7 @@ External Setpoint Generation:
 					<Group Id="8" CreateSymbols="true" GroupType="4" SetpointGeneratorType="1">
 						<Name>Group 8</Name>
 						<Parameter ChannelId="3">
-							<Dxd EnableSoftPositionLimits="true" CriticalVertexAngleLow="10" CriticalVertexAngleHigh="75"/>
+							<Dxd EnableSoftPositionLimits="true" VeloVertexFactorC0="0.1" VeloVertexFactorC1="1" CriticalVertexAngleLow="10" CriticalVertexAngleHigh="75"/>
 							<Encoder NoMotionWindow="1" NoMotionFilterTime="0.01"/>
 							<Fifo FifoDimension="1" FifoLength="1000" FifoOverrideType="2" FifoOverrideChangeTime="1" TimeUnitFifo="0.01"/>
 							<Kinematic/>

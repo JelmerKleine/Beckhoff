@@ -70,7 +70,7 @@
           <Children>
             <Node>
               <Title>Extruder</Title>
-              <Expanded>False</Expanded>
+              <Expanded>True</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
@@ -149,7 +149,7 @@
     </Node>
     <Node>
       <Title>movement of th xyz, axis normal speed with test 2</Title>
-      <Expanded>False</Expanded>
+      <Expanded>True</Expanded>
       <FileName>C:\Users\jelme\Desktop\3d print\3d printer programma\TwinCAT Measurement Project1\movement of th xyz, axis normal speed with test 2.svdx</FileName>
       <Children>
         <Node>

@@ -12,6 +12,7 @@ VAR
 	fbHotBedHeatingControl: Heater_control;
 	fbGetHotBedTemperature : FB_GetTemperature;
 	
+	fbConfirmHsk: ItpConfirmHsk;
 	fbExecuteGcode: FB_ExecuteGcode;
 	fbBuildGroup: CfgBuildExt3DGroup;
 	fbReconfigAxis: CfgReconfigAxis;
@@ -37,7 +38,8 @@ VAR
 	
 	Xjog: MC_Jog;
 	Yjog: MC_Jog;
-	moveExtruderAbsolute: MC_MoveAbsolute;
+	moveExtruderAbsolute1: MC_MoveAbsolute;
+	moveExtruderAbsolute2: MC_MoveAbsolute;
 	
 	ExecuteKinConfig: BOOL := true;
 	HomingSensorX AT %I*: BOOL;
@@ -66,9 +68,12 @@ VAR
 	hotBedCalibrationValues : ARRAY [1..6] OF LREAL := [50 ,35262 ,60 ,24136 ,70 ,16841 ]; 
 	
 	hParam: DINT;
+	ExtruderValue: LREAL;
 	State: INT ;
+	printerSpeed : LREAL;
+	ExtruderSpeed : LREAL;
 	bConfirmHsk: BOOL := FALSE;
-	sPrgNameSegment1: STRING(255) := 'test_3_segment_1.nc';
+	sPrgNameSegment1: STRING(255) := 'test_4';
 	sPrgNameSegment2: STRING(255) := 'test_3_segment_2.nc';
 	nInterpreterState: UDINT;
 	
@@ -233,38 +238,49 @@ CASE State OF
 		state:= 41;
 	END_IF
 	
-	41: //tijdens segment 1
+	41: //tijdens g-code
 	fbStartGCode( bStart:= FALSE, sNciToPlc:= in_stNciToPlc);
-	nInterpreterState	:= ItpGetStateInterpreter(sNciToPlc:=in_stNciToPlc); // status van de NCI
-	IF nInterpreterState = Tc2_NCI.NCI_INTERPRETER_READY THEN // als de G-code klaar is gaat het programma naar de volgende state
+	
+	
+	hParam := ItpGetHParam( in_stNciToPlc );
+	extruderValue := (DINT_TO_LREAL (hParam)/100000);
+	printerSpeed := ItpGetSetPathVelocity( in_stNciToPlc );
+	extruderSpeed := printerSpeed*(2/25);
+
+	IF ItpIsHskMFunc( in_stNciToPlc ) AND ItpGetHskMFunc( in_stNciToPlc ) = 1 THEN // Bij m- function 1 gaan naar de set etruder position stte
 		State:=42;
+	ELSE 
+		fbConfirmHsk(sNciToPlc := in_stNciToPlc,
+						  sPlcToNci:= out_stPlcToNci,
+						  bExecute:= FALSE);
 	END_IF
+	
+	nInterpreterState	:= ItpGetStateInterpreter(sNciToPlc:=in_stNciToPlc); // status van de NCI
+	IF nInterpreterState = Tc2_NCI.NCI_INTERPRETER_READY THEN // als de g-code is klaar
+		State:=50;
+	END_IF
+	
 
 	42: // set position extruder axis
-	setExtruder(execute:= TRUE ,axis:= Extruder ,position:= 0);
+	hParam := ItpGetHParam( in_stNciToPlc );
+	extruderValue := (DINT_TO_LREAL (hParam)/100000);
+	
+	setExtruder(execute:= TRUE ,axis:= Extruder ,position:= extruderValue);
 	IF setExtruder.Done THEN
-		state:= 50;
+		fbConfirmHsk(sNciToPlc := in_stNciToPlc,
+						  sPlcToNci:= out_stPlcToNci,
+						  bExecute:= TRUE);
+		setExtruder(execute:= FALSE ,axis:= Extruder);
+		state:= 41;
 	END_IF
 
-	50: //voer g-code uit
-	fbExecuteGcode(execute:= TRUE, sPrgName:= sPrgNameSegment2,in_stNciToPlc:= in_stNciToPlc, reset:= FALSE);
+	50: // print is klaar
 	
-	IF fbExecuteGcode.done THEN
-		fbExecuteGcode(execute:= FALSE, reset:= TRUE);
-		state:= 51;
-	END_IF
-	
-	51: // tijdens het printen
-	nInterpreterState	:= ItpGetStateInterpreter(sNciToPlc:=in_stNciToPlc); // status of the NCI channel
-	IF nInterpreterState = Tc2_NCI.NCI_INTERPRETER_READY THEN // if g-code is finished then
-		State:=60;
-	END_IF
-			
-		
-	60: // print is klaar
+	60:// rotzooi
 	
 	
-END_CASE
+END_CASEhParam := ItpGetHParam( in_stNciToPlc );
+	
 ]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
@@ -345,23 +361,28 @@ END_CASE
       <LineId Id="115" Count="0" />
       <LineId Id="2184" Count="0" />
       <LineId Id="1897" Count="0" />
+      <LineId Id="2845" Count="0" />
+      <LineId Id="2842" Count="2" />
       <LineId Id="1902" Count="0" />
+      <LineId Id="2830" Count="0" />
+      <LineId Id="2833" Count="5" />
+      <LineId Id="2831" Count="0" />
+      <LineId Id="2846" Count="0" />
+      <LineId Id="2832" Count="0" />
+      <LineId Id="2829" Count="0" />
       <LineId Id="1904" Count="1" />
+      <LineId Id="2874" Count="0" />
       <LineId Id="1939" Count="1" />
-      <LineId Id="1942" Count="3" />
-      <LineId Id="1938" Count="0" />
-      <LineId Id="1894" Count="0" />
-      <LineId Id="2610" Count="4" />
-      <LineId Id="1946" Count="0" />
-      <LineId Id="1936" Count="0" />
-      <LineId Id="1949" Count="0" />
-      <LineId Id="1966" Count="2" />
-      <LineId Id="1965" Count="0" />
-      <LineId Id="1951" Count="0" />
+      <LineId Id="2847" Count="2" />
+      <LineId Id="1942" Count="1" />
+      <LineId Id="2851" Count="2" />
+      <LineId Id="2850" Count="0" />
+      <LineId Id="1944" Count="1" />
       <LineId Id="1661" Count="0" />
       <LineId Id="116" Count="0" />
-      <LineId Id="1585" Count="0" />
-      <LineId Id="2" Count="0" />
+      <LineId Id="2840" Count="1" />
+      <LineId Id="2872" Count="1" />
+      <LineId Id="2805" Count="0" />
       <LineId Id="1451" Count="0" />
       <LineId Id="1252" Count="0" />
     </LineIds>
