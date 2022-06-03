@@ -302,6 +302,10 @@ CASE State OF
 		extruderSpeed := (printerSpeed * 0.08);
 	END_IF
 	
+	IF extruderSpeed = 0  THEN
+		extruderSpeed:= 0.1;
+	END_IF
+	
 	IF ItpIsHskMFunc( in_stNciToPlc ) THEN // Bij m- function 1 gaan naar de set etruder position stte
 		IF ItpGetHskMFunc( in_stNciToPlc ) = 1 THEN
 			State:=43;
@@ -337,7 +341,9 @@ CASE State OF
 		extruderSpeed := (printerSpeed * 0.08);
 	END_IF
 	
-	
+	IF extruderSpeed = 0  THEN
+		extruderSpeed:= 0.1;
+	END_IF
 	
 	IF ItpIsHskMFunc( in_stNciToPlc ) THEN // Bij m- function 1 gaan naar de set etruder position stte
 		IF ItpGetHskMFunc( in_stNciToPlc ) = 1 THEN
@@ -420,7 +426,11 @@ END_CASE
       <LineId Id="3391" Count="10" />
       <LineId Id="3641" Count="0" />
       <LineId Id="3637" Count="3" />
-      <LineId Id="3402" Count="1" />
+      <LineId Id="3402" Count="0" />
+      <LineId Id="3646" Count="0" />
+      <LineId Id="3403" Count="0" />
+      <LineId Id="3643" Count="1" />
+      <LineId Id="3647" Count="0" />
       <LineId Id="3518" Count="12" />
       <LineId Id="3409" Count="4" />
       <LineId Id="3421" Count="9" />
@@ -430,6 +440,7 @@ END_CASE
       <LineId Id="3636" Count="0" />
       <LineId Id="3633" Count="0" />
       <LineId Id="3431" Count="0" />
+      <LineId Id="3648" Count="1" />
       <LineId Id="3512" Count="1" />
       <LineId Id="3503" Count="4" />
       <LineId Id="3514" Count="3" />
