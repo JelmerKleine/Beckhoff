@@ -40,6 +40,7 @@ VAR
 	Yjog: MC_Jog;
 	moveExtruderAbsolute1: MC_MoveAbsolute;
 	moveExtruderAbsolute2: MC_MoveAbsolute;
+	moveZAbsolute: MC_MoveAbsolute;
 	
 	ExecuteKinConfig: BOOL := true;
 	HomingSensorX AT %I*: BOOL;
@@ -77,7 +78,7 @@ VAR
 	printerSpeed : LREAL;
 	ExtruderSpeed : LREAL;
 	bConfirmHsk: BOOL := FALSE;
-	sPrgNameSegment: STRING(255) := 'test_4.nc';
+	sPrgNameSegment: STRING(255) := 'calibrationCube.nc';
 	nInterpreterState: UDINT;
 	
 	bEnable: BOOL := FALSE;
@@ -112,12 +113,12 @@ moveExtruderAbsolute2(Axis := Extruder, execute := moveAbs2 , Position := extrud
 	
 
 fbGetHotEndTemperature(terminalResistance := (10*INT_TO_REAL(hotendResitance)), calibrationValues := hotEndCalibrationValues );//hotendResitance
-fbHotEndHeatingControl(actualTemp := fbGetHotEndTemperature.temperatureSensor,desiredTemp := 210);
-hotendHeater := FALSE; // fbHotEndHeatingControl.PWM_out; 
+fbHotEndHeatingControl(actualTemp := fbGetHotEndTemperature.temperatureSensor,desiredTemp := 215); // pd controller die een pwm signaal output for de hot end 
+hotendHeater := fbHotEndHeatingControl.PWM_out; 
 
 fbGetHotBedTemperature(terminalResistance := (10*INT_TO_REAL(hotbedResitance)), calibrationValues := hotBedCalibrationValues );//hotbed temperatuur
 fbHotBedHeatingControl(actualTemp := fbGetHotBedTemperature.temperatureSensor,desiredTemp := 60); // pd controlller die een pwm signaal output
-hotbedHeater := fbHotBedHeatingControl.PWM_out;
+//hotbedHeater := fbHotBedHeatingControl.PWM_out;
 	
 CASE State OF
 	0: // init
@@ -156,7 +157,7 @@ CASE State OF
 			stAxesList     := stAxesConfig,
 			stKinRefIn     := in_stKinToPlc );
 			IF homeAxi THEN
-				State:=30;
+				State:=20;
 			END_IF
 		END_IF
 	END_IF
@@ -230,10 +231,17 @@ CASE State OF
 	END_IF
 	
 	
-	
 	25:
+	moveZAbsolute(axis:= Zaxis, Execute:= TRUE, Position:= 2, velocity:=1);
+	IF moveZAbsolute.Done THEN
+		moveZAbsolute(axis:= Zaxis, Execute:= FALSE);
+		state:= 26;
+	END_IF
+	
+	
+	26:
 	setExtruder(execute:= TRUE ,axis:= Extruder ,position:= 0);
-	IF setExtruder.Done THEN
+	IF setExtruder.Done AND fbGetHotEndTemperature.temperatureSensor >= 205 THEN
 		state:= 30;
 	END_IF
 	
@@ -287,7 +295,12 @@ CASE State OF
 	hParam := ItpGetHParam( in_stNciToPlc );
 	extruderValue := (DINT_TO_LREAL (hParam)/100000);
 	printerSpeed := ItpGetSetPathVelocity( in_stNciToPlc );
-	extruderSpeed := (printerSpeed * 0.08);
+	
+	IF extruderValue < 0 THEN
+		extruderSpeed := 10;
+	ELSE
+		extruderSpeed := (printerSpeed * 0.08);
+	END_IF
 	
 	IF ItpIsHskMFunc( in_stNciToPlc ) THEN // Bij m- function 1 gaan naar de set etruder position stte
 		IF ItpGetHskMFunc( in_stNciToPlc ) = 1 THEN
@@ -317,7 +330,13 @@ CASE State OF
 	hParam := ItpGetHParam( in_stNciToPlc );
 	extruderValue := (DINT_TO_LREAL (hParam)/100000);
 	printerSpeed := ItpGetSetPathVelocity( in_stNciToPlc );
-	extruderSpeed := (printerSpeed * 0.08);
+	
+	IF extruderValue < 0 THEN
+		extruderSpeed := 10;
+	ELSE
+		extruderSpeed := (printerSpeed * 0.08);
+	END_IF
+	
 	
 	
 	IF ItpIsHskMFunc( in_stNciToPlc ) THEN // Bij m- function 1 gaan naar de set etruder position stte
@@ -379,8 +398,15 @@ END_CASE
       <LineId Id="3477" Count="0" />
       <LineId Id="3326" Count="7" />
       <LineId Id="3476" Count="0" />
-      <LineId Id="3334" Count="14" />
+      <LineId Id="3334" Count="13" />
+      <LineId Id="3624" Count="0" />
+      <LineId Id="3348" Count="0" />
+      <LineId Id="3623" Count="0" />
+      <LineId Id="3627" Count="1" />
+      <LineId Id="3630" Count="0" />
+      <LineId Id="3629" Count="0" />
       <LineId Id="3475" Count="0" />
+      <LineId Id="3625" Count="0" />
       <LineId Id="3349" Count="6" />
       <LineId Id="3474" Count="0" />
       <LineId Id="3356" Count="17" />
@@ -391,10 +417,19 @@ END_CASE
       <LineId Id="3490" Count="0" />
       <LineId Id="3388" Count="0" />
       <LineId Id="3463" Count="1" />
-      <LineId Id="3391" Count="12" />
+      <LineId Id="3391" Count="10" />
+      <LineId Id="3641" Count="0" />
+      <LineId Id="3637" Count="3" />
+      <LineId Id="3402" Count="1" />
       <LineId Id="3518" Count="12" />
       <LineId Id="3409" Count="4" />
-      <LineId Id="3421" Count="10" />
+      <LineId Id="3421" Count="9" />
+      <LineId Id="3642" Count="0" />
+      <LineId Id="3631" Count="1" />
+      <LineId Id="3634" Count="0" />
+      <LineId Id="3636" Count="0" />
+      <LineId Id="3633" Count="0" />
+      <LineId Id="3431" Count="0" />
       <LineId Id="3512" Count="1" />
       <LineId Id="3503" Count="4" />
       <LineId Id="3514" Count="3" />

@@ -7,9 +7,6 @@
     <RootNamespace>TwinCAT Measurement Project1</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="movement of th xyz, axis normal speed with test 2.svdx">
-      <SubType>Content</SubType>
-    </Content>
     <Content Include="movement.tcscopex">
       <SubType>Content</SubType>
     </Content>

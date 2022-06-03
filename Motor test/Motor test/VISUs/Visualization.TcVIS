@@ -1082,8 +1082,8 @@
                 <v>e9d0244c-7a30-4f32-99ca-2f066c11f5b7</v>
                 <v>ContainsPoint</v>
                 <v>00224282-ac65-4b1d-a1fc-20679fec9214</v>
-                <v>HasInputAccess</v>
-                <v>95bc805b-4a2e-44f3-a090-17398b84f511</v>
+                <v>SetStaticState</v>
+                <v>c8b3b500-d313-49aa-bfba-37e386f84eeb</v>
                 <v>HasInputAccessIntern</v>
                 <v>aa26e0c0-a763-4f85-ab04-74eb7c70e833</v>
                 <v>GetTooltip</v>
@@ -1102,8 +1102,6 @@
                 <v>5618ca86-c2ef-49c1-95c6-a7d474ebc39c</v>
                 <v>SetClientData</v>
                 <v>e1f4365c-d900-4465-8589-e932e84f0b83</v>
-                <v>HasVisibilityAccessIntern</v>
-                <v>bb5db1fe-3fa5-4229-a683-378f8f3052d3</v>
                 <v>GetInstance</v>
                 <v>9a375205-8791-48d2-a53f-59abc6f18302</v>
                 <v>GetClientData</v>
@@ -1122,12 +1120,14 @@
                 <v>c44a2b8f-131f-4dff-b061-bee3012641af</v>
                 <v>Initialize</v>
                 <v>f25ae76a-537d-44d0-870f-4701c4f6fddd</v>
-                <v>Destruct</v>
-                <v>ca1d9811-13f7-491a-91f6-56f834bf096d</v>
-                <v>SetStaticState</v>
-                <v>c8b3b500-d313-49aa-bfba-37e386f84eeb</v>
+                <v>HasInputAccess</v>
+                <v>95bc805b-4a2e-44f3-a090-17398b84f511</v>
+                <v>HasVisibilityAccessIntern</v>
+                <v>bb5db1fe-3fa5-4229-a683-378f8f3052d3</v>
                 <v>GetSurroundingRect</v>
                 <v>a7fa0f1f-0a7e-4953-9226-6aa50366532d</v>
+                <v>ElementInfo</v>
+                <v>27e963fe-b71c-46f1-8a0d-695386c8e963</v>
                 <v>GetResult</v>
                 <v>53178af1-8ecb-4a94-aad7-3a9908825b13</v>
                 <v>GetLocalUsergroup</v>
@@ -1150,8 +1150,8 @@
                 <v>cc32bdd1-0db2-4cd6-b394-33a20c87abc1</v>
                 <v>HandleInput</v>
                 <v>b63421dd-6b77-4880-abac-1b29644d5b95</v>
-                <v>ElementInfo</v>
-                <v>27e963fe-b71c-46f1-8a0d-695386c8e963</v>
+                <v>Destruct</v>
+                <v>ca1d9811-13f7-491a-91f6-56f834bf096d</v>
               </d>
               <v n="FbName">"NotImportant"</v>
               <v n="FbGuid">{08d3b490-6e42-48e2-a4f5-a5f079737388}</v>
@@ -1217,7 +1217,7 @@
               <o>
                 <v n="Id">2L</v>
                 <n n="Tag" />
-                <v n="Text">" VAR_IN_OUT"</v>
+                <v n="Text">"VAR_IN_OUT"</v>
               </o>
               <o>
                 <v n="Id">3L</v>

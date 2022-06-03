@@ -1,15 +1,10 @@
 <?xml version="1.0"?>
 <TcLicenseInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2011/11/TcLicenseInfo">
 	<LicenseInfo>
-		<SystemId>{92887F8F-2A46-DF3E-0B78-A4B66FCFE24A}</SystemId>
-		<IssueTime>2022-05-31T08:36:00</IssueTime>
-		<ExpireTime>2022-06-08T00:00:00</ExpireTime>
-		<LicenseKey>582ce77bf9bbdfd22757175ddf708821d4fda5566cecef0e55a34b6d866f3dbcd0ced449de7650031b99ccd37d03dab5f57e5151f6eaefe0aaf193822f191f2be7026915e7b0f74bdd5033e07467048d23ce7674b952a768427881bbd0db0650534fbb1deb8a6981518686a06867234c4dc2ae60167000026aa5b8e26939d78d5d8130e3a291120129112f8806ca488f6902327972db1726c719ed8a2fd75afbf49dea9485f6b2c3b54049bd26e17f6b7d00aa0200228d04ce83507a61ad5b89fbf6789ea6774e7949760279673a5128fc03dc07dba678b2a772bb0c8875a0721123f52c3bc6f2a5265b3682d7dc8ef92c632734ec916927535ba0ab4cd39101</LicenseKey>
-		<License>
-			<LicenseId>{4C256767-E6E6-4AF5-BD68-9F7ABAD0C200}</LicenseId>
-			<Name>TC3 ADS</Name>
-			<OrderNo>TC1000</OrderNo>
-		</License>
+		<SystemId>{4F4AA581-CD8F-C9D8-1EC6-631617D53DA8}</SystemId>
+		<IssueTime>2022-06-03T07:10:00</IssueTime>
+		<ExpireTime>2022-06-11T00:00:00</ExpireTime>
+		<LicenseKey>d45f658deaad357d12c95346d7200a51918283d038dcfc12c2953b48a0fe5b46900b0df616abf1cc2fa4ec751e0107e855a5a302b06a803d26129739e76aa2e604fbaf26541c91d6bc0edb95c1f7f7023049076f3b694a3292bcdf3d445a9e32c6c7562b47998fa6e7f48e616b4b2e2794894c5f43c3a05ba1a17d73684212cae9060da830d13a464d81065358de88398a7a18289b021d81c5574b1a45a6b35e25ad610c5ef509448918c50dc74b7c81b8c1946344fa0932220c3d433421f29d45419aedd6fa0f576a80752a9d2625840538024274759cd4645b6b75f49b99f729d6c4f811d2533c3e6d44656ab057967d16cf39da327361fa944801ea84e676</LicenseKey>
 		<License>
 			<LicenseId>{3FF18E97-7754-401B-93FB-70544DE28A13}</LicenseId>
 			<Name>TC3 IO</Name>
@@ -54,6 +49,11 @@
 			<LicenseId>{777F1598-583B-4503-99BB-7C02E0ABD97E}</LicenseId>
 			<Name>TC3 Controller Toolbox</Name>
 			<OrderNo>TF4100</OrderNo>
+		</License>
+		<License>
+			<LicenseId>{4C256767-E6E6-4AF5-BD68-9F7ABAD0C200}</LicenseId>
+			<Name>TC3 ADS</Name>
+			<OrderNo>TC1000</OrderNo>
 		</License>
 	</LicenseInfo>
 </TcLicenseInfo>
