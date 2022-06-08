@@ -5,7 +5,7 @@
   <Children>
     <Node>
       <Title>movement</Title>
-      <Expanded>True</Expanded>
+      <Expanded>False</Expanded>
       <FileName>C:\Users\jelme\Desktop\3d print\3d printer programma\TwinCAT Measurement Project1\movement.tcscopex</FileName>
       <Children>
         <Node>
@@ -14,13 +14,25 @@
           <FileName></FileName>
           <Children>
             <Node>
-              <Title>ActPos (4)</Title>
+              <Title>ActAcc</Title>
               <Expanded>False</Expanded>
               <FileName></FileName>
               <Children />
             </Node>
             <Node>
-              <Title>ActVelo (4)</Title>
+              <Title>ActPos</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children />
+            </Node>
+            <Node>
+              <Title>ActVelo</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children />
+            </Node>
+            <Node>
+              <Title>SetPos</Title>
               <Expanded>False</Expanded>
               <FileName></FileName>
               <Children />
@@ -39,24 +51,37 @@
           <FileName></FileName>
           <Children>
             <Node>
-              <Title>Extruder</Title>
+              <Title>Extruder pos</Title>
               <Expanded>True</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
-                  <Title>ActPos (4)</Title>
+                  <Title>ActPos</Title>
                   <Expanded>False</Expanded>
                   <FileName></FileName>
                   <Children />
                 </Node>
                 <Node>
-                  <Title>ActVelo (4)</Title>
+                  <Title>SetPos</Title>
                   <Expanded>False</Expanded>
                   <FileName></FileName>
                   <Children />
                 </Node>
+              </Children>
+            </Node>
+            <Node>
+              <Title>Extruder velo</Title>
+              <Expanded>True</Expanded>
+              <FileName></FileName>
+              <Children>
                 <Node>
                   <Title>SetVelo</Title>
+                  <Expanded>False</Expanded>
+                  <FileName></FileName>
+                  <Children />
+                </Node>
+                <Node>
+                  <Title>ActVelo</Title>
                   <Expanded>False</Expanded>
                   <FileName></FileName>
                   <Children />
@@ -75,7 +100,7 @@
     </Node>
     <Node>
       <Title>Scope Project1</Title>
-      <Expanded>False</Expanded>
+      <Expanded>True</Expanded>
       <FileName>C:\Users\jelme\Desktop\3d print\3d printer programma\TwinCAT Measurement Project1\Scope Project1.tcscopex</FileName>
       <Children>
         <Node>
@@ -181,22 +206,22 @@
         </Node>
         <Node>
           <Title>YT Chart</Title>
-          <Expanded>True</Expanded>
+          <Expanded>False</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
               <Title>Axis Group</Title>
-              <Expanded>True</Expanded>
+              <Expanded>False</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
-                  <Title>actualTemp</Title>
+                  <Title>actualTemp (1)</Title>
                   <Expanded>False</Expanded>
                   <FileName></FileName>
                   <Children />
                 </Node>
                 <Node>
-                  <Title>desiredTemp</Title>
+                  <Title>desiredTemp (1)</Title>
                   <Expanded>False</Expanded>
                   <FileName></FileName>
                   <Children />
@@ -205,7 +230,7 @@
             </Node>
             <Node>
               <Title>Axis Group (1)</Title>
-              <Expanded>True</Expanded>
+              <Expanded>False</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
@@ -229,13 +254,13 @@
               <FileName></FileName>
               <Children>
                 <Node>
-                  <Title>actualTemp (1)</Title>
+                  <Title>actualTemp</Title>
                   <Expanded>False</Expanded>
                   <FileName></FileName>
                   <Children />
                 </Node>
                 <Node>
-                  <Title>desiredTemp (1)</Title>
+                  <Title>desiredTemp</Title>
                   <Expanded>False</Expanded>
                   <FileName></FileName>
                   <Children />

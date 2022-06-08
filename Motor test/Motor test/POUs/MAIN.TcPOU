@@ -41,6 +41,8 @@ VAR
 	moveExtruderAbsolute1: MC_MoveAbsolute;
 	moveExtruderAbsolute2: MC_MoveAbsolute;
 	moveZAbsolute: MC_MoveAbsolute;
+	moveXAbsolute: MC_MoveAbsolute;
+	moveYAbsolute: MC_MoveAbsolute;
 	
 	ExecuteKinConfig: BOOL := true;
 	HomingSensorX AT %I*: BOOL;
@@ -53,7 +55,7 @@ VAR
 	
 	Xoffset: LREAL := 0;
 	Yoffset: LREAL := 0;
-	Zoffset: LREAL := 0.4;
+	Zoffset: LREAL := 0.38;
 	
 
 	hotendResitance AT %I*  : INT := 1;
@@ -78,12 +80,11 @@ VAR
 	printerSpeed : LREAL;
 	ExtruderSpeed : LREAL;
 	bConfirmHsk: BOOL := FALSE;
-	sPrgNameSegment: STRING(255) := 'calibrationCube.nc';
+	sPrgNameSegment: STRING(255) := 'beckhoff.nc';
 	nInterpreterState: UDINT;
 	
 	bEnable: BOOL := FALSE;
 	homeAxi: BOOL := FALSE;
-	loadGcode: BOOL := FALSE;
 	executeGcode: BOOL := FALSE;
 	moveAbs1: BOOL := FALSE;
 	moveAbs2: BOOL := FALSE;
@@ -111,14 +112,21 @@ END_VAR
 moveExtruderAbsolute1(Axis := Extruder, execute := moveAbs1 , Position := extruderValue ,Velocity := extruderSpeed ,buffermode := MC_Aborting );
 moveExtruderAbsolute2(Axis := Extruder, execute := moveAbs2 , Position := extruderValue ,Velocity := extruderSpeed ,buffermode := MC_Aborting );		
 	
+IF fbGetHotEndTemperature.temperatureSensor < 230 THEN
+	fbGetHotEndTemperature(terminalResistance := (10*INT_TO_REAL(hotendResitance)), calibrationValues := hotEndCalibrationValues );//hotendResitance
+	fbHotEndHeatingControl(actualTemp := fbGetHotEndTemperature.temperatureSensor,desiredTemp := 215); // pd controller die een pwm signaal output for de hot end 
+	hotendHeater := fbHotEndHeatingControl.PWM_out; 
+ELSE 
+	hotendHeater := FALSE;
+END_IF
 
-fbGetHotEndTemperature(terminalResistance := (10*INT_TO_REAL(hotendResitance)), calibrationValues := hotEndCalibrationValues );//hotendResitance
-fbHotEndHeatingControl(actualTemp := fbGetHotEndTemperature.temperatureSensor,desiredTemp := 215); // pd controller die een pwm signaal output for de hot end 
-hotendHeater := fbHotEndHeatingControl.PWM_out; 
-
-fbGetHotBedTemperature(terminalResistance := (10*INT_TO_REAL(hotbedResitance)), calibrationValues := hotBedCalibrationValues );//hotbed temperatuur
-fbHotBedHeatingControl(actualTemp := fbGetHotBedTemperature.temperatureSensor,desiredTemp := 60); // pd controlller die een pwm signaal output
-//hotbedHeater := fbHotBedHeatingControl.PWM_out;
+IF fbGetHotBedTemperature.temperatureSensor < 70 THEN
+	fbGetHotBedTemperature(terminalResistance := (10*INT_TO_REAL(hotbedResitance)), calibrationValues := hotBedCalibrationValues );//hotbed temperatuur
+	fbHotBedHeatingControl(actualTemp := fbGetHotBedTemperature.temperatureSensor,desiredTemp := 60); // pd controlller die een pwm signaal output
+	hotbedHeater := fbHotBedHeatingControl.PWM_out;
+ELSE 
+	hotbedHeater := FALSE;
+END_IF
 	
 CASE State OF
 	0: // init
@@ -160,6 +168,15 @@ CASE State OF
 				State:=20;
 			END_IF
 		END_IF
+	ELSIF F_KinGetChnOperationState(in_stKinToPlc) = KinStatus_Ready THEN
+		ExecuteKinConfig:=FALSE;
+			fbConfigKinGroup(
+			bExecute       := ExecuteKinConfig ,
+			stAxesList     := stAxesConfig,
+			stKinRefIn     := in_stKinToPlc );
+			IF homeAxi THEN
+				State:=20;
+			END_IF
 	END_IF
 	
 	
@@ -232,7 +249,7 @@ CASE State OF
 	
 	
 	25:
-	moveZAbsolute(axis:= Zaxis, Execute:= TRUE, Position:= 2, velocity:=1);
+	moveZAbsolute(axis:= Zaxis, Execute:= TRUE, Position:= 1, velocity:=1);
 	IF moveZAbsolute.Done THEN
 		moveZAbsolute(axis:= Zaxis, Execute:= FALSE);
 		state:= 26;
@@ -241,7 +258,7 @@ CASE State OF
 	
 	26:
 	setExtruder(execute:= TRUE ,axis:= Extruder ,position:= 0);
-	IF setExtruder.Done AND fbGetHotEndTemperature.temperatureSensor >= 205 THEN
+	IF setExtruder.Done AND fbGetHotEndTemperature.temperatureSensor >= 210 AND fbGetHotBedTemperature.temperatureSensor >= 55 THEN
 		state:= 30;
 	END_IF
 	
@@ -260,11 +277,14 @@ CASE State OF
 		fbBuildGroup( bExecute:=FALSE );
 		
 		IF NOT fbBuildGroup.bErr THEN
-				State	:= 40;
+				State	:= 31;
 		END_IF
 	END_IF
 	
-	
+	31:
+	IF executeGcode THEN
+		state:= 40;
+	END_IF
 	
 	40: // laad segment 1
 	fbExecuteGcode(execute:= TRUE ,sPrgName:= sPrgNameSegment ,in_stNciToPlc:= in_stNciToPlc, reset:= FALSE);
@@ -278,19 +298,7 @@ CASE State OF
 	
 	41: //tijdens g-code absoluut commando 1
 	
-	
-	IF ItpIsHskMFunc( in_stNciToPlc ) AND ItpGetHskMFunc( in_stNciToPlc ) = 1 THEN // Bij m- function 1 gaan naar de set etruder position stte
-		State:=43;
-	ELSE 
-		fbConfirmHsk(sNciToPlc := in_stNciToPlc,
-						  sPlcToNci:= out_stPlcToNci,
-						  bExecute:= FALSE);
-	END_IF
-	
 	nInterpreterState	:= ItpGetStateInterpreter(sNciToPlc:=in_stNciToPlc); // status van de NCI
-	IF nInterpreterState = Tc2_NCI.NCI_INTERPRETER_READY THEN // als de g-code is klaar
-		State:=50;
-	END_IF
 	
 	hParam := ItpGetHParam( in_stNciToPlc );
 	extruderValue := (DINT_TO_LREAL (hParam)/100000);
@@ -310,6 +318,8 @@ CASE State OF
 		IF ItpGetHskMFunc( in_stNciToPlc ) = 1 THEN
 			State:=43;
 		END_IF
+	ELSIF nInterpreterState = Tc2_NCI.NCI_INTERPRETER_READY THEN
+		State:=50;
 	ELSE 
 		IF extruderValue <> 0 THEN
 				moveAbs1 := TRUE;
@@ -349,6 +359,8 @@ CASE State OF
 		IF ItpGetHskMFunc( in_stNciToPlc ) = 1 THEN
 			State:=43;
 		END_IF
+	ELSIF nInterpreterState = Tc2_NCI.NCI_INTERPRETER_READY THEN
+		State:=50;
 	ELSE 
 		IF extruderValue <> 0 THEN
 				moveAbs1 := FALSE;
@@ -383,6 +395,14 @@ CASE State OF
 	END_IF
 
 	50: // print is klaar
+	moveXAbsolute(axis:= Xaxis, Execute:= TRUE, Position:= 10, velocity:=25);
+	moveYAbsolute(axis:= Yaxis, Execute:= TRUE, Position:= 10, velocity:=25);
+	IF moveXAbsolute.Done AND moveYAbsolute.Done THEN
+		moveXAbsolute(axis:= Xaxis, Execute:= FALSE);
+		moveYAbsolute(axis:= Yaxis, Execute:= FALSE);
+		state:= 51;
+	END_IF
+	51: // doe niks
 	
 	60:// rotzooi
 	
@@ -392,9 +412,21 @@ END_CASE
 ]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="3220" Count="38" />
+      <LineId Id="3220" Count="18" />
+      <LineId Id="3845" Count="1" />
+      <LineId Id="3841" Count="0" />
+      <LineId Id="3847" Count="0" />
+      <LineId Id="3239" Count="3" />
+      <LineId Id="3842" Count="2" />
+      <LineId Id="3243" Count="15" />
       <LineId Id="3481" Count="0" />
-      <LineId Id="3259" Count="26" />
+      <LineId Id="3259" Count="23" />
+      <LineId Id="3943" Count="0" />
+      <LineId Id="3945" Count="3" />
+      <LineId Id="3944" Count="0" />
+      <LineId Id="3950" Count="1" />
+      <LineId Id="3949" Count="0" />
+      <LineId Id="3283" Count="2" />
       <LineId Id="3480" Count="0" />
       <LineId Id="3286" Count="8" />
       <LineId Id="3479" Count="0" />
@@ -416,14 +448,13 @@ END_CASE
       <LineId Id="3349" Count="6" />
       <LineId Id="3474" Count="0" />
       <LineId Id="3356" Count="17" />
+      <LineId Id="3848" Count="2" />
       <LineId Id="3473" Count="0" />
       <LineId Id="3374" Count="8" />
       <LineId Id="3471" Count="0" />
-      <LineId Id="3383" Count="3" />
-      <LineId Id="3490" Count="0" />
-      <LineId Id="3388" Count="0" />
-      <LineId Id="3463" Count="1" />
-      <LineId Id="3391" Count="10" />
+      <LineId Id="3383" Count="1" />
+      <LineId Id="3394" Count="0" />
+      <LineId Id="3398" Count="3" />
       <LineId Id="3641" Count="0" />
       <LineId Id="3637" Count="3" />
       <LineId Id="3402" Count="0" />
@@ -431,7 +462,9 @@ END_CASE
       <LineId Id="3403" Count="0" />
       <LineId Id="3643" Count="1" />
       <LineId Id="3647" Count="0" />
-      <LineId Id="3518" Count="12" />
+      <LineId Id="3518" Count="3" />
+      <LineId Id="3744" Count="1" />
+      <LineId Id="3522" Count="8" />
       <LineId Id="3409" Count="4" />
       <LineId Id="3421" Count="9" />
       <LineId Id="3642" Count="0" />
@@ -442,7 +475,9 @@ END_CASE
       <LineId Id="3431" Count="0" />
       <LineId Id="3648" Count="1" />
       <LineId Id="3512" Count="1" />
-      <LineId Id="3503" Count="4" />
+      <LineId Id="3503" Count="3" />
+      <LineId Id="3746" Count="1" />
+      <LineId Id="3507" Count="0" />
       <LineId Id="3514" Count="3" />
       <LineId Id="3508" Count="3" />
       <LineId Id="3432" Count="0" />
@@ -452,7 +487,13 @@ END_CASE
       <LineId Id="3496" Count="0" />
       <LineId Id="3467" Count="0" />
       <LineId Id="3497" Count="0" />
-      <LineId Id="3453" Count="9" />
+      <LineId Id="3453" Count="3" />
+      <LineId Id="3954" Count="2" />
+      <LineId Id="3958" Count="0" />
+      <LineId Id="3960" Count="1" />
+      <LineId Id="3959" Count="0" />
+      <LineId Id="3957" Count="0" />
+      <LineId Id="3457" Count="5" />
       <LineId Id="1252" Count="0" />
     </LineIds>
   </POU>
