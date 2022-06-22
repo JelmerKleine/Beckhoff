@@ -64,6 +64,7 @@ VAR
 	hotbedHeater AT %Q*  : BOOL;
 	hotendFan1 AT %Q*  : BOOL;
 	hotendFan2 AT %Q*  : BOOL;
+	HeatersOn: BOOL := FALSE;
 	
 	// Verschillende temperturen met hun weerstanden voor de steinhart equation
 	// temperaturen die dichter bij de use case zitten vebeter de precisie van de gemeten temperatuur
@@ -92,8 +93,6 @@ VAR
 	resetExtruder : BOOL :=FALSE;
 	intreperterState : UDINT;
 	
-
-	
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -112,21 +111,26 @@ END_VAR
 moveExtruderAbsolute1(Axis := Extruder, execute := moveAbs1 , Position := extruderValue ,Velocity := extruderSpeed ,buffermode := MC_Aborting );
 moveExtruderAbsolute2(Axis := Extruder, execute := moveAbs2 , Position := extruderValue ,Velocity := extruderSpeed ,buffermode := MC_Aborting );		
 	
-IF fbGetHotEndTemperature.temperatureSensor < 230 THEN
-	fbGetHotEndTemperature(terminalResistance := (10*INT_TO_REAL(hotendResitance)), calibrationValues := hotEndCalibrationValues );//hotendResitance
-	fbHotEndHeatingControl(actualTemp := fbGetHotEndTemperature.temperatureSensor,desiredTemp := 215); // pd controller die een pwm signaal output for de hot end 
-	hotendHeater := fbHotEndHeatingControl.PWM_out; 
+IF HeatersOn THEN	
+	IF fbGetHotEndTemperature.temperatureSensor < 230 THEN
+		fbGetHotEndTemperature(terminalResistance := (10*INT_TO_REAL(hotendResitance)), calibrationValues := hotEndCalibrationValues );//hotendResitance
+		fbHotEndHeatingControl(actualTemp := fbGetHotEndTemperature.temperatureSensor,desiredTemp := 210); // pd controller die een pwm signaal output for de hot end 
+		hotendHeater := fbHotEndHeatingControl.PWM_out; 
+	ELSE 
+		hotendHeater := FALSE;
+	END_IF
+	
+	IF fbGetHotBedTemperature.temperatureSensor < 70 THEN
+		fbGetHotBedTemperature(terminalResistance := (10*INT_TO_REAL(hotbedResitance)), calibrationValues := hotBedCalibrationValues );//hotbed temperatuur
+		fbHotBedHeatingControl(actualTemp := fbGetHotBedTemperature.temperatureSensor,desiredTemp := 60); // pd controlller die een pwm signaal output
+		hotbedHeater := fbHotBedHeatingControl.PWM_out;
+	ELSE 
+		hotbedHeater := FALSE;
+	END_IF
 ELSE 
 	hotendHeater := FALSE;
-END_IF
-
-IF fbGetHotBedTemperature.temperatureSensor < 70 THEN
-	fbGetHotBedTemperature(terminalResistance := (10*INT_TO_REAL(hotbedResitance)), calibrationValues := hotBedCalibrationValues );//hotbed temperatuur
-	fbHotBedHeatingControl(actualTemp := fbGetHotBedTemperature.temperatureSensor,desiredTemp := 60); // pd controlller die een pwm signaal output
-	hotbedHeater := fbHotBedHeatingControl.PWM_out;
-ELSE 
 	hotbedHeater := FALSE;
-END_IF
+END_IF 
 	
 CASE State OF
 	0: // init
@@ -145,6 +149,7 @@ CASE State OF
 	
 	
 	10:
+	HeatersOn:= TRUE;
 	
 	stAxesConfig.nAxisIdsAcs[1] := XY_2.NcToPlc.AxisId;
 	stAxesConfig.nAxisIdsAcs[2] := XY_1.NcToPlc.AxisId;
@@ -403,7 +408,7 @@ CASE State OF
 		state:= 51;
 	END_IF
 	51: // doe niks
-	
+	HeatersOn:= FALSE;
 	60:// rotzooi
 	
 	
@@ -412,15 +417,14 @@ END_CASE
 ]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="3220" Count="18" />
-      <LineId Id="3845" Count="1" />
-      <LineId Id="3841" Count="0" />
-      <LineId Id="3847" Count="0" />
-      <LineId Id="3239" Count="3" />
-      <LineId Id="3842" Count="2" />
+      <LineId Id="3220" Count="14" />
+      <LineId Id="4056" Count="18" />
+      <LineId Id="3844" Count="0" />
       <LineId Id="3243" Count="15" />
       <LineId Id="3481" Count="0" />
-      <LineId Id="3259" Count="23" />
+      <LineId Id="3259" Count="1" />
+      <LineId Id="4077" Count="0" />
+      <LineId Id="3261" Count="21" />
       <LineId Id="3943" Count="0" />
       <LineId Id="3945" Count="3" />
       <LineId Id="3944" Count="0" />
