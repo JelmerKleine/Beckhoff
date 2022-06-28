@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="FB_CheckCurrentState" Id="{908493d4-e356-478e-bc9f-24bd56e7327b}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_block FB_CheckCurrentState
+VAR_INPUT
+	in_stNciToPlc: NCTOPLC_NCICHANNEL_REF;
+	nextState: INT;
+END_VAR
+VAR_OUTPUT
+	State: INT;
+END_VAR
+VAR
+	nInterpreterState: UDINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+nInterpreterState	:= ItpGetStateInterpreter(sNciToPlc:=in_stNciToPlc); // status van de NCI
+
+IF ItpIsHskMFunc( in_stNciToPlc ) THEN // Bij m- function 1 gaan naar de set etruder position stte
+	IF ItpGetHskMFunc( in_stNciToPlc ) = 1 THEN
+		State:=43;
+	END_IF
+ELSIF nInterpreterState = Tc2_NCI.NCI_INTERPRETER_READY THEN
+		State:=50;
+	ELSE 
+		state := nextState;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="FB_CheckCurrentState">
+      <LineId Id="35" Count="0" />
+      <LineId Id="8" Count="1" />
+      <LineId Id="19" Count="6" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="7" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

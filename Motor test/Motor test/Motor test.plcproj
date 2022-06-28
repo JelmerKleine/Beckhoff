@@ -23,10 +23,13 @@
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Fan_control.TcPOU">
+    <Compile Include="POUs\FB_CheckCurrentState.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FB_ExecuteGcode.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB_GetPrinterParameters.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FB_GetTemperature.TcPOU">

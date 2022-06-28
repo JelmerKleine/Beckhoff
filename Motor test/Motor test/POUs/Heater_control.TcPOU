@@ -3,13 +3,17 @@
   <POU Name="Heater_control" Id="{dd38d42a-bd3b-456e-a2fc-9f69da39d4fa}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Heater_control
 VAR_INPUT
-	actualTemp: LREAL;
-	desiredTemp:LREAL;
+	terminalResistance: INT;
+	desiredTemp: LREAL;
+	calibrationValues: ARRAY [1..6] OF LREAL;
+	maxTemp: LREAL;
 END_VAR
 VAR_OUTPUT
 	PWM_out: BOOL;
 END_VAR
 VAR
+	fbGetHotEndTemperature : FB_GetTemperature;
+	
 	realTemp: LREAL;
 	temperature :LREAL;
 	error: LREAL; // E(k)
@@ -27,37 +31,43 @@ VAR
 	Kp : LREAL := 120;
 	Ki : LREAL := 1.5;
 	Kd : LREAL := 45;
+	
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[error := desiredTemp - actualTemp;
-FB_GETCURTASKINDEX();
-cycleTime := (UDINT_TO_LREAL(_TaskInfo[FB_GETCURTASKINDEX.index].CycleTime)/ 10_000_000);
-integral := integral + error * cycleTime;
-derivative := (error - previousError) / cycleTime;
-controlSignal := (Kp * error  + Kd * derivative); //+ Ki * integral
-
-//PID(fSetpointValue := desiredTemp, fActualValue := actualTemp, stParams := PID_params );
-//controlSignal := PID.fOut;
-
-IF (controlSignal > 0 ) THEN
-	PWM( dutyCycle := controlSignal);	
+      <ST><![CDATA[IF fbGetHotEndTemperature.temperatureSensor < maxTemp THEN
+	fbGetHotEndTemperature(terminalResistance := (10*INT_TO_REAL(terminalResistance)), calibrationValues := calibrationValues );// weerstand naar temperatuur conversie
+	
+	error := desiredTemp - fbGetHotEndTemperature.temperatureSensor;
+	FB_GETCURTASKINDEX();
+	cycleTime := (UDINT_TO_LREAL(_TaskInfo[FB_GETCURTASKINDEX.index].CycleTime)/ 10_000_000);
+	//integral := integral + error * cycleTime;
+	derivative := (error - previousError) / cycleTime;
+	controlSignal := (Kp * error  + Kd * derivative); //+ Ki * integral
+	
+	
+	IF (controlSignal > 0 ) THEN
+		PWM( dutyCycle := controlSignal);	
+	ELSE 
+		PWM(dutyCycle := 0);
+	END_IF
+	
+	PWM_out := PWM.state; 
+	previousError := error;
 ELSE 
-	PWM(dutyCycle := 0);
+	PWM_out := FALSE;
 END_IF
-
-PWM_out := PWM.state; 
-previousError := error;]]></ST>
+]]></ST>
     </Implementation>
     <LineIds Name="Heater_control">
+      <LineId Id="218" Count="0" />
+      <LineId Id="213" Count="1" />
       <LineId Id="47" Count="0" />
       <LineId Id="90" Count="0" />
       <LineId Id="65" Count="0" />
       <LineId Id="122" Count="0" />
       <LineId Id="62" Count="0" />
       <LineId Id="96" Count="0" />
-      <LineId Id="153" Count="0" />
-      <LineId Id="150" Count="0" />
       <LineId Id="158" Count="1" />
       <LineId Id="91" Count="1" />
       <LineId Id="94" Count="1" />
@@ -65,6 +75,9 @@ previousError := error;]]></ST>
       <LineId Id="51" Count="0" />
       <LineId Id="58" Count="0" />
       <LineId Id="9" Count="0" />
+      <LineId Id="221" Count="1" />
+      <LineId Id="204" Count="0" />
+      <LineId Id="203" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>
