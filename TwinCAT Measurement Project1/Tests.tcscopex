@@ -79,7 +79,7 @@
           <DataType>REAL64</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>1</FileHandle>
+          <FileHandle>0</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>82bf7004-8f91-4e56-bfa2-2b071fa10768</Guid>
           <IndexGroup>16448</IndexGroup>
@@ -161,11 +161,11 @@
           <DataType>REAL64</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>2</FileHandle>
+          <FileHandle>0</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>4acc5b03-5738-4712-a17c-053f74b47448</Guid>
           <IndexGroup>16448</IndexGroup>
-          <IndexOffset>390856</IndexOffset>
+          <IndexOffset>447032</IndexOffset>
           <IsHistorical>false</IsHistorical>
           <Name>desiredTemp (1)</Name>
           <Oversample>0</Oversample>
@@ -243,11 +243,11 @@
           <DataType>BIT</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>3</FileHandle>
+          <FileHandle>0</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>2b9c2b74-ce4a-46ca-a616-3bb66bf8dfb0</Guid>
           <IndexGroup>61488</IndexGroup>
-          <IndexOffset>422118</IndexOffset>
+          <IndexOffset>424550</IndexOffset>
           <IsHistorical>false</IsHistorical>
           <Name>hotendHeater</Name>
           <Oversample>0</Oversample>
@@ -325,7 +325,7 @@
           <DataType>REAL64</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>4</FileHandle>
+          <FileHandle>0</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>e5ebbd04-6681-429f-bd1c-c5125b91410c</Guid>
           <IndexGroup>16448</IndexGroup>
@@ -407,11 +407,11 @@
           <DataType>REAL64</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>5</FileHandle>
+          <FileHandle>0</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>4b5f9b24-163f-41b7-8c58-d449c6ddff0a</Guid>
           <IndexGroup>16448</IndexGroup>
-          <IndexOffset>391744</IndexOffset>
+          <IndexOffset>447984</IndexOffset>
           <IsHistorical>false</IsHistorical>
           <Name>desiredTemp</Name>
           <Oversample>0</Oversample>
@@ -489,11 +489,11 @@
           <DataType>BIT</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>6</FileHandle>
+          <FileHandle>0</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>dfb4165e-fd92-4a95-aec2-118f4b86e9b4</Guid>
           <IndexGroup>61488</IndexGroup>
-          <IndexOffset>422119</IndexOffset>
+          <IndexOffset>424551</IndexOffset>
           <IsHistorical>false</IsHistorical>
           <Name>hotbedHeater</Name>
           <Oversample>0</Oversample>

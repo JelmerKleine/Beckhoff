@@ -10,9 +10,10 @@ VAR_INPUT
 END_VAR
 VAR_OUTPUT
 	PWM_out: BOOL;
+	temperatureSensor: LREAL;
 END_VAR
 VAR
-	fbGetHotEndTemperature : FB_GetTemperature;
+	fbGetTemperature: FB_GetTemperature;
 	
 	realTemp: LREAL;
 	temperature :LREAL;
@@ -35,10 +36,10 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF fbGetHotEndTemperature.temperatureSensor < maxTemp THEN
-	fbGetHotEndTemperature(terminalResistance := (10*INT_TO_REAL(terminalResistance)), calibrationValues := calibrationValues );// weerstand naar temperatuur conversie
+      <ST><![CDATA[IF fbGetTemperature.temperatureSensor < maxTemp THEN
+	fbGetTemperature(terminalResistance:= (10*INT_TO_REAL(terminalResistance)), calibrationValues:= calibrationValues, temperatureSensor=> temperatureSensor);// weerstand naar temperatuur conversie
 	
-	error := desiredTemp - fbGetHotEndTemperature.temperatureSensor;
+	error := desiredTemp - temperatureSensor;
 	FB_GETCURTASKINDEX();
 	cycleTime := (UDINT_TO_LREAL(_TaskInfo[FB_GETCURTASKINDEX.index].CycleTime)/ 10_000_000);
 	//integral := integral + error * cycleTime;

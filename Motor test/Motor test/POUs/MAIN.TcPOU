@@ -6,11 +6,8 @@ VAR
 	
 	fbPower: FB_PowerChannel;
 	
-	//fbfanControl: Fan_control;
 	fbHotEndHeatingControl: Heater_control;
-	fbGetHotEndTemperature : FB_GetTemperature;
 	fbHotBedHeatingControl: Heater_control;
-	fbGetHotBedTemperature : FB_GetTemperature;
 	fbGetCurrentState: FB_CheckCurrentState;
 	fbGetPrinterParameters: FB_GetPrinterParameters;
 	
@@ -71,7 +68,7 @@ VAR
 	// Verschillende temperturen met hun weerstanden voor de steinhart equation
 	// temperaturen die dichter bij de use case zitten vebeter de precisie van de gemeten temperatuur
 	hotEndCalibrationValues  : ARRAY [1..6] OF LREAL := [200 ,552.99 ,210 ,456.11, 220, 378.95];
-	hotBedCalibrationValues : ARRAY [1..6] OF LREAL := [50 ,35262 ,60 ,24136 ,70 ,16841 ]; 
+	hotBedCalibrationValues : ARRAY [1..6] OF LREAL := [50 ,35262  ,60 ,24136  ,70 ,16841  ]; 
 	
 	ExtruderValue: LREAL;
 	
@@ -108,7 +105,7 @@ moveExtruderAbsolute1(Axis := Extruder, execute := moveAbs1 , Position := extrud
 moveExtruderAbsolute2(Axis := Extruder, execute := moveAbs2 , Position := extruderValue ,Velocity := extruderSpeed ,buffermode := MC_Aborting );		
 	
 IF HeatersOn THEN	
-	fbHotEndHeatingControl(terminalResistance := hotendResitance,desiredTemp := 60,calibrationValues := hotEndCalibrationValues, maxTemp := 220); // pd controlller die een pwm signaal output
+	fbHotEndHeatingControl(terminalResistance := hotendResitance,desiredTemp := 210,calibrationValues := hotEndCalibrationValues, maxTemp := 220); // pd controlller die een pwm signaal output
 	hotendHeater := fbHotEndHeatingControl.PWM_out;
 	fbHotBedHeatingControl(terminalResistance := hotbedResitance,desiredTemp := 60,calibrationValues := hotBedCalibrationValues, maxTemp := 70); // pd controlller die een pwm signaal output
 	hotbedHeater := fbHotBedHeatingControl.PWM_out;
@@ -155,7 +152,7 @@ CASE State OF
 			stAxesList     := stAxesConfig,
 			stKinRefIn     := in_stKinToPlc );
 			IF homeAxi THEN
-				State:=20;
+				State:=30;
 			END_IF
 		END_IF
 	ELSIF F_KinGetChnOperationState(in_stKinToPlc) = KinStatus_Ready THEN
@@ -248,7 +245,7 @@ CASE State OF
 	
 	26:
 	setExtruder(execute:= TRUE ,axis:= Extruder ,position:= 0);
-	IF setExtruder.Done AND fbGetHotEndTemperature.temperatureSensor >= 210 AND fbGetHotBedTemperature.temperatureSensor >= 55 THEN
+	IF setExtruder.Done AND fbHotEndHeatingControl.temperatureSensor >= 210 AND fbHotBedHeatingControl.temperatureSensor >= 55 THEN
 		state:= 30;
 	END_IF
 	
@@ -294,7 +291,7 @@ CASE State OF
 	moveAbs2 := FALSE;
 	42: //tijdens g-code absoluut commando 2
 	fbGetPrinterParameters(in_stNciToPlc:= in_stNciToPlc, extruderValue=> extruderValue,extruderSpeed=> extruderSpeed);
-	fbGetCurrentState(in_stNciToPlc:= in_stNciToPlc, nextState:= 42, state=> State);
+	fbGetCurrentState(in_stNciToPlc:= in_stNciToPlc, nextState:= 41, state=> State);
 	
 	moveAbs1 := FALSE;
 	moveAbs2 := TRUE;
