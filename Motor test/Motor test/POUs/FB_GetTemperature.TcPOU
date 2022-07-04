@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
   <POU Name="FB_GetTemperature" Id="{11c60e60-6f94-43ca-91bf-d0d09de39a4a}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_GetTemperature
 VAR_INPUT
@@ -15,7 +15,7 @@ END_VAR
 VAR
 	FBSteinHart : FB_SteinhartEquation; 
 	
-	
+	denominator : LREAL;
 	
 	A : LREAL;
 	B : LREAL;
@@ -25,16 +25,29 @@ END_VAR
     <Implementation>
       <ST><![CDATA[
 FBSteinHart(CV := calibrationValues , A => A, B => B, C => C);
+IF terminalResistance <= 0 THEN
+	denominator:= 0;
+ELSE
+	denominator:= (A+ B*LN(terminalResistance) + C * EXPT(LN(terminalResistance),3));
+END_IF
 
-temperatureSensor := 1/(A+ B*LN(terminalResistance) + C * EXPT(LN(terminalResistance),3)); // steinhart equation is used to calculate the temperature of the sensor
-]]></ST>
+IF denominator > 0 THEN
+	temperatureSensor:= 1/(A+ B*LN(terminalResistance) + C * EXPT(LN(terminalResistance),3)); // steinhart equation is used to calculate the temperature of the sensor
+ELSE
+	temperatureSensor:=0 ;
+END_IF]]></ST>
     </Implementation>
     <LineIds Name="FB_GetTemperature">
       <LineId Id="28" Count="0" />
       <LineId Id="48" Count="0" />
+      <LineId Id="72" Count="1" />
+      <LineId Id="75" Count="1" />
+      <LineId Id="74" Count="0" />
       <LineId Id="39" Count="0" />
+      <LineId Id="69" Count="0" />
       <LineId Id="38" Count="0" />
       <LineId Id="40" Count="0" />
+      <LineId Id="70" Count="1" />
     </LineIds>
   </POU>
 </TcPlcObject>

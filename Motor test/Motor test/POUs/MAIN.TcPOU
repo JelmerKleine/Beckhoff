@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
   <POU Name="MAIN" Id="{3ce5e4ac-bfb0-49c4-b2f9-09c5e5f1024f}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
@@ -62,6 +62,7 @@ VAR
 	hotbedResitance AT %I*  : INT := 1;
 	hotendHeater AT %Q*  : BOOL;
 	hotbedHeater AT %Q*  : BOOL;
+	hotEndOverrange AT %I*  : bool;
 	hotendFan1 AT %Q*  : BOOL;
 	hotendFan2 AT %Q*  : BOOL;
 	
@@ -111,19 +112,22 @@ END_VAR
 	
 moveExtruderAbsolute1(Axis := Extruder, execute := moveAbs1 , Position := extruderValue ,Velocity := extruderSpeed ,buffermode := MC_Aborting );
 moveExtruderAbsolute2(Axis := Extruder, execute := moveAbs2 , Position := extruderValue ,Velocity := extruderSpeed ,buffermode := MC_Aborting );		
-	
-IF fbGetHotEndTemperature.temperatureSensor < 230 THEN
-	fbGetHotEndTemperature(terminalResistance := (10*INT_TO_REAL(hotendResitance)), calibrationValues := hotEndCalibrationValues );//hotendResitance
-	fbHotEndHeatingControl(actualTemp := fbGetHotEndTemperature.temperatureSensor,desiredTemp := 215); // pd controller die een pwm signaal output for de hot end 
-	hotendHeater := fbHotEndHeatingControl.PWM_out; 
-ELSE 
-	hotendHeater := FALSE;
+IF 	NOT hotEndOverrange THEN
+	IF fbGetHotEndTemperature.temperatureSensor < 230 THEN
+		fbGetHotEndTemperature(terminalResistance := (INT_TO_REAL(hotendResitance)), calibrationValues := hotEndCalibrationValues );//hotendResitance
+		fbHotEndHeatingControl(actualTemp := fbGetHotEndTemperature.temperatureSensor,desiredTemp := 210); // pd controller die een pwm signaal output for de hot end 
+		hotendHeater := fbHotEndHeatingControl.PWM_out; 
+	ELSE 
+		hotendHeater := FALSE;
+	END_IF
+ELSE
+	hotendHeater := TRUE;
 END_IF
 
 IF fbGetHotBedTemperature.temperatureSensor < 70 THEN
 	fbGetHotBedTemperature(terminalResistance := (10*INT_TO_REAL(hotbedResitance)), calibrationValues := hotBedCalibrationValues );//hotbed temperatuur
 	fbHotBedHeatingControl(actualTemp := fbGetHotBedTemperature.temperatureSensor,desiredTemp := 60); // pd controlller die een pwm signaal output
-	hotbedHeater := fbHotBedHeatingControl.PWM_out;
+	//hotbedHeater := fbHotBedHeatingControl.PWM_out;
 ELSE 
 	hotbedHeater := FALSE;
 END_IF
@@ -412,9 +416,13 @@ END_CASE
 ]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="3220" Count="18" />
+      <LineId Id="3220" Count="13" />
+      <LineId Id="4059" Count="0" />
+      <LineId Id="3235" Count="3" />
       <LineId Id="3845" Count="1" />
       <LineId Id="3841" Count="0" />
+      <LineId Id="4061" Count="1" />
+      <LineId Id="4060" Count="0" />
       <LineId Id="3847" Count="0" />
       <LineId Id="3239" Count="3" />
       <LineId Id="3842" Count="2" />

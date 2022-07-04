@@ -24,10 +24,11 @@
   <ImageAutoDeleteCapacity>0</ImageAutoDeleteCapacity>
   <ImageAutoDeleteOlderThan>0</ImageAutoDeleteOlderThan>
   <ImagesDeleteMode>Disabled</ImagesDeleteMode>
+  <IsTemplate>false</IsTemplate>
   <Layout>&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;Layout&gt;
   &lt;Window Guid="ac87bdb7-4122-4eaf-85e7-52386909dff9" LastFocused="132990790223617711" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="550, 400" LastOpenDockSituation="Document" LastFixedDockSituation="Document" LastFixedDockLocation="Right" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="0" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="00000000-0000-0000-0000-000000000000" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="90682084-9789-43bd-bc19-20bb9337695e" DocumentIndexInWindowGroup="1" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
-  &lt;Window Guid="ab7dff02-44e5-4488-9f82-819b1a63957b" LastFocused="132990805094054724" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="550, 400" LastOpenDockSituation="Document" LastFixedDockSituation="Document" LastFixedDockLocation="Right" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="0" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="00000000-0000-0000-0000-000000000000" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="90682084-9789-43bd-bc19-20bb9337695e" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
+  &lt;Window Guid="ab7dff02-44e5-4488-9f82-819b1a63957b" LastFocused="132996929422480135" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="550, 400" LastOpenDockSituation="Document" LastFixedDockSituation="Document" LastFixedDockLocation="Right" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="0" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="00000000-0000-0000-0000-000000000000" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="90682084-9789-43bd-bc19-20bb9337695e" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
   &lt;DocumentContainer Dock="5"&gt;
     &lt;SplitLayoutSystem WorkingSize="250, 400" SplitMode="0"&gt;
       &lt;ControlLayoutSystem WorkingSize="250, 400" Guid="90682084-9789-43bd-bc19-20bb9337695e" Collapsed="0" SelectedControl="ab7dff02-44e5-4488-9f82-819b1a63957b"&gt;
@@ -43,7 +44,7 @@
   <Name>Scope Project</Name>
   <RecordTime>36000000000</RecordTime>
   <ServerVersions>
-    <Version>3.4.3146.1</Version>
+    <Version>3.4.3145.10</Version>
   </ServerVersions>
   <SortPriority>100</SortPriority>
   <StopMode>AutoStop</StopMode>
@@ -247,7 +248,7 @@
           <ForceOversampling>false</ForceOversampling>
           <Guid>2b9c2b74-ce4a-46ca-a616-3bb66bf8dfb0</Guid>
           <IndexGroup>61488</IndexGroup>
-          <IndexOffset>422118</IndexOffset>
+          <IndexOffset>424598</IndexOffset>
           <IsHistorical>false</IsHistorical>
           <Name>hotendHeater</Name>
           <Oversample>0</Oversample>
@@ -493,7 +494,7 @@
           <ForceOversampling>false</ForceOversampling>
           <Guid>dfb4165e-fd92-4a95-aec2-118f4b86e9b4</Guid>
           <IndexGroup>61488</IndexGroup>
-          <IndexOffset>422119</IndexOffset>
+          <IndexOffset>424599</IndexOffset>
           <IsHistorical>false</IsHistorical>
           <Name>hotbedHeater</Name>
           <Oversample>0</Oversample>
@@ -551,15 +552,12 @@
       <Title>DataPool_79</Title>
     </DataPool>
     <YTChart AssemblyName="TwinCAT.Measurement.Scope.API.Model">
-      <AnchorTimestamp>0</AnchorTimestamp>
       <AssignedCore>0</AssignedCore>
       <AutoStart>true</AutoStart>
       <Comment />
-      <ConnectedTimeMemberGuid>00000000-0000-0000-0000-000000000000</ConnectedTimeMemberGuid>
       <DefaultDisplayWidth>20000000</DefaultDisplayWidth>
       <DisplayColor>-986896</DisplayColor>
       <DisplayOverwriteMode>false</DisplayOverwriteMode>
-      <DurationLength>0</DurationLength>
       <ForeColor>-16777216</ForeColor>
       <Guid>ab7dff02-44e5-4488-9f82-819b1a63957b</Guid>
       <MasterChart>00000000-0000-0000-0000-000000000000</MasterChart>
@@ -666,6 +664,7 @@
                   <Comment />
                   <DisplayColor>Black</DisplayColor>
                   <Guid>5e60c988-1019-4582-a86d-d3bb4be7b142</Guid>
+                  <HideInHierarchy>false</HideInHierarchy>
                   <Name>Y: actualTemp (1)</Name>
                   <Offset>0</Offset>
                   <ResultingUnit>
@@ -774,6 +773,7 @@
                   <Comment />
                   <DisplayColor>Black</DisplayColor>
                   <Guid>efe7f11e-da20-4bb3-9c46-a63e9f61a8b1</Guid>
+                  <HideInHierarchy>false</HideInHierarchy>
                   <Name>Y: desiredTemp (1)</Name>
                   <Offset>0</Offset>
                   <ResultingUnit>
@@ -911,7 +911,6 @@
               <EnabledButtons>RunButton PauseButton Splitter1 DisplaywidthTextBox Splitter2 ScrollBackBig ScrollBackSmall ScrollForwardSmall ScrollForwardBig Splitter3 PositionTextBox Splitter4 UndoButton RedoButton Splitter5 PanXButton PanXYButton ZoomXButton ZoomXYButton UnzoomButton ZoomOutMaxButton OverviewButton CopyToClipboard</EnabledButtons>
               <EnabledTimeLabels>All</EnabledTimeLabels>
               <Guid>4e9cf0b1-28b0-491f-9309-b892fe2e889e</Guid>
-              <IndexNavigation>false</IndexNavigation>
               <Name>Chartmenu Style</Name>
               <SortPriority>100</SortPriority>
               <TimeStripFontSize>8.25</TimeStripFontSize>
@@ -1000,6 +999,7 @@
                   <Comment />
                   <DisplayColor>Black</DisplayColor>
                   <Guid>fcf92981-a248-4f14-a439-3ef317c17083</Guid>
+                  <HideInHierarchy>false</HideInHierarchy>
                   <Name>Y: hotendHeater</Name>
                   <Offset>0</Offset>
                   <ResultingUnit>
@@ -1098,10 +1098,7 @@
           <Title>AxisGroup_165</Title>
         </AxisGroup>
       </SubMember>
-      <TimeOffset>0</TimeOffset>
-      <TimeRefreshMode>Explicit</TimeRefreshMode>
       <Title>YTChart_80</Title>
-      <TriggerGroupOffset>0</TriggerGroupOffset>
     </YTChart>
     <TriggerModule AssemblyName="TwinCAT.Measurement.Scope.API.Model">
       <Comment />
@@ -1113,15 +1110,12 @@
       <Title>TriggerModule_91</Title>
     </TriggerModule>
     <YTChart AssemblyName="TwinCAT.Measurement.Scope.API.Model">
-      <AnchorTimestamp>0</AnchorTimestamp>
       <AssignedCore>0</AssignedCore>
       <AutoStart>true</AutoStart>
       <Comment />
-      <ConnectedTimeMemberGuid>00000000-0000-0000-0000-000000000000</ConnectedTimeMemberGuid>
       <DefaultDisplayWidth>20000000</DefaultDisplayWidth>
       <DisplayColor>-986896</DisplayColor>
       <DisplayOverwriteMode>false</DisplayOverwriteMode>
-      <DurationLength>0</DurationLength>
       <ForeColor>-16777216</ForeColor>
       <Guid>ac87bdb7-4122-4eaf-85e7-52386909dff9</Guid>
       <MasterChart>00000000-0000-0000-0000-000000000000</MasterChart>
@@ -1169,7 +1163,6 @@
               <EnabledButtons>RunButton PauseButton Splitter1 DisplaywidthTextBox Splitter2 ScrollBackBig ScrollBackSmall ScrollForwardSmall ScrollForwardBig Splitter3 PositionTextBox Splitter4 UndoButton RedoButton Splitter5 PanXButton PanXYButton ZoomXButton ZoomXYButton UnzoomButton ZoomOutMaxButton OverviewButton CopyToClipboard</EnabledButtons>
               <EnabledTimeLabels>All</EnabledTimeLabels>
               <Guid>ca67d842-ca09-49f1-8764-244154c51ebd</Guid>
-              <IndexNavigation>false</IndexNavigation>
               <Name>Chartmenu Style (1)</Name>
               <SortPriority>100</SortPriority>
               <TimeStripFontSize>8.25</TimeStripFontSize>
@@ -1291,6 +1284,7 @@
                   <Comment />
                   <DisplayColor>Black</DisplayColor>
                   <Guid>3062b3cc-79e4-47f3-83aa-be5c50d166e9</Guid>
+                  <HideInHierarchy>false</HideInHierarchy>
                   <Name>Y: actualTemp</Name>
                   <Offset>0</Offset>
                   <ResultingUnit>
@@ -1399,6 +1393,7 @@
                   <Comment />
                   <DisplayColor>Black</DisplayColor>
                   <Guid>ded1b5aa-9b53-4bb2-8e6e-28111614f286</Guid>
+                  <HideInHierarchy>false</HideInHierarchy>
                   <Name>Y: desiredTemp</Name>
                   <Offset>0</Offset>
                   <ResultingUnit>
@@ -1562,6 +1557,7 @@
                   <Comment />
                   <DisplayColor>Black</DisplayColor>
                   <Guid>032cd963-8bbe-4687-a892-9dcdb392837a</Guid>
+                  <HideInHierarchy>false</HideInHierarchy>
                   <Name>Y: hotbedHeater</Name>
                   <Offset>0</Offset>
                   <ResultingUnit>
@@ -1660,10 +1656,7 @@
           <Title>AxisGroup_178</Title>
         </AxisGroup>
       </SubMember>
-      <TimeOffset>0</TimeOffset>
-      <TimeRefreshMode>Explicit</TimeRefreshMode>
       <Title>YTChart_162</Title>
-      <TriggerGroupOffset>0</TriggerGroupOffset>
     </YTChart>
   </SubMember>
   <SynchronisationMode>Default</SynchronisationMode>
@@ -1671,6 +1664,7 @@
   <Title>ScopeProject_3</Title>
   <UseAutoSave>false</UseAutoSave>
   <UseFileStore>true</UseFileStore>
+  <UseUserSettings>true</UseUserSettings>
   <Version>1.0.0.1</Version>
   <ViewDetailLevel>Default</ViewDetailLevel>
 </ScopeProject>

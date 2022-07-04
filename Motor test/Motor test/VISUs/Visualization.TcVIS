@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
   <Visu Name="Visualization" Id="{08d3b490-6e42-48e2-a4f5-a5f079737388}">
     <XmlArchive>
       <Data>
@@ -926,6 +926,8 @@
                 <v>9a375205-8791-48d2-a53f-59abc6f18302</v>
                 <v>GetClientData</v>
                 <v>66592962-49a0-46a4-86ed-00e15ac2cc54</v>
+                <v>Destruct</v>
+                <v>ca1d9811-13f7-491a-91f6-56f834bf096d</v>
                 <v>Paint</v>
                 <v>3d4c210f-7f2f-4060-bba8-b9e0de5bf8d2</v>
                 <v>GetElementArray</v>
@@ -946,8 +948,6 @@
                 <v>bb5db1fe-3fa5-4229-a683-378f8f3052d3</v>
                 <v>GetSurroundingRect</v>
                 <v>a7fa0f1f-0a7e-4953-9226-6aa50366532d</v>
-                <v>ElementInfo</v>
-                <v>27e963fe-b71c-46f1-8a0d-695386c8e963</v>
                 <v>GetResult</v>
                 <v>53178af1-8ecb-4a94-aad7-3a9908825b13</v>
                 <v>GetLocalUsergroup</v>
@@ -970,8 +970,8 @@
                 <v>cc32bdd1-0db2-4cd6-b394-33a20c87abc1</v>
                 <v>HandleInput</v>
                 <v>b63421dd-6b77-4880-abac-1b29644d5b95</v>
-                <v>Destruct</v>
-                <v>ca1d9811-13f7-491a-91f6-56f834bf096d</v>
+                <v>ElementInfo</v>
+                <v>27e963fe-b71c-46f1-8a0d-695386c8e963</v>
               </d>
               <v n="FbName">"NotImportant"</v>
               <v n="FbGuid">{08d3b490-6e42-48e2-a4f5-a5f079737388}</v>
@@ -984,10 +984,10 @@
               <d n="FbMethods" t="CaseInsensitiveHashtable" ckt="String" cvt="Guid">
                 <v>FB_Init</v>
                 <v>d827605f-05b7-436e-846e-bad130211d6a</v>
-                <v>FB_Reinit</v>
-                <v>c1ce9564-809b-46b1-aff8-347cb9b8b444</v>
                 <v>FB_Exit</v>
                 <v>f2aaff96-ebfd-47b1-9621-0709f607c7c1</v>
+                <v>FB_Reinit</v>
+                <v>c1ce9564-809b-46b1-aff8-347cb9b8b444</v>
               </d>
               <v n="FbName">"NotImportant"</v>
               <v n="FbGuid">{c516dc77-fc6b-4961-8661-dc911a2ffdcb}</v>

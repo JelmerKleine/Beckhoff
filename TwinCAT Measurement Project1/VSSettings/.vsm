@@ -6,11 +6,11 @@
     <Node>
       <Title>movement</Title>
       <Expanded>False</Expanded>
-      <FileName>C:\Users\jelme\Desktop\3d print\3d printer programma\TwinCAT Measurement Project1\movement.tcscopex</FileName>
+      <FileName>C:\Users\Administrator\Desktop\3d printer programma\TwinCAT Measurement Project1\movement.tcscopex</FileName>
       <Children>
         <Node>
           <Title>DataPool</Title>
-          <Expanded>True</Expanded>
+          <Expanded>False</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
@@ -47,12 +47,12 @@
         </Node>
         <Node>
           <Title>YT Chart</Title>
-          <Expanded>True</Expanded>
+          <Expanded>False</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
               <Title>Extruder pos</Title>
-              <Expanded>True</Expanded>
+              <Expanded>False</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
@@ -71,7 +71,7 @@
             </Node>
             <Node>
               <Title>Extruder velo</Title>
-              <Expanded>True</Expanded>
+              <Expanded>False</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
@@ -100,8 +100,8 @@
     </Node>
     <Node>
       <Title>Scope Project1</Title>
-      <Expanded>True</Expanded>
-      <FileName>C:\Users\jelme\Desktop\3d print\3d printer programma\TwinCAT Measurement Project1\Scope Project1.tcscopex</FileName>
+      <Expanded>False</Expanded>
+      <FileName>C:\Users\Administrator\Desktop\3d printer programma\TwinCAT Measurement Project1\Scope Project1.tcscopex</FileName>
       <Children>
         <Node>
           <Title>DataPool</Title>
@@ -159,7 +159,7 @@
     <Node>
       <Title>Tests</Title>
       <Expanded>True</Expanded>
-      <FileName>C:\Users\jelme\Desktop\3d print\3d printer programma\TwinCAT Measurement Project1\Tests.tcscopex</FileName>
+      <FileName>C:\Users\Administrator\Desktop\3d printer programma\TwinCAT Measurement Project1\Tests.tcscopex</FileName>
       <Children>
         <Node>
           <Title>DataPool</Title>
@@ -206,12 +206,12 @@
         </Node>
         <Node>
           <Title>YT Chart</Title>
-          <Expanded>False</Expanded>
+          <Expanded>True</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
               <Title>Axis Group</Title>
-              <Expanded>False</Expanded>
+              <Expanded>True</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
@@ -230,7 +230,7 @@
             </Node>
             <Node>
               <Title>Axis Group (1)</Title>
-              <Expanded>False</Expanded>
+              <Expanded>True</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
