@@ -77,7 +77,7 @@
           <DataType>REAL64</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>1</FileHandle>
+          <FileHandle>0</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>9e0bd17c-99e6-4c7c-acf6-8dca8b19ac4e</Guid>
           <IndexGroup>16644</IndexGroup>
@@ -159,7 +159,7 @@
           <DataType>REAL64</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>2</FileHandle>
+          <FileHandle>0</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>2150eebc-2dee-46fd-8d13-a48d65692589</Guid>
           <IndexGroup>16644</IndexGroup>
@@ -241,7 +241,7 @@
           <DataType>REAL64</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>3</FileHandle>
+          <FileHandle>0</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>1b5fc852-8d99-4941-9fbb-8d3c3fce1ffc</Guid>
           <IndexGroup>16644</IndexGroup>
@@ -323,7 +323,7 @@
           <DataType>REAL64</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>4</FileHandle>
+          <FileHandle>0</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>fd089000-6a46-403e-a324-2cdea0c507f4</Guid>
           <IndexGroup>16644</IndexGroup>
@@ -405,7 +405,7 @@
           <DataType>REAL64</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>5</FileHandle>
+          <FileHandle>0</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>35a6a9b1-be66-4630-b38f-637d6fcf6ad1</Guid>
           <IndexGroup>16644</IndexGroup>
