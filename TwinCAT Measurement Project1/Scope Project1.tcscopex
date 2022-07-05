@@ -27,7 +27,7 @@
   <Layout>&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;Layout&gt;
   &lt;Window Guid="0df76260-b7fa-4ff9-99d5-66356215ddea" LastFocused="133014024094233545" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="550, 400" LastOpenDockSituation="Document" LastFixedDockSituation="Document" LastFixedDockLocation="Right" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="0" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="00000000-0000-0000-0000-000000000000" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="c67a09b8-15ce-4235-831f-457103312c50" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
-  &lt;Window Guid="529f63cb-961c-4725-93e2-b5faaf29dec8" LastFocused="133014026267182615" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="550, 400" LastOpenDockSituation="Document" LastFixedDockSituation="Document" LastFixedDockLocation="Right" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="0" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="00000000-0000-0000-0000-000000000000" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="c67a09b8-15ce-4235-831f-457103312c50" DocumentIndexInWindowGroup="1" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
+  &lt;Window Guid="529f63cb-961c-4725-93e2-b5faaf29dec8" LastFocused="133014771904584735" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="550, 400" LastOpenDockSituation="Document" LastFixedDockSituation="Document" LastFixedDockLocation="Right" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="0" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="00000000-0000-0000-0000-000000000000" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="c67a09b8-15ce-4235-831f-457103312c50" DocumentIndexInWindowGroup="1" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
   &lt;DocumentContainer Dock="5"&gt;
     &lt;SplitLayoutSystem WorkingSize="250, 400" SplitMode="0"&gt;
       &lt;ControlLayoutSystem WorkingSize="250, 400" Guid="c67a09b8-15ce-4235-831f-457103312c50" Collapsed="0" SelectedControl="529f63cb-961c-4725-93e2-b5faaf29dec8"&gt;
@@ -125,7 +125,7 @@
           </RawUnit>
           <SaveOption>IncludeDataInSVDX</SaveOption>
           <ServerHandle>0</ServerHandle>
-          <SortPriority>10</SortPriority>
+          <SortPriority>13</SortPriority>
           <SubMember />
           <SymbolBased>true</SymbolBased>
           <SymbolName>Axes.X axis.ActVelo</SymbolName>
@@ -207,7 +207,7 @@
           </RawUnit>
           <SaveOption>IncludeDataInSVDX</SaveOption>
           <ServerHandle>0</ServerHandle>
-          <SortPriority>10</SortPriority>
+          <SortPriority>13</SortPriority>
           <SubMember />
           <SymbolBased>true</SymbolBased>
           <SymbolName>Axes.Y axis.ActVelo</SymbolName>
@@ -289,7 +289,7 @@
           </RawUnit>
           <SaveOption>IncludeDataInSVDX</SaveOption>
           <ServerHandle>0</ServerHandle>
-          <SortPriority>10</SortPriority>
+          <SortPriority>13</SortPriority>
           <SubMember />
           <SymbolBased>true</SymbolBased>
           <SymbolName>Axes.Z axis.ActVelo</SymbolName>
@@ -371,7 +371,7 @@
           </RawUnit>
           <SaveOption>IncludeDataInSVDX</SaveOption>
           <ServerHandle>0</ServerHandle>
-          <SortPriority>10</SortPriority>
+          <SortPriority>13</SortPriority>
           <SubMember />
           <SymbolBased>true</SymbolBased>
           <SymbolName>NCI XYZ.Group 8.SetPathVelo</SymbolName>
@@ -453,7 +453,7 @@
           </RawUnit>
           <SaveOption>IncludeDataInSVDX</SaveOption>
           <ServerHandle>0</ServerHandle>
-          <SortPriority>10</SortPriority>
+          <SortPriority>13</SortPriority>
           <SubMember />
           <SymbolBased>true</SymbolBased>
           <SymbolName>NCI XYZ.Group 8.ActPathAbsVelo</SymbolName>
@@ -535,7 +535,7 @@
           </RawUnit>
           <SaveOption>IncludeDataInSVDX</SaveOption>
           <ServerHandle>0</ServerHandle>
-          <SortPriority>10</SortPriority>
+          <SortPriority>12</SortPriority>
           <SubMember />
           <SymbolBased>true</SymbolBased>
           <SymbolName>NCI XYZ.Group 8.ActPathAbsAcc</SymbolName>
@@ -617,7 +617,7 @@
           </RawUnit>
           <SaveOption>IncludeDataInSVDX</SaveOption>
           <ServerHandle>0</ServerHandle>
-          <SortPriority>10</SortPriority>
+          <SortPriority>13</SortPriority>
           <SubMember />
           <SymbolBased>true</SymbolBased>
           <SymbolName>NCI XYZ.Group 8.SetPathAbsAcc</SymbolName>
@@ -699,7 +699,7 @@
           </RawUnit>
           <SaveOption>IncludeDataInSVDX</SaveOption>
           <ServerHandle>0</ServerHandle>
-          <SortPriority>10</SortPriority>
+          <SortPriority>11</SortPriority>
           <SubMember />
           <SymbolBased>true</SymbolBased>
           <SymbolName>Axes.X axis.ActAcc</SymbolName>
@@ -863,7 +863,7 @@
           </RawUnit>
           <SaveOption>IncludeDataInSVDX</SaveOption>
           <ServerHandle>0</ServerHandle>
-          <SortPriority>10</SortPriority>
+          <SortPriority>11</SortPriority>
           <SubMember />
           <SymbolBased>true</SymbolBased>
           <SymbolName>Axes.Z axis.ActAcc</SymbolName>
