@@ -60,11 +60,11 @@ VAR
 
 	hotendResitance AT %I*  : INT := 1;
 	hotbedResitance AT %I*  : INT := 1;
-	hotendHeater AT %Q*  : BOOL;
-	hotbedHeater AT %Q*  : BOOL;
-	hotEndOverrange AT %I*  : bool;
-	hotendFan1 AT %Q*  : BOOL;
-	hotendFan2 AT %Q*  : BOOL;
+	hotendHeater AT %Q*  : BOOL := FALSE;
+	hotbedHeater AT %Q*  : BOOL := FALSE;
+	hotEndOverrange AT %I*  : BOOL := FALSE;
+	hotendFan1 AT %Q*  : BOOL := FALSE;
+	hotendFan2 AT %Q*  : BOOL := FALSE;
 	
 	// Verschillende temperturen met hun weerstanden voor de steinhart equation
 	// temperaturen die dichter bij de use case zitten vebeter de precisie van de gemeten temperatuur
@@ -81,7 +81,7 @@ VAR
 	printerSpeed : LREAL;
 	ExtruderSpeed : LREAL;
 	bConfirmHsk: BOOL := FALSE;
-	sPrgNameSegment: STRING(255) := 'beckhoff.nc';
+	sPrgNameSegment: STRING(255) := 'calibrationCube.nc';
 	nInterpreterState: UDINT;
 	
 	bEnable: BOOL := FALSE;
@@ -110,12 +110,12 @@ END_VAR
 	stPlcToNci:=out_stPlcToNci , 
 	bAllAxesReady=> );
 	
-moveExtruderAbsolute1(Axis := Extruder, execute := moveAbs1 , Position := extruderValue ,Velocity := extruderSpeed ,buffermode := MC_Aborting );
-moveExtruderAbsolute2(Axis := Extruder, execute := moveAbs2 , Position := extruderValue ,Velocity := extruderSpeed ,buffermode := MC_Aborting );		
-IF 	NOT hotEndOverrange THEN
+//moveExtruderAbsolute1(Axis := Extruder, execute := moveAbs1 , Position := extruderValue ,Velocity := extruderSpeed ,buffermode := MC_Aborting );
+//moveExtruderAbsolute2(Axis := Extruder, execute := moveAbs2 , Position := extruderValue ,Velocity := extruderSpeed ,buffermode := MC_Aborting );		
+(*IF 	NOT hotEndOverrange THEN
 	IF fbGetHotEndTemperature.temperatureSensor < 230 THEN
 		fbGetHotEndTemperature(terminalResistance := (INT_TO_REAL(hotendResitance)), calibrationValues := hotEndCalibrationValues );//hotendResitance
-		fbHotEndHeatingControl(actualTemp := fbGetHotEndTemperature.temperatureSensor,desiredTemp := 210); // pd controller die een pwm signaal output for de hot end 
+	    fbHotEndHeatingControl(actualTemp := fbGetHotEndTemperature.temperatureSensor,desiredTemp := 210); // pd controller die een pwm signaal output for de hot end 
 		hotendHeater := fbHotEndHeatingControl.PWM_out; 
 	ELSE 
 		hotendHeater := FALSE;
@@ -130,14 +130,14 @@ IF fbGetHotBedTemperature.temperatureSensor < 70 THEN
 	//hotbedHeater := fbHotBedHeatingControl.PWM_out;
 ELSE 
 	hotbedHeater := FALSE;
-END_IF
+END_IF*)
 	
 CASE State OF
 	0: // init
 	
 	
-	hotendFan1 := TRUE;
-	hotendFan2 := TRUE;
+	hotendFan1 := FALSE;
+	hotendFan2 := FALSE;
 	moveAbs1 := FALSE;
 	moveAbs2 := FALSE;
 	
@@ -262,7 +262,7 @@ CASE State OF
 	
 	26:
 	setExtruder(execute:= TRUE ,axis:= Extruder ,position:= 0);
-	IF setExtruder.Done AND fbGetHotEndTemperature.temperatureSensor >= 210 AND fbGetHotBedTemperature.temperatureSensor >= 55 THEN
+	IF setExtruder.Done (*AND fbGetHotEndTemperature.temperatureSensor >= 210 AND fbGetHotBedTemperature.temperatureSensor >= 55*) THEN
 		state:= 30;
 	END_IF
 	

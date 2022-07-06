@@ -27,11 +27,11 @@
   <IsTemplate>false</IsTemplate>
   <Layout>&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;Layout&gt;
-  &lt;Window Guid="ac87bdb7-4122-4eaf-85e7-52386909dff9" LastFocused="132990790223617711" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="550, 400" LastOpenDockSituation="Document" LastFixedDockSituation="Document" LastFixedDockLocation="Right" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="0" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="00000000-0000-0000-0000-000000000000" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="90682084-9789-43bd-bc19-20bb9337695e" DocumentIndexInWindowGroup="1" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
-  &lt;Window Guid="ab7dff02-44e5-4488-9f82-819b1a63957b" LastFocused="132996929422480135" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="550, 400" LastOpenDockSituation="Document" LastFixedDockSituation="Document" LastFixedDockLocation="Right" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="0" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="00000000-0000-0000-0000-000000000000" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="90682084-9789-43bd-bc19-20bb9337695e" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
+  &lt;Window Guid="ac87bdb7-4122-4eaf-85e7-52386909dff9" LastFocused="133015001455540629" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="550, 400" LastOpenDockSituation="Document" LastFixedDockSituation="Document" LastFixedDockLocation="Right" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="0" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="00000000-0000-0000-0000-000000000000" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="90682084-9789-43bd-bc19-20bb9337695e" DocumentIndexInWindowGroup="1" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
+  &lt;Window Guid="ab7dff02-44e5-4488-9f82-819b1a63957b" LastFocused="133015001431329191" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="550, 400" LastOpenDockSituation="Document" LastFixedDockSituation="Document" LastFixedDockLocation="Right" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="0" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="00000000-0000-0000-0000-000000000000" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="90682084-9789-43bd-bc19-20bb9337695e" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
   &lt;DocumentContainer Dock="5"&gt;
     &lt;SplitLayoutSystem WorkingSize="250, 400" SplitMode="0"&gt;
-      &lt;ControlLayoutSystem WorkingSize="250, 400" Guid="90682084-9789-43bd-bc19-20bb9337695e" Collapsed="0" SelectedControl="ab7dff02-44e5-4488-9f82-819b1a63957b"&gt;
+      &lt;ControlLayoutSystem WorkingSize="250, 400" Guid="90682084-9789-43bd-bc19-20bb9337695e" Collapsed="0" SelectedControl="ac87bdb7-4122-4eaf-85e7-52386909dff9"&gt;
         &lt;Controls&gt;
           &lt;Control Guid="ab7dff02-44e5-4488-9f82-819b1a63957b" /&gt;
           &lt;Control Guid="ac87bdb7-4122-4eaf-85e7-52386909dff9" /&gt;
@@ -80,7 +80,7 @@
           <DataType>REAL64</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>1</FileHandle>
+          <FileHandle>0</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>82bf7004-8f91-4e56-bfa2-2b071fa10768</Guid>
           <IndexGroup>16448</IndexGroup>
@@ -162,7 +162,7 @@
           <DataType>REAL64</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>2</FileHandle>
+          <FileHandle>0</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>4acc5b03-5738-4712-a17c-053f74b47448</Guid>
           <IndexGroup>16448</IndexGroup>
@@ -244,11 +244,11 @@
           <DataType>BIT</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>3</FileHandle>
+          <FileHandle>0</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>2b9c2b74-ce4a-46ca-a616-3bb66bf8dfb0</Guid>
           <IndexGroup>61488</IndexGroup>
-          <IndexOffset>424598</IndexOffset>
+          <IndexOffset>424614</IndexOffset>
           <IsHistorical>false</IsHistorical>
           <Name>hotendHeater</Name>
           <Oversample>0</Oversample>
@@ -326,11 +326,11 @@
           <DataType>REAL64</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>4</FileHandle>
+          <FileHandle>0</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>e5ebbd04-6681-429f-bd1c-c5125b91410c</Guid>
           <IndexGroup>16448</IndexGroup>
-          <IndexOffset>391736</IndexOffset>
+          <IndexOffset>391744</IndexOffset>
           <IsHistorical>false</IsHistorical>
           <Name>actualTemp</Name>
           <Oversample>0</Oversample>
@@ -408,11 +408,11 @@
           <DataType>REAL64</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>5</FileHandle>
+          <FileHandle>0</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>4b5f9b24-163f-41b7-8c58-d449c6ddff0a</Guid>
           <IndexGroup>16448</IndexGroup>
-          <IndexOffset>391744</IndexOffset>
+          <IndexOffset>391752</IndexOffset>
           <IsHistorical>false</IsHistorical>
           <Name>desiredTemp</Name>
           <Oversample>0</Oversample>
@@ -490,11 +490,11 @@
           <DataType>BIT</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>6</FileHandle>
+          <FileHandle>0</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>dfb4165e-fd92-4a95-aec2-118f4b86e9b4</Guid>
           <IndexGroup>61488</IndexGroup>
-          <IndexOffset>424599</IndexOffset>
+          <IndexOffset>424615</IndexOffset>
           <IsHistorical>false</IsHistorical>
           <Name>hotbedHeater</Name>
           <Oversample>0</Oversample>

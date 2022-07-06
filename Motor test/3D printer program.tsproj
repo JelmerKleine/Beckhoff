@@ -2139,7 +2139,7 @@ External Setpoint Generation:
 				<Axis Id="1" CreateSymbols="true" AxisType="1">
 					<Name>axis xy 1</Name>
 					<AxisPara>
-						<Dynamic AccelerationMaximum="2000" DecelerationMaximum="2000" Acceleration="1000" Deceleration="1000"/>
+						<Dynamic AccelerationMaximum="2500" DecelerationMaximum="2500" Acceleration="2000" Deceleration="2000" Jerk="3000"/>
 						<Velo SlowManual="50" FastManual="100" Maximum="500"/>
 						<OtherSettings AllowMotionCmdToSlave="true"/>
 					</AxisPara>
@@ -2298,7 +2298,7 @@ External Setpoint Generation:
 				<Axis Id="2" CreateSymbols="true" AxisType="1">
 					<Name>axis xy 2</Name>
 					<AxisPara>
-						<Dynamic AccelerationMaximum="2000" DecelerationMaximum="2000" Acceleration="1000" Deceleration="1000"/>
+						<Dynamic AccelerationMaximum="2500" DecelerationMaximum="2500" Acceleration="2000" Deceleration="2000" Jerk="3000"/>
 						<Velo SlowManual="50" FastManual="100" Maximum="500"/>
 						<OtherSettings AllowMotionCmdToSlave="true"/>
 					</AxisPara>
@@ -2777,8 +2777,8 @@ External Setpoint Generation:
 				<Axis Id="5" CreateSymbols="true" AxisType="1" GroupId="6">
 					<Name>X axis</Name>
 					<AxisPara>
-						<Dynamic AccelerationMaximum="2000" DecelerationMaximum="2000" Acceleration="1000" Deceleration="1000"/>
-						<Velo RefSearch="20" RefSync="20" SlowManual="20" FastManual="40" Maximum="500"/>
+						<Dynamic AccelerationMaximum="3000" DecelerationMaximum="3000" Acceleration="2000" Deceleration="2000" Jerk="3000"/>
+						<Velo RefSearch="20" RefSync="20" SlowManual="20" FastManual="40" Maximum="150"/>
 						<OtherSettings AllowMotionCmdToSlave="true"/>
 					</AxisPara>
 					<Encoder Name="Enc" EncType="1">
@@ -2843,7 +2843,7 @@ External Setpoint Generation:
 					</Encoder>
 					<Drive Name="Drive" DrvType="5">
 						<DrvPara>
-							<Analog VeloReferenz="500" TorqueSetpointScale="10" ScaleFactorActTorque="0.1"/>
+							<Analog VeloReferenz="100" TorqueSetpointScale="10" ScaleFactorActTorque="0.1"/>
 							<TimeComp TaskDelayCycles="1"/>
 						</DrvPara>
 						<Vars VarGrpType="1">
@@ -2936,8 +2936,8 @@ External Setpoint Generation:
 				<Axis Id="6" CreateSymbols="true" AxisType="1" GroupId="7">
 					<Name>Y axis</Name>
 					<AxisPara>
-						<Dynamic AccelerationMaximum="2000" DecelerationMaximum="2000" Acceleration="1000" Deceleration="1000"/>
-						<Velo RefSearch="15" RefSync="15" SlowManual="15" FastManual="40" Maximum="500"/>
+						<Dynamic AccelerationMaximum="2500" DecelerationMaximum="2500" Acceleration="2000" Deceleration="2000" Jerk="3000"/>
+						<Velo RefSearch="15" RefSync="15" SlowManual="15" FastManual="40" Maximum="150"/>
 						<OtherSettings AllowMotionCmdToSlave="true"/>
 					</AxisPara>
 					<Encoder Name="Enc" EncType="1">
@@ -3002,7 +3002,7 @@ External Setpoint Generation:
 					</Encoder>
 					<Drive Name="Drive" DrvType="5">
 						<DrvPara>
-							<Analog VeloReferenz="500" TorqueSetpointScale="10" ScaleFactorActTorque="0.1"/>
+							<Analog VeloReferenz="100" TorqueSetpointScale="10" ScaleFactorActTorque="0.1"/>
 							<TimeComp TaskDelayCycles="1"/>
 						</DrvPara>
 						<Vars VarGrpType="1">
@@ -3300,7 +3300,7 @@ External Setpoint Generation:
 					<Group Id="8" CreateSymbols="true" GroupType="4" SetpointGeneratorType="1">
 						<Name>Group 8</Name>
 						<Parameter ChannelId="3">
-							<Dxd EnableSoftPositionLimits="true" VeloVertexFactorC0="0.1" VeloVertexFactorC1="1" CriticalVertexAngleLow="10" CriticalVertexAngleHigh="75"/>
+							<Dxd EnableSoftPositionLimits="true" ItpOverrideType="1" VeloVertexFactorC0="1" VeloVertexFactorC1="1" CriticalVertexAngleLow="10" CriticalVertexAngleHigh="75"/>
 							<Encoder NoMotionWindow="1" NoMotionFilterTime="0.01"/>
 							<Fifo FifoDimension="1" FifoLength="1000" FifoOverrideType="2" FifoOverrideChangeTime="1" TimeUnitFifo="0.01"/>
 							<Kinematic/>
