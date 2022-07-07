@@ -11,6 +11,7 @@ END_VAR
 VAR_OUTPUT
 	PWM_out: BOOL;
 	temperatureSensor: LREAL;
+	TooHot: BOOL;
 END_VAR
 VAR
 	fbGetTemperature: FB_GetTemperature;
@@ -58,7 +59,12 @@ END_VAR
 ELSE 
 	PWM_out := FALSE;
 END_IF
-]]></ST>
+
+IF fbGetTemperature.temperatureSensor > 40 THEN
+	TooHot:= TRUE;
+ELSE
+	TooHot:= FALSE;
+END_IF]]></ST>
     </Implementation>
     <LineIds Name="Heater_control">
       <LineId Id="218" Count="0" />
@@ -78,7 +84,11 @@ END_IF
       <LineId Id="9" Count="0" />
       <LineId Id="221" Count="1" />
       <LineId Id="204" Count="0" />
+      <LineId Id="257" Count="0" />
       <LineId Id="203" Count="0" />
+      <LineId Id="258" Count="0" />
+      <LineId Id="263" Count="1" />
+      <LineId Id="259" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

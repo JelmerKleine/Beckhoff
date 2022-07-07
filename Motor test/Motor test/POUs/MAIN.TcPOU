@@ -113,6 +113,7 @@ ELSE
 	hotendHeater := FALSE;
 	hotbedHeater := FALSE;
 END_IF 
+
 	
 CASE State OF
 	0: // init
@@ -337,6 +338,7 @@ END_CASE
       <LineId Id="4067" Count="1" />
       <LineId Id="4072" Count="2" />
       <LineId Id="3844" Count="0" />
+      <LineId Id="4280" Count="0" />
       <LineId Id="3243" Count="15" />
       <LineId Id="3481" Count="0" />
       <LineId Id="3259" Count="1" />
