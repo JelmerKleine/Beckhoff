@@ -3,60 +3,70 @@
   <POU Name="MAIN" Id="{3ce5e4ac-bfb0-49c4-b2f9-09c5e5f1024f}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-	
+	// programma variabelen
+	State: INT ;
+	sPrgNameSegment: STRING(255) := 'beckhoff.nc';
+	nInterpreterState: UDINT;
+	moveAbs1: BOOL := FALSE;
+	moveAbs2: BOOL := FALSE;
+	executeExtruderMovement :BOOL := TRUE;
+	resetExtruder : BOOL :=FALSE;
+	intreperterState : UDINT;
+	// programma functies
 	fbPower: FB_PowerChannel;
-	
-	fbHotEndHeatingControl: Heater_control;
-	fbHotBedHeatingControl: Heater_control;
 	fbGetCurrentState: FB_CheckCurrentState;
-	fbGetPrinterParameters: FB_GetPrinterParameters;
 	
-	fbConfirmHsk: ItpConfirmHsk;
-	fbExecuteGcode: FB_ExecuteGcode;
-	fbBuildGroup: CfgBuildExt3DGroup;
-	fbReconfigAxis: CfgReconfigAxis;
-	fbAddAxis: CfgAddAxisToGroup;
-	fbLoadGCode: ItpLoadProgEx;
-	fbStartGCode: ItpStartStopEx;
-	fbConfigKinGroup: FB_KinConfigGroup;
-    stAxesConfig: ST_KinAxes;
-	in_stKinToPlc AT %I*  : NCTOPLC_NCICHANNEL_REF;
-	
-	Xaxis: AXIS_REF;
-	Yaxis: AXIS_REF;
-	Zaxis: AXIS_REF;
-	Extruder: AXIS_REF;
-	XY_1: AXIS_REF;
-	XY_2: AXIS_REF;
-
-	setXY1:MC_SetPosition;
-	setXY2:MC_SetPosition;
-	setExtruder:MC_SetPosition;
-	
-	Zhome: MC_Home;
-	
-	Xjog: MC_Jog;
-	Yjog: MC_Jog;
+	// Extruder variables
+	ExtruderValue: LREAL; 
+	ExtruderSpeed : LREAL;
+	//Extruder functies
 	moveExtruderAbsolute1: MC_MoveAbsolute;
 	moveExtruderAbsolute2: MC_MoveAbsolute;
-	moveZAbsolute: MC_MoveAbsolute;
-	moveXAbsolute: MC_MoveAbsolute;
-	moveYAbsolute: MC_MoveAbsolute;
+	Extruder: AXIS_REF;
+	setExtruder:MC_SetPosition;
+	fbGetPrinterParameters: FB_GetPrinterParameters;
 	
-	ExecuteKinConfig: BOOL := true;
+	// XYZ variabelens
 	HomingSensorX AT %I*: BOOL;
 	HomingSensorY AT %I*: BOOL;
 	HomingSensorZ AT %I*: BOOL;
-	
-	
-	in_stNciToPlc AT %I*: NCTOPLC_NCICHANNEL_REF;
-	out_stPlcToNci AT %Q*: PLCTONC_NCICHANNEL_REF;
-	
 	Xoffset: LREAL := 0;
 	Yoffset: LREAL := 0;
 	Zoffset: LREAL := 0.38;
+	// XYZ functies
+	Xjog: MC_Jog;
+	Yjog: MC_Jog;
+	moveZAbsolute: MC_MoveAbsolute;
+	moveXAbsolute: MC_MoveAbsolute;
+	moveYAbsolute: MC_MoveAbsolute;
+	Zhome: MC_Home;
+	setXY1:MC_SetPosition;
+	setXY2:MC_SetPosition;
+	Xaxis: AXIS_REF;
+	Yaxis: AXIS_REF;
+	Zaxis: AXIS_REF;
+	XY_1: AXIS_REF;
+	XY_2: AXIS_REF;
 	
-
+	//H-bot variabelen
+	in_stKinToPlc AT %I*  : NCTOPLC_NCICHANNEL_REF;
+	ExecuteKinConfig: BOOL := TRUE;
+	//H-bot variabelen
+	stAxesConfig: ST_KinAxes;
+	fbConfigKinGroup: FB_KinConfigGroup;
+	
+	// NCI variabelen
+	in_stNciToPlc AT %I*: NCTOPLC_NCICHANNEL_REF;
+	out_stPlcToNci AT %Q*: PLCTONC_NCICHANNEL_REF;
+	//NCI functies
+	fbBuildGroup: CfgBuildExt3DGroup;
+	//fbReconfigAxis: CfgReconfigAxis;
+	fbExecuteGcode: FB_ExecuteGcode;
+	fbLoadGCode: ItpLoadProgEx;
+	fbStartGCode: ItpStartStopEx;
+	fbConfirmHsk: ItpConfirmHsk;
+	
+	// hot bed and hot end variables
 	hotendResitance AT %I*  : INT := 1;
 	hotbedResitance AT %I*  : INT := 1;
 	hotendHeater AT %Q*  : BOOL;
@@ -64,32 +74,27 @@ VAR
 	hotendFan1 AT %Q*  : BOOL;
 	hotendFan2 AT %Q*  : BOOL;
 	HeatersOn: BOOL := FALSE;
+	// hot bed and hot end functies
+	fbHotEndHeatingControl: Heater_control;
+	fbHotBedHeatingControl: Heater_control;
 	
 	// Verschillende temperturen met hun weerstanden voor de steinhart equation
 	// temperaturen die dichter bij de use case zitten vebeter de precisie van de gemeten temperatuur
 	hotEndCalibrationValues  : ARRAY [1..6] OF LREAL := [200 ,552.99 ,210 ,456.11, 220, 378.95];
 	hotBedCalibrationValues : ARRAY [1..6] OF LREAL := [50 ,35262  ,60 ,24136  ,70 ,16841  ]; 
 	
-	ExtruderValue: LREAL;
-	
-	State: INT ;
-	ExtruderSpeed : LREAL;
-	sPrgNameSegment: STRING(255) := 'beckhoff.nc';
-	nInterpreterState: UDINT;
-	
+	// interface parameters
 	bEnable: BOOL := FALSE;
 	homeAxi: BOOL := FALSE;
 	executeGcode: BOOL := FALSE;
-	moveAbs1: BOOL := FALSE;
-	moveAbs2: BOOL := FALSE;
-	executeExtruderMovement :BOOL := TRUE;
-	resetExtruder : BOOL :=FALSE;
-	intreperterState : UDINT;
+	
+	
 	
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[fbPower(
+      <ST><![CDATA[// Zet alle motoren aan wanneer enabled doordat de enable knop wordt ingedrukt.
+fbPower( 
 	bEnable:=bEnable, 
 	fOvr:= 100.0, 
 	stX:=Xaxis, 
@@ -101,10 +106,12 @@ END_VAR
 	stPlcToNci:=out_stPlcToNci , 
 	bAllAxesReady=> );
 	
+// voor het bewegen van de extruder tijdens de code 
+// met de Extruder value uit de g-code en snelheid opbasis van de printkop
 moveExtruderAbsolute1(Axis := Extruder, execute := moveAbs1 , Position := extruderValue ,Velocity := extruderSpeed ,buffermode := MC_Aborting );
 moveExtruderAbsolute2(Axis := Extruder, execute := moveAbs2 , Position := extruderValue ,Velocity := extruderSpeed ,buffermode := MC_Aborting );		
 	
-IF HeatersOn THEN	
+IF HeatersOn THEN // Een boolena die bepaald de hot end ne hot bed worden verwarmd
 	fbHotEndHeatingControl(terminalResistance := hotendResitance,desiredTemp := 210,calibrationValues := hotEndCalibrationValues, maxTemp := 220); // pd controlller die een pwm signaal output
 	hotendHeater := fbHotEndHeatingControl.PWM_out;
 	fbHotBedHeatingControl(terminalResistance := hotbedResitance,desiredTemp := 60,calibrationValues := hotBedCalibrationValues, maxTemp := 70); // pd controlller die een pwm signaal output
@@ -116,7 +123,7 @@ END_IF
 
 	
 CASE State OF
-	0: // init
+	0: // init parameters
 	
 	
 	hotendFan1 := TRUE;
@@ -125,37 +132,41 @@ CASE State OF
 	moveAbs2 := FALSE;
 	
 	ExecuteKinConfig:=TRUE;
-	IF fbPower.bAllAxesReady THEN
+	IF fbPower.bAllAxesReady THEN // wanneer de motoren aan staan
 		State := 10; 
 	END_IF
 	
 	
 	
-	10:
+	10: // cofigureren van de h-bot
 	HeatersOn:= TRUE;
-	
+	// voeg motoren toe aan stAxisConfig, de vologrde maakt uit voor de uiteindelijk xy as richting.
 	stAxesConfig.nAxisIdsAcs[1] := XY_2.NcToPlc.AxisId;
 	stAxesConfig.nAxisIdsAcs[2] := XY_1.NcToPlc.AxisId;
 	stAxesConfig.nAxisIdsMcs[1] := Xaxis.NcToPlc.AxisId;
 	stAxesConfig.nAxisIdsMcs[2] := Yaxis.NcToPlc.AxisId;
 	
-	fbConfigKinGroup( // voeg de xy core motoren toe tot de kinematische groep
+	fbConfigKinGroup( // voeg de xy core motoren toe tot de kinematische groep van de h-bot
     bExecute       := ExecuteKinConfig ,
     bCartesianMode := TRUE ,
     stAxesList     := stAxesConfig,
     stKinRefIn     := in_stKinToPlc );
 	
-	IF NOT fbConfigKinGroup.bBusy THEN
+	// wanneer de fbConfigKinGroup klaar is zonder error, 
+	// gaat de functie naar de volgende state wanneer de home knop wordt ingedrukt
+	IF NOT fbConfigKinGroup.bBusy THEN 
 		IF NOT fbConfigKinGroup.bError THEN
 			ExecuteKinConfig:=FALSE;
 			fbConfigKinGroup(
 			bExecute       := ExecuteKinConfig ,
 			stAxesList     := stAxesConfig,
 			stKinRefIn     := in_stKinToPlc );
-			IF homeAxi THEN
+			IF homeAxi THEN 
 				State:=30;
 			END_IF
 		END_IF
+	// of wanneer er al een kinematische groep is geconfigureerd 
+	// kan het programma ook naar de volgende state wanneer de home knop wordt ingedrukt
 	ELSIF F_KinGetChnOperationState(in_stKinToPlc) = KinStatus_Ready THEN
 		ExecuteKinConfig:=FALSE;
 			fbConfigKinGroup(
@@ -331,7 +342,11 @@ END_CASE
 ]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="3220" Count="14" />
+      <LineId Id="4373" Count="0" />
+      <LineId Id="3220" Count="10" />
+      <LineId Id="4367" Count="1" />
+      <LineId Id="4374" Count="0" />
+      <LineId Id="3232" Count="2" />
       <LineId Id="4056" Count="0" />
       <LineId Id="4065" Count="0" />
       <LineId Id="4172" Count="0" />
@@ -343,7 +358,11 @@ END_CASE
       <LineId Id="3481" Count="0" />
       <LineId Id="3259" Count="1" />
       <LineId Id="4077" Count="0" />
-      <LineId Id="3261" Count="21" />
+      <LineId Id="3261" Count="10" />
+      <LineId Id="4369" Count="0" />
+      <LineId Id="4372" Count="0" />
+      <LineId Id="3272" Count="10" />
+      <LineId Id="4370" Count="1" />
       <LineId Id="3943" Count="0" />
       <LineId Id="3945" Count="3" />
       <LineId Id="3944" Count="0" />
