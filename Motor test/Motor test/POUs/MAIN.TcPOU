@@ -399,8 +399,11 @@ CASE State OF
 	END_IF
 
 	50: // print is klaar
-	moveXAbsolute(axis:= Xaxis, Execute:= TRUE, Position:= 10, velocity:=25);
-	moveYAbsolute(axis:= Yaxis, Execute:= TRUE, Position:= 10, velocity:=25);
+	moveXAbsolute(axis:= Xaxis, Execute:= TRUE, Position:= 20, velocity:=25);
+	IF moveXAbsolute.Done THEN
+		moveYAbsolute(axis:= Yaxis, Execute:= TRUE, Position:= 20, velocity:=25);
+	END_IF
+	
 	IF moveXAbsolute.Done AND moveYAbsolute.Done THEN
 		moveXAbsolute(axis:= Xaxis, Execute:= FALSE);
 		moveYAbsolute(axis:= Yaxis, Execute:= FALSE);
@@ -496,7 +499,10 @@ END_CASE
       <LineId Id="3467" Count="0" />
       <LineId Id="3497" Count="0" />
       <LineId Id="3453" Count="3" />
-      <LineId Id="3954" Count="2" />
+      <LineId Id="3954" Count="0" />
+      <LineId Id="4158" Count="0" />
+      <LineId Id="4160" Count="1" />
+      <LineId Id="3955" Count="1" />
       <LineId Id="3958" Count="0" />
       <LineId Id="3960" Count="1" />
       <LineId Id="3959" Count="0" />
