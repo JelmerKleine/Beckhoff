@@ -19,7 +19,7 @@ END_VAR
       <ST><![CDATA[// a simple PWM function
 FB_GETCURTASKINDEX();
 Hertz:= 1 / (UDINT_TO_LREAL(_TaskInfo[FB_GETCURTASKINDEX.index].CycleTime)/ 10_000_000); // function takes the cycle time of the system to calculate the hertz
-currentTimeStep:= currentTimeStep+1;
+currentTimeStep:= currentTimeStep+1;// go to the next step
 
 
 IF currentTimeStep <= pulseWidth  AND currentTimeStep <= hertz THEN // time on
@@ -28,7 +28,7 @@ ELSIF currentTimeStep >= hertz THEN // when finished
 	state:=FALSE;
 	pulseWidth:= hertz * dutyCycle; // the value is onverted to in to get rid of the values after the dot
 	currentTimeStep:=0;
-ELSE 
+ELSE // wehn pwm is off
 	state := FALSE;
 END_IF]]></ST>
     </Implementation>

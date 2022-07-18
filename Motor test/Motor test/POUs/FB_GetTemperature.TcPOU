@@ -14,25 +14,22 @@ VAR_OUTPUT
 END_VAR
 VAR
 	FBSteinHart : FB_SteinhartEquation; 
-	
-	
-	
 	A : LREAL;
 	B : LREAL;
 	C : LREAL;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[
+      <ST><![CDATA[// vraag steinhart parameters op
 FBSteinHart(CV := calibrationValues , A => A, B => B, C => C);
-
+// temperatuur wordt berekent met steainhart parameters en vergelijking
 temperatureSensor := 1/(A+ B*LN(terminalResistance) + C * EXPT(LN(terminalResistance),3)); // steinhart equation is used to calculate the temperature of the sensor
 ]]></ST>
     </Implementation>
     <LineIds Name="FB_GetTemperature">
       <LineId Id="28" Count="0" />
       <LineId Id="48" Count="0" />
-      <LineId Id="39" Count="0" />
+      <LineId Id="69" Count="0" />
       <LineId Id="38" Count="0" />
       <LineId Id="40" Count="0" />
     </LineIds>
