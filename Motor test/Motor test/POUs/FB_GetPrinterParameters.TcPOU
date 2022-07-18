@@ -15,10 +15,10 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[hParam := ItpGetHParam( in_stNciToPlc );
-extruderValue := (DINT_TO_LREAL (hParam)/100000);
-printerSpeed := ItpGetSetPathVelocity( in_stNciToPlc );
-extruderSpeed := (printerSpeed * 0.08);
+      <ST><![CDATA[hParam := ItpGetHParam( in_stNciToPlc ); // Lees H paramteter van de g-code uit 
+extruderValue := (DINT_TO_LREAL (hParam)/100000); // Converteer H parameter van int naar lreal
+printerSpeed := ItpGetSetPathVelocity( in_stNciToPlc ); // Vraag de snelheid van de het pad van de NCI 
+extruderSpeed := (printerSpeed * 0.08); // Bereken de snelheid van de extruder op basis van de snelheid van het pad van de NCI
 
 IF extruderSpeed = 0  THEN // voorkomt dat de absolute commando een foutmeleding geeft
 		extruderSpeed:= 0.01;

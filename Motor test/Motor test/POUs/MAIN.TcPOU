@@ -247,7 +247,7 @@ CASE State OF
 	END_IF
 	
 	
-	25:
+	25: // beweegt de z-as alvast omlaag.
 	moveZAbsolute(axis:= Zaxis, Execute:= TRUE, Position:= 1, velocity:=1);
 	IF moveZAbsolute.Done THEN
 		moveZAbsolute(axis:= Zaxis, Execute:= FALSE);
@@ -255,7 +255,7 @@ CASE State OF
 	END_IF
 	
 	
-	26:
+	26: // zet de positie van de extruder naar 0.
 	setExtruder(execute:= TRUE ,axis:= Extruder ,position:= 0);
 	IF setExtruder.Done AND fbHotEndHeatingControl.temperatureSensor >= 210 AND fbHotBedHeatingControl.temperatureSensor >= 55 THEN
 		state:= 30;
@@ -263,7 +263,7 @@ CASE State OF
 	
 	
 	
-	30: // het configureren van de NCI met de x,y en z as
+	30: // het configureren van de NCI met de x,y en z as.
 	fbBuildGroup(
 		bExecute:=TRUE,
 		nGroupId:=ItpGetGroupId(sNciToPlc:=in_stNciToPlc),
@@ -274,18 +274,17 @@ CASE State OF
 		
 	IF NOT fbBuildGroup.bBusy THEN
 		fbBuildGroup( bExecute:=FALSE );
-		
-		IF NOT fbBuildGroup.bErr THEN
+		IF NOT fbBuildGroup.bErr THEN 
 				State	:= 31;
 		END_IF
 	END_IF
 	
 	31:
-	IF executeGcode THEN
+	IF executeGcode THEN // wannner de input execute wordt gegeven in de visualizatie.
 		state:= 40;
 	END_IF
 	
-	40: // laad segment 1
+	40: // g-code wordt gestart
 	fbExecuteGcode(execute:= TRUE ,sPrgName:= sPrgNameSegment ,in_stNciToPlc:= in_stNciToPlc, reset:= FALSE);
 	
 	IF fbExecuteGcode.done THEN
@@ -296,28 +295,36 @@ CASE State OF
 	
 	
 	41: //tijdens g-code 
-	fbGetPrinterParameters(in_stNciToPlc:= in_stNciToPlc, extruderValue=> extruderValue,extruderSpeed=> extruderSpeed);
-	fbGetCurrentState(in_stNciToPlc:= in_stNciToPlc, nextState:= 42, state=> State);
 	
+	//vraag de verschillende paramers voor het printen op.
+	fbGetPrinterParameters(in_stNciToPlc:= in_stNciToPlc, extruderValue=> extruderValue,extruderSpeed=> extruderSpeed);
+	// bepaal de huidige state van het programma.
+	fbGetCurrentState(in_stNciToPlc:= in_stNciToPlc, nextState:= 42, state=> State);
+	// beweeg de extruder
 	moveAbs1 := TRUE;
 	moveAbs2 := FALSE;
-	42: //tijdens g-code absoluut commando 2
-	fbGetPrinterParameters(in_stNciToPlc:= in_stNciToPlc, extruderValue=> extruderValue,extruderSpeed=> extruderSpeed);
-	fbGetCurrentState(in_stNciToPlc:= in_stNciToPlc, nextState:= 41, state=> State);
 	
+	42: //tijdens g-code 
+	
+	//vraag de verschillende paramers voor het printen op.
+	fbGetPrinterParameters(in_stNciToPlc:= in_stNciToPlc, extruderValue=> extruderValue,extruderSpeed=> extruderSpeed);
+	// bepaal de huidige state van het programma.
+	fbGetCurrentState(in_stNciToPlc:= in_stNciToPlc, nextState:= 41, state=> State);
+	// beweeg de extruder
 	moveAbs1 := FALSE;
 	moveAbs2 := TRUE;
-	43: // set position extruder axis
+	43: // voer het M01 commando uit de g-code uit.
+	//stop met het tuivoer van de absolute commandos voor de extruder.
 	moveAbs1 := FALSE;
 	moveAbs2 := FALSE;
-	
+	// zet de extrduer positie op 0
 	setExtruder(execute:= TRUE ,axis:= Extruder ,position:= 0);
 	IF setExtruder.Done THEN
+		// stuur een bericht naar NCI dat de M commando is uitgevoerd.
 		fbConfirmHsk(sNciToPlc := in_stNciToPlc,
 						  sPlcToNci:= out_stPlcToNci,
 						  bExecute:= TRUE);
 		setExtruder(execute:= FALSE ,axis:= Extruder);
-	
 		state:= 41;
 	END_IF
 	fbConfirmHsk(sNciToPlc := in_stNciToPlc,
@@ -325,6 +332,7 @@ CASE State OF
 						  bExecute:= FALSE);
 						  
 	50: // print is klaar
+	// beweeg de printkop naar een positie waar deze niet in de weg zit.
 	moveXAbsolute(axis:= Xaxis, Execute:= TRUE, Position:= 10, velocity:=25);
 	moveYAbsolute(axis:= Yaxis, Execute:= TRUE, Position:= 10, velocity:=25);
 	IF moveXAbsolute.Done AND moveYAbsolute.Done THEN
@@ -332,9 +340,8 @@ CASE State OF
 		moveYAbsolute(axis:= Yaxis, Execute:= FALSE);
 		state:= 51;
 	END_IF
-	51: // doe niks
+	51: // stop de temperatuur regeling
 	HeatersOn:= FALSE;
-	60:// rotzooi
 	
 	
 END_CASE
@@ -389,33 +396,45 @@ END_CASE
       <LineId Id="3625" Count="0" />
       <LineId Id="3349" Count="6" />
       <LineId Id="3474" Count="0" />
-      <LineId Id="3356" Count="17" />
+      <LineId Id="3356" Count="10" />
+      <LineId Id="3368" Count="5" />
       <LineId Id="3848" Count="2" />
       <LineId Id="3473" Count="0" />
       <LineId Id="3374" Count="8" />
       <LineId Id="3471" Count="0" />
-      <LineId Id="3383" Count="1" />
+      <LineId Id="3383" Count="0" />
+      <LineId Id="4465" Count="0" />
+      <LineId Id="4467" Count="0" />
+      <LineId Id="3384" Count="0" />
+      <LineId Id="4468" Count="0" />
       <LineId Id="4185" Count="0" />
       <LineId Id="4188" Count="0" />
       <LineId Id="3412" Count="0" />
       <LineId Id="4187" Count="0" />
+      <LineId Id="4470" Count="0" />
       <LineId Id="3413" Count="0" />
+      <LineId Id="4471" Count="1" />
       <LineId Id="3421" Count="0" />
+      <LineId Id="4473" Count="0" />
       <LineId Id="3437" Count="1" />
       <LineId Id="3472" Count="0" />
       <LineId Id="4186" Count="0" />
-      <LineId Id="3440" Count="2" />
-      <LineId Id="3446" Count="6" />
-      <LineId Id="3497" Count="0" />
-      <LineId Id="3453" Count="1" />
+      <LineId Id="3440" Count="0" />
+      <LineId Id="4474" Count="0" />
+      <LineId Id="3441" Count="1" />
+      <LineId Id="3446" Count="2" />
+      <LineId Id="4476" Count="0" />
+      <LineId Id="3449" Count="5" />
       <LineId Id="4190" Count="3" />
       <LineId Id="3456" Count="0" />
+      <LineId Id="4477" Count="0" />
       <LineId Id="3954" Count="2" />
       <LineId Id="3958" Count="0" />
       <LineId Id="3960" Count="1" />
       <LineId Id="3959" Count="0" />
       <LineId Id="3957" Count="0" />
-      <LineId Id="3457" Count="5" />
+      <LineId Id="3457" Count="0" />
+      <LineId Id="3459" Count="3" />
       <LineId Id="1252" Count="0" />
     </LineIds>
   </POU>

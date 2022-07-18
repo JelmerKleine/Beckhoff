@@ -17,14 +17,14 @@ END_VAR
       <ST><![CDATA[
 nInterpreterState	:= ItpGetStateInterpreter(sNciToPlc:=in_stNciToPlc); // status van de NCI
 
-IF ItpIsHskMFunc( in_stNciToPlc ) THEN // Bij m- function 1 gaan naar de set etruder position stte
-	IF ItpGetHskMFunc( in_stNciToPlc ) = 1 THEN
-		State:=43;
+IF ItpIsHskMFunc( in_stNciToPlc ) THEN // kijkt of er een m functie vanuit de NCI word verwacht
+	IF ItpGetHskMFunc( in_stNciToPlc ) = 1 THEN // kijkt of het M functie 1 wordt aangeroepen.
+		State:=43; // gaat naar de state waarin de extruder positie naar 0 gezet wordt
 	END_IF
-ELSIF nInterpreterState = Tc2_NCI.NCI_INTERPRETER_READY THEN
+ELSIF nInterpreterState = Tc2_NCI.NCI_INTERPRETER_READY THEN // wanneer de NCI channel klaar is met de g-code
 		State:=50;
-	ELSE 
-		state := nextState;
+ELSE  // wanneer er niets bijzeonders gebeurt gaat het programma naar de volgende state voor een niew extruder commando.
+	state := nextState;
 END_IF]]></ST>
     </Implementation>
     <LineIds Name="FB_CheckCurrentState">
