@@ -22,7 +22,7 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[CASE state OF
-	0:
+	0: // voer g-code uit 
 	IF execute = TRUE THEN
 		done:=FALSE;
 		state:= 10;
@@ -66,12 +66,12 @@ END_VAR
 		fbStartGCode( bStart:= FALSE, sNciToPlc:= in_stNciToPlc); 
 	END_IF
 	
-	40: // g-code is gestart
+	40: // g-code is gestart en functieblok is klaar
 	fbStartGCode( bStart:= FALSE, sNciToPlc:= in_stNciToPlc);
 	done := TRUE;
 	state := 50;
 	
-	50:
+	50: // reset functieblok
 	IF reset = TRUE THEN
 		state := 0;
 	END_IF

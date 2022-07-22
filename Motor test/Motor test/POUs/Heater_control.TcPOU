@@ -37,30 +37,30 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF fbGetTemperature.temperatureSensor < maxTemp THEN
+      <ST><![CDATA[IF fbGetTemperature.temperatureSensor < maxTemp THEN // voer de controller uit wanneer de huidige temperatuur onder de max temperatuur zit.
 	fbGetTemperature(terminalResistance:= (10*INT_TO_REAL(terminalResistance)), calibrationValues:= calibrationValues, temperatureSensor=> temperatureSensor);// weerstand naar temperatuur conversie
 	
-	error := desiredTemp - temperatureSensor;
+	error := desiredTemp - temperatureSensor; // Error wordt bereekend
 	FB_GETCURTASKINDEX();
-	cycleTime := (UDINT_TO_LREAL(_TaskInfo[FB_GETCURTASKINDEX.index].CycleTime)/ 10_000_000);
+	cycleTime := (UDINT_TO_LREAL(_TaskInfo[FB_GETCURTASKINDEX.index].CycleTime)/ 10_000_000);// Cyclus tijd wordt bepaald
 	//integral := integral + error * cycleTime;
-	derivative := (error - previousError) / cycleTime;
-	controlSignal := (Kp * error  + Kd * derivative); //+ Ki * integral
+	derivative := (error - previousError) / cycleTime; // d-actie wordt uigerekend
+	controlSignal := (Kp * error  + Kd * derivative); 
 	
 	
-	IF (controlSignal > 0 ) THEN
-		PWM( dutyCycle := controlSignal);	
-	ELSE 
+	IF (controlSignal > 0 ) THEN// wanneer het control sigaal groter dan nul is 
+		PWM( dutyCycle := controlSignal); 	
+	ELSE // bij een negatiefe control signal is de dty cycle nul
 		PWM(dutyCycle := 0);
 	END_IF
 	
 	PWM_out := PWM.state; 
 	previousError := error;
-ELSE 
+ELSE  // wannner de de huidige temp boeven de max temp komt
 	PWM_out := FALSE;
 END_IF
 
-IF fbGetTemperature.temperatureSensor > 40 THEN
+IF fbGetTemperature.temperatureSensor > 40 THEN // stuurt een signaal als de 
 	TooHot:= TRUE;
 ELSE
 	TooHot:= FALSE;
@@ -76,7 +76,8 @@ END_IF]]></ST>
       <LineId Id="62" Count="0" />
       <LineId Id="96" Count="0" />
       <LineId Id="158" Count="1" />
-      <LineId Id="91" Count="1" />
+      <LineId Id="91" Count="0" />
+      <LineId Id="299" Count="0" />
       <LineId Id="94" Count="1" />
       <LineId Id="93" Count="0" />
       <LineId Id="51" Count="0" />

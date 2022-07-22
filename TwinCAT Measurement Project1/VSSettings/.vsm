@@ -5,12 +5,12 @@
   <Children>
     <Node>
       <Title>Extruder</Title>
-      <Expanded>False</Expanded>
-      <FileName>C:\Users\jelme\Desktop\3d print\3d printer programma\TwinCAT Measurement Project1\Extruder.tcscopex</FileName>
+      <Expanded>True</Expanded>
+      <FileName>C:\Users\jelme\Desktop\Beckhoff printer program\Beckhoff\TwinCAT Measurement Project1\Extruder.tcscopex</FileName>
       <Children>
         <Node>
           <Title>DataPool</Title>
-          <Expanded>False</Expanded>
+          <Expanded>True</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
@@ -47,12 +47,12 @@
         </Node>
         <Node>
           <Title>YT Chart</Title>
-          <Expanded>False</Expanded>
+          <Expanded>True</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
               <Title>Extruder pos</Title>
-              <Expanded>False</Expanded>
+              <Expanded>True</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
@@ -71,7 +71,7 @@
             </Node>
             <Node>
               <Title>Extruder velo</Title>
-              <Expanded>False</Expanded>
+              <Expanded>True</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
@@ -101,7 +101,7 @@
     <Node>
       <Title>Scope Project1</Title>
       <Expanded>True</Expanded>
-      <FileName>C:\Users\jelme\Desktop\3d print\3d printer programma\TwinCAT Measurement Project1\Scope Project1.tcscopex</FileName>
+      <FileName>C:\Users\jelme\Desktop\Beckhoff printer program\Beckhoff\TwinCAT Measurement Project1\Scope Project1.tcscopex</FileName>
       <Children>
         <Node>
           <Title>DataPool</Title>
@@ -288,12 +288,12 @@
     </Node>
     <Node>
       <Title>Temps</Title>
-      <Expanded>False</Expanded>
-      <FileName>C:\Users\jelme\Desktop\3d print\3d printer programma\TwinCAT Measurement Project1\Temps.tcscopex</FileName>
+      <Expanded>True</Expanded>
+      <FileName>C:\Users\jelme\Desktop\Beckhoff printer program\Beckhoff\TwinCAT Measurement Project1\Temps.tcscopex</FileName>
       <Children>
         <Node>
           <Title>DataPool</Title>
-          <Expanded>False</Expanded>
+          <Expanded>True</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
@@ -336,12 +336,12 @@
         </Node>
         <Node>
           <Title>YT Chart</Title>
-          <Expanded>False</Expanded>
+          <Expanded>True</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
               <Title>Axis Group</Title>
-              <Expanded>False</Expanded>
+              <Expanded>True</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
@@ -360,7 +360,7 @@
             </Node>
             <Node>
               <Title>Axis Group (1)</Title>
-              <Expanded>False</Expanded>
+              <Expanded>True</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
@@ -375,12 +375,12 @@
         </Node>
         <Node>
           <Title>YT Chart (1)</Title>
-          <Expanded>False</Expanded>
+          <Expanded>True</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
               <Title>Axis Group (2)</Title>
-              <Expanded>False</Expanded>
+              <Expanded>True</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
@@ -399,7 +399,7 @@
             </Node>
             <Node>
               <Title>Axis Group (5)</Title>
-              <Expanded>False</Expanded>
+              <Expanded>True</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>

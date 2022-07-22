@@ -27,7 +27,7 @@ VAR
 	fbPowerExt		:	MC_Power;
 END_VAR]]></Declaration>
     <Implementation>
-      <ST><![CDATA[fbPowerX(
+      <ST><![CDATA[fbPowerX( 
 	Axis:=stX , 
 	Enable:=bEnable , 
 	Enable_Positive:= bEnable, 
